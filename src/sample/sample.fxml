@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.65"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <center>
+      <Canvas fx:id="canvas" height="401.0" width="841.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="50.0" />
+         </BorderPane.margin>
+      </Canvas>
+   </center>
+   <bottom>
+      <HBox prefHeight="83.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="83.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="34.0" prefWidth="124.0" text="Size">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <MenuButton mnemonicParsing="false" prefHeight="0.0" prefWidth="99.0" text="Small">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Medium" />
+                      <MenuItem mnemonicParsing="false" text="Large" />
+                    </items>
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" />
+                     </VBox.margin>
+                  </MenuButton>
+               </children>
+            </VBox>
+            <VBox prefHeight="83.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="34.0" prefWidth="124.0" text="Load Grid">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <MenuButton mnemonicParsing="false" prefHeight="0.0" prefWidth="99.0" text="Preset 1">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Preset 2" />
+                        <MenuItem mnemonicParsing="false" text="Uploaded File" />
+                     </items>
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" />
+                     </VBox.margin>
+                  </MenuButton>
+               </children>
+            </VBox>
+            <VBox prefHeight="83.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="34.0" prefWidth="124.0" text="Speed">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Slider prefHeight="14.0" prefWidth="165.0">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </Slider>
+               </children>
+            </VBox>
+            <VBox prefHeight="83.0" prefWidth="105.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="1.0" prefWidth="55.0" text="Upload">
+                     <VBox.margin>
+                        <Insets left="49.0" top="30.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="83.0" prefWidth="150.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Start">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
