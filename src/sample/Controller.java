@@ -10,8 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
-
-    @FXML
+   @FXML
     Canvas canvas;
     GraphicsContext graphicsContext;
     @Override
