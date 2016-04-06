@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
+//test
 public class Controller implements Initializable {
    @FXML
     Canvas canvas;
