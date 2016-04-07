@@ -23,14 +23,14 @@ public class Controller implements Initializable{
     @FXML
     Button startButton;
     GraphicsContext graphicsContext;
-    GameBoard gb = new GameBoard();
+    GameBoard gb = new GameBoard(10,10);
     Timeline timeline;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         graphicsContext = canvas.getGraphicsContext2D();
-        graphicsContext.setFill(Color.BLACK);
+        graphicsContext.setFill(Color.RED);
         draw();
 
         Duration duration = Duration.millis(1000/30);
@@ -66,9 +66,9 @@ public class Controller implements Initializable{
         double cellSize = canvas.getHeight() / board.length;
 
         graphicsContext.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-        for(int row = 0; row < gb.getBoard().length; row++){ //her settes den første linjnen / dimensjonen av rekken i griddet
-            for(int column = 0; column < gb.getBoard()[0].length; column++){ //
-                if(gb.getBoard()[row][column]){ // Celle Død eller Levende
+        for(int row = 0; row < board.length; row++){        //her settes den første linjnen / dimensjonen av rekken i griddet
+            for(int column = 0; column < board[0].length; column++){ //
+                if(board[row][column]){                                     // Celle Død eller Levende
                     graphicsContext.fillRect(xPos,yPos,cellSize,cellSize);
                 }
                 xPos += cellSize;

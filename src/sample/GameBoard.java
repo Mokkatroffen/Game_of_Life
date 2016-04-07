@@ -2,16 +2,27 @@ package sample;
 
 
 public class GameBoard {
-        private boolean[][] board  = {
-            {false,false,true,true,false,false,false},    //1
-            {false,true,false,true,false,false,false},   //2
-            {true,false,false,true,false,true,true},   //3
-            {true,true,false,true,false,false,true},   //4
-            {false,true,false,true,false,false,false},   //5
-            {false,true,false,false,true,false,false},   //6
-            {false,false,true,true,false,false,false},   //7
+
+
+
+    private boolean [][] board;
+
+    public GameBoard (int row, int column ){
+
+        board = new boolean[row][column];
+
+         board  = new boolean[][]{
+                {false,false,true,true,false,false,false},          //1
+                {false,true,false,true,false,false,false},          //2
+                {true,false,false,true,false,true,true},            //3
+                {true,true,false,true,false,false,true},            //4
+                {false,true,false,true,false,false,false},          //5
+                {false,true,false,false,true,false,false},          //6
+                {false,false,true,true,false,false,false},          //7
 
         };
+
+    }
 
     public boolean[][] getBoard() {
         return board;
