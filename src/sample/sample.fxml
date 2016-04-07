@@ -94,7 +94,7 @@
             </VBox>
             <VBox prefHeight="83.0" prefWidth="150.0">
                <children>
-                  <Button mnemonicParsing="false" text="Start">
+                  <Button onAction="#start" fx:id="StartButton" mnemonicParsing="false" text="Start">
                      <VBox.margin>
                         <Insets top="30.0" />
                      </VBox.margin>
