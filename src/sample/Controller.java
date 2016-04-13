@@ -11,11 +11,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
-
+import java.io.File;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import sample.rleParser;
+
 //test
 public class Controller implements Initializable{
    @FXML
@@ -55,6 +60,36 @@ public class Controller implements Initializable{
             startButton.setText("Start");
         }
     }
+
+    @FXML
+    private void fileOpener (){
+
+        timeline.stop(); //Stopper timeline for å laste filen, god praksis og stoppe
+
+        Stage mainStage = (Stage)canvas.getScene().getWindow();
+
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(
+         new FileChooser.ExtensionFilter("RLE files", "*.rle"));
+
+        File selectedFile = fileChooser.showOpenDialog();
+        if (selectedFile != null) {
+
+            rleParser parser = new rleParser();
+            try {
+            parser.readGameBoardFromDisk(selectedFile);
+            }
+            catch(IOException e){ //spytter ut eventuelle feilmedling
+                System.out.println(e.getMessage());
+            }
+
+        }
+
+    }
+
+
 
     private void draw(/*innparameter-med-eget-predefinert-board-*/) {
 

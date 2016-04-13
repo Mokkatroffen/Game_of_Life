@@ -85,7 +85,7 @@
             </VBox>
             <VBox prefHeight="83.0" prefWidth="105.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="1.0" prefWidth="55.0" text="Upload">
+                  <Button onAction="#fileOpener" mnemonicParsing="false" prefHeight="1.0" prefWidth="55.0" text="Load">
                      <VBox.margin>
                         <Insets left="49.0" top="30.0" />
                      </VBox.margin>

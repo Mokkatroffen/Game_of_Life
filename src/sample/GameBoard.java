@@ -24,6 +24,13 @@ public class GameBoard {
 
     }
 
+    public GameBoard (){
+
+
+
+
+    }
+
     public boolean[][] getBoard() {
         return board;
     }
