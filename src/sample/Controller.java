@@ -74,7 +74,7 @@ public class Controller implements Initializable{
         fileChooser.getExtensionFilters().addAll(
          new FileChooser.ExtensionFilter("RLE files", "*.rle"));
 
-        File selectedFile = fileChooser.showOpenDialog();
+        File selectedFile = fileChooser.showOpenDialog(mainStage);
         if (selectedFile != null) {
 
             rleParser parser = new rleParser();
