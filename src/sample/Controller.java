@@ -67,6 +67,12 @@ public class Controller implements Initializable{
     }
 
     @FXML
+    void NextGen(ActionEvent event) {
+        gb.nextGen();
+        draw(); 
+    }
+
+    @FXML
     private void fileOpener (){
 
         timeline.stop(); //Stopper timeline for å laste filen, god praksis og stoppe
