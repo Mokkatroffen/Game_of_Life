@@ -55,9 +55,7 @@ public class Controller implements Initializable{
         if(timeline.getStatus() == Animation.Status.STOPPED){
             timeline.play();
             startButton.setText("Stop");
-             rleParser innlastedFil = new rleParser();
-        boolean[][] board1 = innlastedFil.getBoard();
-        System.out.println(Arrays.deepToString(board1));
+
         }
         else {
             timeline.stop();
@@ -96,6 +94,7 @@ public class Controller implements Initializable{
             rleParser parser = new rleParser();
             try {
             parser.readGameBoardFromDisk(selectedFile);
+                gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på grid i rle fil, fungerer ikke før du trykker start
             }
             catch(IOException e){ //spytter ut eventuelle feilmedling
                 System.out.println(e.getMessage());
