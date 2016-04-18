@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 import sample.rleParser;
 
-//test
+//test|
 public class Controller implements Initializable{
    @FXML
     Canvas canvas;
