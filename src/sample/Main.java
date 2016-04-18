@@ -6,6 +6,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main is the initiator of the the program Game Of Life n
+ *
+ * @author Andreas Jacobsen
+ *
+ * @version 1.0 - April 18, 2016
+ *
+ * For extended information about Application:
+ * @see javafx.application.Application
+ */
 public class Main extends Application {
     @Override
 

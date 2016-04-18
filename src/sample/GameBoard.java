@@ -1,3 +1,9 @@
+/**
+ * GameBoard.java  contains the creation and paramters, values and limits of the board which the interaction is preformed.
+ * @author Andreas Jacobsen, Boris Illievski & Kristian Munter Simonsen
+ * @version 1.0 - April 18, 2016
+ * Every major change to the file will result in a +0.1 to version while a new hand-in results in a whole new version
+ */
 package sample;
 
 
