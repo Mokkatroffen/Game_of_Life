@@ -1,5 +1,13 @@
+/**
+ * GameBoard.java  contains the creation and paramters, values and limits of the board which the interaction is preformed.
+ * @author Andreas Jacobsen, Boris Illievski & Kristian Munter Simonsen
+ * @version 1.0 - April 18, 2016
+ * Every major change to the file will result in a +0.1 to version while a new hand-in results in a whole new version
+ */
 package sample;
 
+
+import java.util.Arrays;
 
 public class GameBoard {
 
@@ -12,6 +20,20 @@ public class GameBoard {
         board = new boolean[row][column];
 
          board  = new boolean[][]{
+                {false,true,false,false,false,false,false},          //1
+                {false,false,true,false,false,false,false},          //2
+                {true,true,true,false,false,false,false},            //3
+                {false,false,false,false,false,false,false},         //4
+                {false,false,false,false,false,false,false},         //5
+                {false,false,false,false,false,false,false},         //6
+                {false,false,false,false,false,false,false},         //7
+
+        };
+
+
+
+        /*
+        board  = new boolean[][]{
                 {false,false,true,true,false,false,false},          //1
                 {false,true,false,true,false,false,false},          //2
                 {true,false,false,true,false,true,true},            //3
@@ -21,14 +43,10 @@ public class GameBoard {
                 {false,false,true,true,false,false,false},          //7
 
         };
-
+        */
     }
 
     public GameBoard (){
-
-
-
-
     }
 
     public boolean[][] getBoard() {
