@@ -5,7 +5,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-
 public class rleParser {
 
     public void readGameBoard(BufferedReader r) throws IOException {
