@@ -1,6 +1,6 @@
 package sample;
 
-import javax.swing.*;
+import javax.swing.*; //JOption Dialogbox er en Swing-funkson. Bør rekodes til javaFX. **OBS OBS**
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
