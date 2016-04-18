@@ -28,7 +28,7 @@ public class rleParser {
                 } else if (line.charAt(1) == 'O') {
                     author = "forfatter" + line;
                     melding.append("Forfatter: " + author + "\n");
-                } else if (line.charAt(1) == 'c') { //dette kan også være comment, sjekk i RLE filer og på life-wiki.
+                } else if (line.charAt(1) == 'c') { //dette kan også være comment, sjekk i RLE filer og på life-wiki..
                     comment = "kommentar" + line;
                     melding.append("Kommentar: " + "\n");
                 }
