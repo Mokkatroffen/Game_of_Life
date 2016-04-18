@@ -35,10 +35,10 @@ public class Controller implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         graphicsContext = canvas.getGraphicsContext2D();
-        graphicsContext.setFill(Color.RED);
+        graphicsContext.setFill(Color.HOTPINK);
         draw();
 
-        Duration duration = Duration.millis(1000/30);
+        Duration duration = Duration.millis(1000/5);
         KeyFrame keyFrame = new KeyFrame(duration, (ActionEvent e) -> {
             gb.nextGen();
             draw();
@@ -59,6 +59,17 @@ public class Controller implements Initializable{
             timeline.stop();
             startButton.setText("Start");
         }
+    }
+
+    @FXML
+    void startGrid(ActionEvent event) {
+        grid();
+    }
+
+    @FXML
+    void NextGen(ActionEvent event) {
+        gb.nextGen();
+        draw(); 
     }
 
     @FXML
@@ -111,5 +122,21 @@ public class Controller implements Initializable{
             xPos = 0;
             yPos += cellSize;
         }
+        grid();
     }
+
+    public void grid(){
+        graphicsContext.setLineWidth(1);
+        for (int i=0; i<= gb.getBoard().length; i++){
+            double horizontal = i*(gb.getBoard().length*canvas.getHeight() / gb.getBoard().length)/gb.getBoard().length;
+            graphicsContext.strokeLine(0,horizontal,canvas.getWidth(),horizontal);
+        }
+
+        for (int i=0; i<= gb.getBoard().length; i++){
+            double vertical = i*(gb.getBoard().length*canvas.getWidth() / gb.getBoard().length)/gb.getBoard().length;
+            graphicsContext.strokeLine(vertical,0,vertical,canvas.getHeight());
+        }
+    }
+
+
 }
