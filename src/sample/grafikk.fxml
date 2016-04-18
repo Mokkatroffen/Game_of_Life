@@ -12,12 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.65"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <center>
-      <Canvas fx:id="canvas" height="401.0" width="841.0" BorderPane.alignment="CENTER">
+      <Canvas fx:id="canvas" height="500.0" width="500.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets bottom="50.0" />
+            <Insets />
          </BorderPane.margin>
       </Canvas>
    </center>
@@ -85,16 +84,16 @@
             </VBox>
             <VBox prefHeight="83.0" prefWidth="105.0">
                <children>
-                  <Button onAction="#fileOpener" mnemonicParsing="false" prefHeight="1.0" prefWidth="55.0" text="Load">
+                  <Button mnemonicParsing="false" onAction="#fileOpener" prefHeight="1.0" prefWidth="55.0" text="Load">
                      <VBox.margin>
                         <Insets left="49.0" top="30.0" />
                      </VBox.margin>
                   </Button>
                </children>
             </VBox>
-            <VBox prefHeight="83.0" prefWidth="150.0">
+            <VBox prefHeight="83.0" prefWidth="43.0">
                <children>
-                  <Button onAction="#start" fx:id="startButton" mnemonicParsing="false" text="Start">
+                  <Button fx:id="startButton" mnemonicParsing="false" onAction="#start" text="Start">
                      <VBox.margin>
                         <Insets top="30.0" />
                      </VBox.margin>
@@ -104,6 +103,7 @@
                   <Insets />
                </HBox.margin>
             </VBox>
+            <VBox prefHeight="83.0" prefWidth="43.0" />
          </children>
       </HBox>
    </bottom>
