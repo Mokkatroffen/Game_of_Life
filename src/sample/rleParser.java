@@ -59,7 +59,7 @@ public class rleParser {
     public void readGameBoardFromURL(String url) throws IOException {
 
         try {
-            URL urlString = new URL(url); //Importer java.net
+            URL urlString = new URL(url); //Importer java.net 12
             URLConnection connect = urlString.openConnection();
             try (BufferedReader bfr = new BufferedReader(new InputStreamReader(connect.getInputStream()))) {
                 readGameBoard(bfr);
