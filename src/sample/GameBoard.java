@@ -15,13 +15,25 @@ public class GameBoard {
                 {false,true,false,false,false,false,false},          //1
                 {false,false,true,false,false,false,false},          //2
                 {true,true,true,false,false,false,false},            //3
-                {false,false,false,false,false,false,false},            //4
-                {false,false,false,false,false,false,false},          //5
-                {false,false,false,false,false,false,false},          //6
-                {false,false,false,false,false,false,false},          //7
+                {false,false,false,false,false,false,false},         //4
+                {false,false,false,false,false,false,false},         //5
+                {false,false,false,false,false,false,false},         //6
+                {false,false,false,false,false,false,false},         //7
 
         };
 
+        /*
+        board  = new boolean[][]{
+                {false,false,true,true,false,false,false},          //1
+                {false,true,false,true,false,false,false},          //2
+                {true,false,false,true,false,true,true},            //3
+                {true,true,false,true,false,false,true},            //4
+                {false,true,false,true,false,false,false},          //5
+                {false,true,false,false,true,false,false},          //6
+                {false,false,true,true,false,false,false},          //7
+
+        };
+        */
     }
 
     public GameBoard (){
