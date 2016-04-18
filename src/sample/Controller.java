@@ -18,6 +18,7 @@ import java.io.File;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import sample.rleParser;
 
@@ -54,10 +55,14 @@ public class Controller implements Initializable{
         if(timeline.getStatus() == Animation.Status.STOPPED){
             timeline.play();
             startButton.setText("Stop");
+             rleParser innlastedFil = new rleParser();
+        boolean[][] board1 = innlastedFil.getBoard();
+        System.out.println(Arrays.deepToString(board1));
         }
         else {
             timeline.stop();
             startButton.setText("Start");
+
         }
     }
 
@@ -124,8 +129,13 @@ public class Controller implements Initializable{
         }
         grid();
     }
+                   //  boardTufte = new boolean[rows][colms];
+
+
+
 
     public void grid(){
+
         graphicsContext.setLineWidth(1);
         for (int i=0; i<= gb.getBoard().length; i++){
             double horizontal = i*(gb.getBoard().length*canvas.getHeight() / gb.getBoard().length)/gb.getBoard().length;
