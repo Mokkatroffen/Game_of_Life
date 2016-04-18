@@ -36,7 +36,7 @@ public class rleParser {
                 //så bruker vi en matcher senere for å kjøre patterne fra kompileren.
                 /* pattern for bruk, kopier tre ganger og test for y, x og rule
                 *  pattern RLEpatternY = Pattern.compile("[yY][\\s][=][\\s]([\\d]+)";
-               */
+               *///
             }
 
         }
