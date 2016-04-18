@@ -15,7 +15,7 @@ public class Main extends Application {
 
         Scene scene = new Scene(root);
 
-        stage.setTitle("GOL");
+        stage.setTitle("Game Of Life");
         stage.setScene(scene);
         stage.show();
     }
