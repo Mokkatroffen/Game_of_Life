@@ -25,6 +25,7 @@ public class Main extends Application {
  * @author Boris Illievski
  * @version 0.2 - April 18, 2016
  *
+ * @param stage sets the stage of the method
  * @see Exception
  * @see Stage
  */

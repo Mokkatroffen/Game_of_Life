@@ -22,7 +22,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import sample.rleParser;
 
-//test
+/**
+ * Controller holds all the rules of the game.
+ *
+ * @author Kristian Munter Simonsen
+ * @Version 0.2 - April 18, 2016
+ *
+ * For extended information about fxml reference:
+ * @see Controller
+ * For extended information about Initializable:
+ * @see Initializable
+ */
 public class Controller implements Initializable{
    @FXML
     Canvas canvas;
@@ -35,6 +45,18 @@ public class Controller implements Initializable{
 
 
     @Override
+    /**
+     *   initialize holds the rules of speed and generation iteration
+     *
+     *   @author Andreas Jacobsen
+     *   @version 0.2 - April 18, 2016
+     *
+     * @param location gathers a potentional location from an URL
+     * @param resources gathers recourses from an bundle
+     *
+     * @see URL
+     * @see ResourceBundle
+     */
     public void initialize(URL location, ResourceBundle resources) {
         graphicsContext = canvas.getGraphicsContext2D();
         draw();
@@ -53,6 +75,12 @@ public class Controller implements Initializable{
     }
 
     @FXML
+    /**
+     * start handles the check and change of iteration by changing the name of startButton
+     *
+     * @author Boris Illievski
+     * @version 0.2 - April 18, 2016
+     */
     private void start(){
         if(timeline.getStatus() == Animation.Status.STOPPED){
             timeline.play();
@@ -133,6 +161,9 @@ public class Controller implements Initializable{
         grid();
     }
 
+    /**
+     *
+     */
     public void grid(){
         graphicsContext.setLineWidth(1);
         for (int i=0; i<= gb.getBoard().length; i++){
