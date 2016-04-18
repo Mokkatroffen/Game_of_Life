@@ -104,6 +104,12 @@ public class Controller implements Initializable{
     }
 
     @FXML
+    /**
+     * fileOpener allows to the user to upload .rle files and implements the files to the board
+     *
+     * @author Kristian Munter Simonsen
+     * @version 0.2 - April 18, 2016
+     */
     private void fileOpener (){
 
         timeline.stop(); //Stopper timeline for å laste filen, god praksis og stoppe
@@ -132,7 +138,14 @@ public class Controller implements Initializable{
     }
 
 
-
+    /**
+     * draw sets the cellSize aswell as the color and interpertes the values of cells
+     *
+     * @author Andreas Jacobsen
+     * @version 0.2 - April 18, 2016
+     *
+     * @param Placeholder sets a predefined borad into the cells.
+     */
     private void draw(/*innparameter-med-eget-predefinert-board-*/) {
 
         boolean[][] board = gb.getBoard();
@@ -162,7 +175,10 @@ public class Controller implements Initializable{
     }
 
     /**
+     *sets the width and length of the board
      *
+     * @author Boris Illievski
+     * @version 0.2 - April 18, 2016
      */
     public void grid(){
         graphicsContext.setLineWidth(1);
