@@ -34,7 +34,7 @@ public class rleParser {
                 //her kommer enten selve brettet eller metadata om størrelse på brettet i form av x, y og rule som er en divisjon.
                 //Pattern.compile er en en statisk metode som returnerer ett Pattern objekt, denne returnerer bare hva som kreves for å matche.
                 //så bruker vi en matcher senere for å kjøre patterne fra kompileren.
-                /* pattern for bruk, kopier tre ganger og test for y, x og rule
+                /* pattern for bruk, kopier tre ganger og test for y, x og rulee
                 *  pattern RLEpatternY = Pattern.compile("[yY][\\s][=][\\s]([\\d]+)";
                *///
             }
