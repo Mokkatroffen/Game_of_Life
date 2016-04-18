@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -30,13 +31,15 @@ public class Controller implements Initializable{
     GraphicsContext graphicsContext;
     GameBoard gb = new GameBoard(10,10);
     Timeline timeline;
+    Slider slider;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         graphicsContext = canvas.getGraphicsContext2D();
-        graphicsContext.setFill(Color.HOTPINK);
         draw();
+
+
 
         Duration duration = Duration.millis(1000/5);
         KeyFrame keyFrame = new KeyFrame(duration, (ActionEvent e) -> {
@@ -69,7 +72,7 @@ public class Controller implements Initializable{
     @FXML
     void NextGen(ActionEvent event) {
         gb.nextGen();
-        draw(); 
+        draw();
     }
 
     @FXML
@@ -115,6 +118,11 @@ public class Controller implements Initializable{
         for(int row = 0; row < board.length; row++){        //her settes den første linjnen / dimensjonen av rekken i griddet
             for(int column = 0; column < board[0].length; column++){ //
                 if(board[row][column]){                                     // Celle Død eller Levende
+                    graphicsContext.setFill(Color.HOTPINK);
+                    graphicsContext.fillRect(xPos,yPos,cellSize,cellSize);
+                }
+                else{
+                    graphicsContext.setFill(Color.WHITE);
                     graphicsContext.fillRect(xPos,yPos,cellSize,cellSize);
                 }
                 xPos += cellSize;
