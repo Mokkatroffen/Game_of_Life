@@ -12,7 +12,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class rleParser {
-
+    /**
+     * 
+     * @param r BufferedReader
+     * @throws IOException
+     */
     public void readGameBoard(BufferedReader r) throws IOException {
         //Skal kunne lese metadata og brett
         String author = new String();
