@@ -109,5 +109,22 @@ public class GameBoard {
         board = nextGenBoard;
 
     }
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < board.length ; i++) {
+            for (int j = 0; j < board[0].length ; j++) {
+
+                if (board[i][j]){
+                    sb.append("1");
+                }
+                else{
+                    sb.append("0");
+                }
+
+            }
+        }
+        return sb.toString();
+    }
 
 }
