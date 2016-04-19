@@ -141,7 +141,7 @@ public class Controller implements Initializable{
         }
         grid();
     }
-                   //  boardTufte = new boolean[rows][colms];
+                   //  boardTufte = new boolean[rows][colms]; test
 
 
 
