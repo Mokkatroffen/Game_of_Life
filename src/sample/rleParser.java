@@ -14,30 +14,38 @@ import java.util.regex.Pattern;
 public class rleParser {
 
 
-     private boolean[][] boardTufte; //Skal sendes til gameboard på slutten av metuden under. lar oss ha costum størrelse.
-     public boolean[][] getBoard(){
-         return boardTufte;
-     }
-    public void setBoard(boolean [][]getBrett){
-         // boardTufte = getBrett;
-        this.boardTufte = getBrett;
+    private byte[][] boardTufte; //Skal sendes til gameboard på slutten av metuden under. lar oss ha costum størrelse.
+    //henter data fra boardTufte som henter størrelse om brettet
+    public byte[][] getBoard() {
+        return boardTufte;
     }
+    //setter størrelsen fra boardTufte, siden den er public kan vi kalle den ifra GameBoard
+    /*public void setBoard(boolean[][] getBrett) {
 
+        this.boardTufte = getBrett;
+    }*/
+   /* private String[] boardAlive;
 
-
-
-     public void readGameBoard(BufferedReader r) throws IOException {
+    public String getAlive() {
+        return setAlive();
+    }
+    public void isAlive(String getLife){
+        this.boardAlive = getLife;
+    }
+*/
+    public void readGameBoard(BufferedReader r) throws IOException {
         //Skal kunne lese metadata og brett
         String author = new String();
         String name = new String();
         String comment = new String();
         String line = new String();
-        int colms = 0;
-        int rows = 0;
+        int colms;
+        int rows;
 
 
         StringBuilder melding = new StringBuilder();  //"Kommentar: " + comment + "\n Navn" + name + "Forfatter: " + author + "Kommentar: " + comment;
 
+        //WHILE LOOP FOR METADATA OG BRETTSTØRRELSE
         while ((line = r.readLine()) != null) { //r er en buffered reader, sjekker på om det eksistere noe i BufferedReaderen.
             if (line.charAt(0) == '#') { //leser etter metadata i kommentarer her, åpner det og lagrer dataen om feks forfatter.
                 if (line.charAt(1) == 'C') {
@@ -53,52 +61,36 @@ public class rleParser {
                     comment = line.substring(3);
                     melding.append("Kommentar: " + "\n");
                 }
-
                 continue;
 
-
-            } else
-
-            {
+            } else if (line.charAt(0) == 'x') {
 
                 //[x][ ][=][ ]([\\d+])[,][ ][y][ ][=][ ]([\\d+])
                 Pattern bokstaver = Pattern.compile("[x][ ][=][ ]([\\d]+)[,][ ][y][ ][=][ ]([\\d]+)"); //her bruker vi groups så sidte \\d tester på tall, vi kan kalle dem med tallposisjoner
                 Matcher matcher = bokstaver.matcher(line);
-                if(matcher.find()) { //returnerer en bolsk verdi
-                     rows = Integer.parseInt(matcher.group(2)); //for å gjøre det om til tall istedenfor string på rows (x-akse)
-                     colms = Integer.parseInt(matcher.group(1)); //for å gjøre det om til tall istedenfor string på colmns (y-akse)
+                if (matcher.find()) { //returnerer en bolsk verdi
+                    rows = Integer.parseInt(matcher.group(2)); //for å gjøre det om til tall istedenfor string på rows (x-akse)
+                    colms = Integer.parseInt(matcher.group(1)); //for å gjøre det om til tall istedenfor string på colmns (y-akse)
 
-                     boardTufte = new boolean[rows][colms];
-                    setBoard(boardTufte);
-                   System.out.println(Arrays.deepToString(boardTufte)); // <- test for å se om boardTufte funker, drep senere.
+                    boardTufte = new byte[rows][colms];
+                    // System.out.println(Arrays.deepToString(boardTufte)); // <- test for å se om boardTufte funker, drep senere.
+
+                    /*if(line.matches(String.valueOf(patternMatch)) ) {
+                    System.out.println("lol");
+                    //trenger å laste inn dataen først
+                   // Pattern thePattern = Pattern.compile("([0-9]{0,7})([a-zA-Z$]{1})");
+                   // Matcher patternMatch = thePattern.matcher(line);
+                    if (patternMatch.find()) { //returnener en bolsk verdi på hver av matchene den får, gruppert slik at bokstaver og tall skilles. Bruker ikke gruppene
+                        cells = patternMatch.group(0);
 
 
+                        System.out.println(cells); */
+                    System.out.println(rows + " " + colms);
+                    break;
+                    //Nå vil du være på første linje som omhandler brettet
                 }
-                    // Denne sier at hvis X eller Y er større enn 500 så ikke load filen og
-                if(rows>500 || colms>500){
-                    throw new IOException("Imported pattern to big");
-                }
-
-
-
-
-
-
-                //String[] metadata = line.split(",");
-                //Pattern tall = Pattern.compile("[0-9]");
-
-                  for (int i = 0; i < 2; i++) { //bruker pattern for å teste de to første posisjonene
-            //løkken går igjennom x og y-posisjon
-        }
             }
-
-
         }
-
-
-
-
-
         String meldingResultat = melding.toString();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Kommentarer fra filen");
@@ -106,7 +98,35 @@ public class rleParser {
         alert.setContentText(meldingResultat);
         alert.showAndWait();
 
+        Pattern thePattern = Pattern.compile("([0-9]{0,})([oObB$]{1})");
+        int row = 0;
+        int col = 0;
+        //WHILE LOOP FOR SELVE BRETTET
+         while ((line = r.readLine()) != null) {
+             Matcher patternMatch = thePattern.matcher(line);
+             System.out.println(line);
+             if (patternMatch.find()) { //returnener en bolsk verdi på hver av matchene den får, gruppert slik at bokstaver og tall skilles. Bruker ikke gruppene
+                 if(patternMatch.group(1) == "") { //sjekker om det er ett tall
+                    if(patternMatch.group(2).matches("[oO]")) { //hvis pattern match er levende (0(
+                        boardTufte[row][col] = 1; //så sett patternet til true, startposision 00.
+                    }
+                     else if (patternMatch.group(2).matches("[$]")){
+                        row++;
+                        col = 0;
+                        continue;
+                    }
+                     col++;
+                 }
+
+
+             }
+        }
     }
+
+
+
+
+
 
     public void readGameBoardFromDisk(File file) throws IOException {
         if (!file.canRead()) {
@@ -120,6 +140,7 @@ public class rleParser {
             System.out.println("Feilmelding for IOE-Feil");
         }
     }
+
 
     public void readGameBoardFromURL(String url) throws IOException {
 
@@ -136,5 +157,7 @@ public class rleParser {
         } catch (IOException IOEFeil) {
             System.out.println("Typ 404 feil");
         }
+
     }
+
 }
