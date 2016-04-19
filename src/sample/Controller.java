@@ -55,6 +55,8 @@ public class Controller implements Initializable{
         if(timeline.getStatus() == Animation.Status.STOPPED){
             timeline.play();
             startButton.setText("Stop");
+            rleParser innlastedFil = new rleParser();
+         byte[][] board1 = innlastedFil.getBoard();
 
         }
         else {
@@ -108,7 +110,7 @@ public class Controller implements Initializable{
 
     private void draw(/*innparameter-med-eget-predefinert-board-*/) {
 
-        boolean[][] board = gb.getBoard();
+        byte[][] board = gb.getBoard();
 
         double xPos = 0;
         double yPos = 0;
@@ -118,7 +120,7 @@ public class Controller implements Initializable{
         graphicsContext.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         for(int row = 0; row < board.length; row++){        //her settes den første linjnen / dimensjonen av rekken i griddet
             for(int column = 0; column < board[0].length; column++){ //
-                if(board[row][column]){                                     // Celle Død eller Levende
+                if(board[row][column] == 1){                                     // Celle Død eller Levende
                     graphicsContext.fillRect(xPos,yPos,cellSize,cellSize);
                 }
                 xPos += cellSize;
@@ -135,7 +137,7 @@ public class Controller implements Initializable{
 
     public void grid(){
 
-        graphicsContext.setLineWidth(1);
+        graphicsContext.setLineWidth(0.25);
         for (int i=0; i<= gb.getBoard().length; i++){
             double horizontal = i*(gb.getBoard().length*canvas.getHeight() / gb.getBoard().length)/gb.getBoard().length;
             graphicsContext.strokeLine(0,horizontal,canvas.getWidth(),horizontal);
