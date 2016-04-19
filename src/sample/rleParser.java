@@ -15,10 +15,12 @@ public class rleParser {
 
 
     private byte[][] boardTufte; //Skal sendes til gameboard på slutten av metuden under. lar oss ha costum størrelse.
+
     //henter data fra boardTufte som henter størrelse om brettet
     public byte[][] getBoard() {
         return boardTufte;
     }
+
     //setter størrelsen fra boardTufte, siden den er public kan vi kalle den ifra GameBoard
     /*public void setBoard(boolean[][] getBrett) {
 
@@ -102,30 +104,26 @@ public class rleParser {
         int row = 0;
         int col = 0;
         //WHILE LOOP FOR SELVE BRETTET
-         while ((line = r.readLine()) != null) {
-             Matcher patternMatch = thePattern.matcher(line);
-             System.out.println(line);
-             if (patternMatch.find()) { //returnener en bolsk verdi på hver av matchene den får, gruppert slik at bokstaver og tall skilles. Bruker ikke gruppene
-                 if(patternMatch.group(1) == "") { //sjekker om det er ett tall
-                    if(patternMatch.group(2).matches("[oO]")) { //hvis pattern match er levende (0(
+        while ((line = r.readLine()) != null) {
+            Matcher patternMatch = thePattern.matcher(line);
+            System.out.println(line);
+            if (patternMatch.find()) { //returnener en bolsk verdi på hver av matchene den får, gruppert slik at bokstaver og tall skilles. Bruker ikke gruppene
+                if (patternMatch.group(1) == "") { //sjekker om det er ett tall
+                    if (patternMatch.group(2).matches("[oO]")) { //hvis pattern match er levende (0(
                         boardTufte[row][col] = 1; //så sett patternet til true, startposision 00.
-                    }
-                     else if (patternMatch.group(2).matches("[$]")){
+                    } else if (patternMatch.group(2).matches("[$]")) {
                         row++;
                         col = 0;
                         continue;
                     }
-                     col++;
-                 }
+                    col++;
+                } else if (patternMatch.group(2).matches("[b]")) {
+                    boardTufte[row][col] = 0;
+                }
 
-
-             }
+            }
         }
     }
-
-
-
-
 
 
     public void readGameBoardFromDisk(File file) throws IOException {
