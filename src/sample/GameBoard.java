@@ -81,11 +81,11 @@ public class GameBoard {
     }
 
     public void nextGen(){
-
+        System.out.println(board.length + " collength " + board[0].length);
         byte[][] nextGenBoard  = new byte[board.length][board[0].length];
 
         for(int row = 0; row < board.length; row++){
-            for(int column = 0; column < board.length; column++){
+            for(int column = 0; column < board[0].length; column++){
 
 
                     if(checkNeighbors(row,column) == 3){

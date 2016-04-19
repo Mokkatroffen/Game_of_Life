@@ -35,7 +35,7 @@ public class rleParser {
         this.boardAlive = getLife;
     }
 */
-    public void readGameBoard(BufferedReader r) throws IOException {
+    public void readGameBoard(BufferedReader r) throws IOException { //split metoden, en for meta, en for celle og en for innhold.
         //Skal kunne lese metadata og brett
         String author = new String();
         String name = new String();
@@ -43,6 +43,7 @@ public class rleParser {
         String line = new String();
         int colms;
         int rows;
+        int number;
 
 
         StringBuilder melding = new StringBuilder();  //"Kommentar: " + comment + "\n Navn" + name + "Forfatter: " + author + "Kommentar: " + comment;
@@ -87,7 +88,6 @@ public class rleParser {
 
 
                         System.out.println(cells); */
-                    System.out.println(rows + " " + colms);
                     break;
                     //Nå vil du være på første linje som omhandler brettet
                 }
@@ -100,16 +100,16 @@ public class rleParser {
         alert.setContentText(meldingResultat);
         alert.showAndWait();
 
-        Pattern thePattern = Pattern.compile("([0-9]{0,})([oObB$]{1})");
+
+        Pattern thePattern = Pattern.compile("([0-9]{0,7})([oObB$]{1})");
         int row = 0;
         int col = 0;
         //WHILE LOOP FOR SELVE BRETTET
         while ((line = r.readLine()) != null) {
             Matcher patternMatch = thePattern.matcher(line);
-            System.out.println(line);
-            if (patternMatch.find()) { //returnener en bolsk verdi på hver av matchene den får, gruppert slik at bokstaver og tall skilles. Bruker ikke gruppene
-                if (patternMatch.group(1) == "") { //sjekker om det er ett tall
-                    if (patternMatch.group(2).matches("[oO]")) { //hvis pattern match er levende (0(
+            while(patternMatch.find()) {
+                if (!patternMatch.group(1).matches("[0-9]")) { //sjekker om det er ett tall
+                    if (patternMatch.group(2).matches("o")) { //hvis pattern match er levende (0(
                         boardTufte[row][col] = 1; //så sett patternet til true, startposision 00.
                     } else if (patternMatch.group(2).matches("[$]")) {
                         row++;
@@ -117,18 +117,25 @@ public class rleParser {
                         continue;
                     }
                     col++;
-                }  if (patternMatch.group(2).matches("[b]")) {
-                    boardTufte[row][col] = 0;
-                }
-
-                continue;
+                } else {
+                    number = Integer.parseInt(patternMatch.group(1));
+                    while(number > 0) {
+                        if (patternMatch.group(2).matches("o")) { //hvis pattern match er levende (0(
+                            boardTufte[row][col] = 1; //så sett patternet til true, startposision 00.
+                        } else if (patternMatch.group(2).matches("[$]")) {
+                            row++;
+                            col = 0;
+                            continue;
+                        }
+                        col++;
+                        number--;
                     }
-                if(patternMatch.group(1).matches("[0-9]{1,7}]")){
-                   if (patternMatch.group(2).matches("[oO]")) {
-                       System.out.println(patternMatch.group(2) + "lololol");
                 }
+                continue;
+
             }
         }
+        System.out.println("Ferdig å laste program!");
     }
 
 
