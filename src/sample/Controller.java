@@ -29,7 +29,7 @@ public class Controller implements Initializable{
     @FXML
     Button startButton;
     GraphicsContext graphicsContext;
-    GameBoard gb = new GameBoard(10,10);
+    GameBoard gb = new GameBoard(11,12);
     Timeline timeline;
 
 
@@ -103,6 +103,7 @@ public class Controller implements Initializable{
             }
 
         }
+        draw();
 
     }
 
@@ -115,7 +116,17 @@ public class Controller implements Initializable{
         double xPos = 0;
         double yPos = 0;
 
-        double cellSize = canvas.getHeight() / board.length;
+        double cellSize;
+
+        //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
+        double cellwidth = canvas.getWidth() / board[0].length;
+        double cellheight = canvas.getHeight() / board.length;
+        if(cellwidth > cellheight) {
+            cellSize = cellheight;
+        } else {
+            cellSize = cellwidth;
+        }
+
 
         graphicsContext.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         for(int row = 0; row < board.length; row++){        //her settes den første linjnen / dimensjonen av rekken i griddet
@@ -136,7 +147,31 @@ public class Controller implements Initializable{
 
 
     public void grid(){
+        final byte[][] board = gb.getBoard();
 
+        double cellSize;
+
+        //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
+        double cellwidth = canvas.getWidth() / board[0].length;
+        double cellheight = canvas.getHeight() / board.length;
+        if(cellwidth > cellheight) {
+            cellSize = cellheight;
+        } else {
+            cellSize = cellwidth;
+        }
+
+        graphicsContext.setLineWidth(0.25);
+        for (int i=0; i<= board.length; i++){
+            double horizontal = i*cellSize;
+            graphicsContext.strokeLine(0,horizontal,canvas.getWidth(),horizontal);
+        }
+
+        for (int i=0; i<= board[0].length; i++){
+            double vertical = i*cellSize;
+            graphicsContext.strokeLine(vertical,0,vertical,canvas.getHeight());
+        }
+
+        /*
         graphicsContext.setLineWidth(0.25);
         for (int i=0; i<= gb.getBoard().length; i++){
             double horizontal = i*(gb.getBoard().length*canvas.getHeight() / gb.getBoard().length)/gb.getBoard().length;
@@ -146,7 +181,7 @@ public class Controller implements Initializable{
         for (int i=0; i<= gb.getBoard().length; i++){
             double vertical = i*(gb.getBoard().length*canvas.getWidth() / gb.getBoard().length)/gb.getBoard().length;
             graphicsContext.strokeLine(vertical,0,vertical,canvas.getHeight());
-        }
+        }*/
     }
 
 
