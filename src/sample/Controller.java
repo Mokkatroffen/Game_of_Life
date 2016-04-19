@@ -147,9 +147,12 @@ public class Controller implements Initializable{
 
 
     public void grid(){
+
+
         final byte[][] board = gb.getBoard();
 
         double cellSize;
+
 
         //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
         double cellwidth = canvas.getWidth() / board[0].length;
@@ -159,16 +162,17 @@ public class Controller implements Initializable{
         } else {
             cellSize = cellwidth;
         }
-
+        double boardWidth = cellSize * board[0].length;
+        double boardHeight = cellSize * board.length ;
         graphicsContext.setLineWidth(0.25);
         for (int i=0; i<= board.length; i++){
             double horizontal = i*cellSize;
-            graphicsContext.strokeLine(0,horizontal,canvas.getWidth(),horizontal);
+            graphicsContext.strokeLine(0,horizontal,boardWidth,horizontal);
         }
 
         for (int i=0; i<= board[0].length; i++){
             double vertical = i*cellSize;
-            graphicsContext.strokeLine(vertical,0,vertical,canvas.getHeight());
+            graphicsContext.strokeLine(vertical,0,vertical,boardHeight);
         }
 
         /*
