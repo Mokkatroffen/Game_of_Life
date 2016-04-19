@@ -32,8 +32,8 @@ public class rleParser {
         String name = new String();
         String comment = new String();
         String line = new String();
-        int colms;
-        int rows;
+        int colms = 0;
+        int rows = 0;
 
 
         StringBuilder melding = new StringBuilder();  //"Kommentar: " + comment + "\n Navn" + name + "Forfatter: " + author + "Kommentar: " + comment;
@@ -73,6 +73,10 @@ public class rleParser {
                    System.out.println(Arrays.deepToString(boardTufte)); // <- test for å se om boardTufte funker, drep senere.
 
 
+                }
+                    // Denne sier at hvis X eller Y er større enn 500 så ikke load filen og
+                if(rows>500 || colms>500){
+                    throw new IOException("Imported pattern to big");
                 }
 
 
@@ -132,7 +136,5 @@ public class rleParser {
         } catch (IOException IOEFeil) {
             System.out.println("Typ 404 feil");
         }
-
     }
-
 }
