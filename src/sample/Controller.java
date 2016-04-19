@@ -25,13 +25,11 @@ import sample.rleParser;
 /**
  * Controller holds all the rules of the game.
  *
- * @author Kristian Munter Simonsen
- * @version 0.2 - April 18, 2016
+ * @author Kristian Munter Simonsen.
+ * @version 0.2 - April 18, 2016.
  *
- * For extended information about fxml reference:
- * @see Controller
- * For extended information about Initializable:
- * @see Initializable
+ * @see Controller gathered from the fxml document. See BoarderPain.
+ * @see Initializable Called to initialize a controller after its root element has been completely processed.
  */
 public class Controller implements Initializable{
    @FXML
@@ -46,16 +44,16 @@ public class Controller implements Initializable{
 
     @Override
     /**
-     *   initialize holds the rules of speed and generation iteration
+     *   initialize holds the rules of speed and generation iteration.
      *
-     *   @author Andreas Jacobsen
-     *   @version 0.2 - April 18, 2016
+     *   @author Andreas Jacobsen.
+     *   @version 0.2 - April 18, 2016.
      *
-     * @param location gathers a potentional location from an URL
-     * @param resources gathers recourses from an bundle
+     * @param location gathers a potentional location from an URL.
+     * @param resources gathers recourses from an bundle.
      *
-     * @see URL
-     * @see ResourceBundle
+     * @see URL The property which specifies the package prefix list to be scanned for protocol handlers.
+     * @see ResourceBundle  Resource bundles contain locale-specific objects.
      */
     public void initialize(URL location, ResourceBundle resources) {
         graphicsContext = canvas.getGraphicsContext2D();
@@ -76,10 +74,10 @@ public class Controller implements Initializable{
 
     @FXML
     /**
-     * start handles the check and change of iteration by changing the name of startButton
+     * start handles the check and change of iteration by changing the name of startButton.
      *
-     * @author Boris Illievski
-     * @version 0.2 - April 18, 2016
+     * @author Boris Illievski.
+     * @version 0.2 - April 18, 2016.
      */
     private void start(){
         if(timeline.getStatus() == Animation.Status.STOPPED){
@@ -105,10 +103,12 @@ public class Controller implements Initializable{
 
     @FXML
     /**
-     * fileOpener allows to the user to upload .rle files and implements the files to the board
+     * fileOpener allows to the user to upload .rle files and implements the files to the board.
      *
-     * @author Kristian Munter Simonsen
-     * @version 0.2 - April 18, 2016
+     * Check for valid file type and naming has been implemented.
+     *
+     * @author Kristian Munter Simonsen.
+     * @version 0.2 - April 18, 2016.
      */
     private void fileOpener (){
 
@@ -146,7 +146,7 @@ public class Controller implements Initializable{
      *
      * @param Placeholder sets a predefined borad into the cells.
      */
-    private void draw(/*innparameter-med-eget-predefinert-board-*/) {
+    private void draw(/*PLACEHOLDER-innparameter-med-eget-predefinert-board-*/) {
 
         boolean[][] board = gb.getBoard();
 
@@ -175,10 +175,10 @@ public class Controller implements Initializable{
     }
 
     /**
-     *sets the width and length of the board
+     * sets the width and length of the grid.
      *
-     * @author Boris Illievski
-     * @version 0.2 - April 18, 2016
+     * @author Boris Illievski.
+     * @version 0.2 - April 18, 2016.
      */
     public void grid(){
         graphicsContext.setLineWidth(1);

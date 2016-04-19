@@ -14,13 +14,16 @@ public class GameBoard {
     private boolean [][] board;
 
     /**
-     * GameBoard sets the values of the cells int the boards
+     * GameBoard sets the values of the cells int the boards.
      *
-     * @author Andreas Jacobsen
-     * @version 0.2 - April 18, 2016
+     * static representation of an given value from boolean[][].
+     * This is in other words a two dimentional array.
      *
-     * @param row row holds the ammount and thereby also the values of the booleans
-     * @param column column holds the ammount of colloums where the rows holds values
+     * @author Andreas Jacobsen.
+     * @version 0.2 - April 18, 2016.
+     *
+     * @param row row holds the amount and thereby also the values of the booleans.
+     * @param column column holds the amount of columns where the rows holds values.
      */
     public GameBoard (int row, int column ){
 
@@ -59,15 +62,15 @@ public class GameBoard {
     }
 
     /**
-     * GameBoard here calculates the ammount of "live" neighbors
+     * GameBoard here calculates the amount of "live" neighbors.
      *
-     * @author Kristian Munter Simonsen
-     * @version 0.2 - April 18, 2016
+     * @author Kristian Munter Simonsen.
+     * @version 0.2 - April 18, 2016.
      *
-     * @param row row holds the values of the cells
-     * @param column column holds the ammount of colloums in the board
+     * @param row row holds the values of the cells.
+     * @param column column holds the amount of columns in the board.
      *
-     * @return neighbors neighbors holds the ammount of live cells around each cell
+     * @return neighbors neighbors holds the amount of live cells around each cell.
      */
     public int checkNeighbors(int row, int column){
         int neighbors = 0;
@@ -117,10 +120,12 @@ public class GameBoard {
     }
 
     /**
-     * nextGen executes the rules of game of life for the next generation
+     * nextGen executes the rules of game of life for the next generation.
      *
-     * @author Boris Illievski
-     * @version 0.2 - April 18, 2016
+     * In general if there is 2 or 3 live cells around a cell the avlue = true.
+     *
+     * @author Boris Illievski.
+     * @version 0.2 - April 18, 2016.
      */
     public void nextGen(){
 
