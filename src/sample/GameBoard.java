@@ -23,7 +23,7 @@ public class GameBoard {
 
         board = new byte[row][column];
 
-         board  = new byte[100][100];
+        board  = new byte[100][100];
     }
 
     public GameBoard (){
