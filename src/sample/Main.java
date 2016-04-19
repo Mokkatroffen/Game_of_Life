@@ -6,9 +6,28 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main is the initiator of the the program Game Of Life.
+ *
+ * @author Andreas Jacobsen.
+ * @version 0.2 - April 18, 2016.
+ *
+ * @see javafx.application.Application The entry point for JavaFX applications is the Application class.
+ */
+
 public class Main extends Application {
     @Override
 
+/**
+ * The start method initialises the stage Stage while the Exception controls any exceptions.
+ *
+ * @author Boris Illievski.
+ * @version 0.2 - April 18, 2016.
+ *
+ * @param stage sets the stage of the method.
+ * @see Exception Constructs a new exception with {@code null} as its detail message.
+ * @see Stage The JavaFX {@code Stage} class is the top level JavaFX container.
+ */
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().
                 getResource("grafikk.fxml"));

@@ -19,6 +19,18 @@ public class GameBoard {
         this.board = getBrett;
     }
 
+    /**
+     * GameBoard sets the values of the cells int the boards.
+     *
+     * static representation of an given value from boolean[][].
+     * This is in other words a two dimentional array.
+     *
+     * @author Andreas Jacobsen.
+     * @version 0.2 - April 18, 2016.
+     *
+     * @param row row holds the amount and thereby also the values of the booleans.
+     * @param column column holds the amount of columns where the rows holds values.
+     */
     public GameBoard (int row, int column ){
 
         board = new byte[row][column];
@@ -33,6 +45,17 @@ public class GameBoard {
         return board;
     }
 
+    /**
+     * GameBoard here calculates the amount of "live" neighbors.
+     *
+     * @author Kristian Munter Simonsen.
+     * @version 0.2 - April 18, 2016.
+     *
+     * @param row row holds the values of the cells.
+     * @param column column holds the amount of columns in the board.
+     *
+     * @return neighbors neighbors holds the amount of live cells around each cell.
+     */
     public int checkNeighbors(int row, int column){
         int neighbors = 0;
 
@@ -80,6 +103,14 @@ public class GameBoard {
 
     }
 
+    /**
+     * nextGen executes the rules of game of life for the next generation.
+     *
+     * In general if there is 2 or 3 live cells around a cell the avlue = true.
+     *
+     * @author Boris Illievski.
+     * @version 0.2 - April 18, 2016.
+     */
     public void nextGen(){
         System.out.println(board.length + " collength " + board[0].length);
         byte[][] nextGenBoard  = new byte[board.length][board[0].length];
