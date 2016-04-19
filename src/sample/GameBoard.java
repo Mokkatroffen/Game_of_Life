@@ -115,7 +115,7 @@ public class GameBoard {
         for (int i = 0; i < board.length ; i++) {
             for (int j = 0; j < board[0].length ; j++) {
 
-                if (board[i][j]){
+                if (board[i][j] ==1){
                     sb.append("1");
                 }
                 else{
