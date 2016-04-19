@@ -26,7 +26,7 @@ import sample.rleParser;
  * Controller holds all the rules of the game.
  *
  * @author Kristian Munter Simonsen
- * @Version 0.2 - April 18, 2016
+ * @version 0.2 - April 18, 2016
  *
  * For extended information about fxml reference:
  * @see Controller
