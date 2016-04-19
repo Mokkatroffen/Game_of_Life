@@ -117,10 +117,16 @@ public class rleParser {
                         continue;
                     }
                     col++;
-                } else if (patternMatch.group(2).matches("[b]")) {
+                }  if (patternMatch.group(2).matches("[b]")) {
                     boardTufte[row][col] = 0;
                 }
 
+                continue;
+                    }
+                if(patternMatch.group(1).matches("[0-9]{1,7}]")){
+                   if (patternMatch.group(2).matches("[oO]")) {
+                       System.out.println(patternMatch.group(2) + "lololol");
+                }
             }
         }
     }
