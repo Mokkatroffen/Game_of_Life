@@ -4,7 +4,10 @@ import GoL.*;
 
 
 /**
- * Created by Boris Ilievski on 20.04.2016.
+ * testNextGen is an JUnit test for a given iteration of the given board.
+ *
+ * @author Kristian Munter Simonsen
+ * @version 0.2 - April 18, 2016.
  */
 public class testNextGen  {
     @Test

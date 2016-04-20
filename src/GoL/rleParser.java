@@ -41,6 +41,16 @@ public class rleParser {
         this.boardAlive = getLife;
     }
 */
+
+    /**
+     * readGameBoard gathers files and draws the actual grid.
+     *
+     * @param r holds the information from the BufferedReader.
+     * @throws IOException  Signals that an I/O exception of some sort has occurred.
+     *
+     * @see BufferedReader Reads text from a character-input stream, buffering characters so as to
+     * provide for the efficient reading of characters, arrays, and lines.
+     */
     public void readGameBoard(BufferedReader r) throws IOException { //split metoden, en for meta, en for celle og en for innhold.
         //Skal kunne lese metadata og brett
         String author = new String();
