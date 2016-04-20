@@ -19,6 +19,16 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 //test|
+
+/**
+ * Controller works with data from the other classes and implements them.
+ * Also responsible for handling issues and user input.
+ *
+ * @author Kristian Munter Simonsen.
+ * @version 0.2 - April 18, 2016.
+ *
+ * @see javafx.fxml.Initializable  Controller initialization interface.
+ */
 public class Controller implements Initializable{
    @FXML
     Canvas canvas;
@@ -30,6 +40,18 @@ public class Controller implements Initializable{
 
 
     @Override
+    /**
+     * initialize initializes an url-handler which is implemented into the grid.
+     *
+     * @author Andreas Jacobsen.
+     * @version 0.2 - April 18, 2016.
+     *
+     * @param location location is the destination of the url parameter.
+     * @param resources resources holds the data from the URL.
+     *
+     * @see URL.
+     * @see ResourceBundle.
+     */
     public void initialize(URL location, ResourceBundle resources) {
         graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.setFill(Color.HOTPINK);
@@ -47,6 +69,12 @@ public class Controller implements Initializable{
     }
 
     @FXML
+    /**
+     * start handles the start function of the program.
+     *
+     * @author Boris Illievski.
+     * @version 0.2 - April 18, 2016.
+     */
     private void start(){
         if(timeline.getStatus() == Animation.Status.STOPPED){
             timeline.play();
@@ -74,6 +102,12 @@ public class Controller implements Initializable{
     }
 
     @FXML
+    /**
+     * filOpener handles the implementation of .rle-files
+     *
+     * @author Kristian Munter Simonsen.
+     * @version 0.2 - April 18, 2016.
+     */
     private void fileOpener (){
 
         timeline.stop(); //Stopper timeline for å laste filen, god praksis og stoppe
@@ -104,7 +138,12 @@ public class Controller implements Initializable{
     }
 
 
-
+    /**
+     * The draw method draws a filled cell into the live cells
+     *
+     * @author Andreas Jacobsen
+     * @version 0.2 - April 18, 2016.
+     */
     private void draw(/*innparameter-med-eget-predefinert-board-*/) {
 
         byte[][] board = gb.getBoard();
@@ -140,8 +179,12 @@ public class Controller implements Initializable{
                    //  boardTufte = new boolean[rows][colms]; test
 
 
-
-
+    /**
+     * The grid method sets the size of the grid
+     *
+     * @author Boris Illievski
+     * @version 0.2 - April 18, 2016.
+     */
     public void grid(){
 
 
