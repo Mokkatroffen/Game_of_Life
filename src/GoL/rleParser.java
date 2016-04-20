@@ -10,7 +10,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class rleParser {
-
+ /**
+     * readGameBoard reads the metadata and board.
+     *
+     * @author Andreas Jacobsen.
+     * @version 0.2 - April 18, 2016.
+     *
+     * @param r r is an buffered reader.
+     * @throws IOException IOException throws out an error message if needed.
+     */
 
     private byte[][] boardTufte; //Skal sendes til gameboard på slutten av metuden under. lar oss ha costum størrelse.
 
@@ -136,7 +144,15 @@ public class rleParser {
         System.out.println("Ferdig å laste program!");
     }
 
-
+ /**
+     * readGameBoardFromDisk reades a file from disk onto board.
+     *
+     * @author Boris Illievski.
+     * @version 0.2 - April 18, 2016.
+     *
+     * @param file file is the file which is uploaded.
+     * @throws IOException IOException throws out an error message if needed.
+     */
     public void readGameBoardFromDisk(File file) throws IOException {
         if (!file.canRead()) {
             System.out.println("Kunne ikke lese fil.");
@@ -150,7 +166,15 @@ public class rleParser {
         }
     }
 
-
+ /**
+     * readGameBoardFromUrl reads .rle file from an URL an implements it into the board.
+     *
+     * @author Kristian Munter Simonsen.
+     * @version 0.2 - April 18, 2016.
+     *
+     * @param url url is the parameter which you gather the file from.
+     * @throws IOException IOException throws out an error message if needed.
+     */
     public void readGameBoardFromURL(String url) throws IOException {
 
         try {
