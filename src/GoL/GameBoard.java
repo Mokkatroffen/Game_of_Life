@@ -45,6 +45,9 @@ public class GameBoard {
                 {0,0,0,0,0,0,1},
                 {0,0,0,0,0,1,1}
         };
+
+        //git funk ffs
+
         */
 
 
