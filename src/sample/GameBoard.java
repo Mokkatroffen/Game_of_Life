@@ -7,92 +7,56 @@
 package sample;
 
 
+import java.util.Arrays;
+
 public class GameBoard {
 
 
 
-    private boolean [][] board;
+    private byte [][] board;
+     public void setBoard(byte [][]getBrett){
+         // boardTufte = getBrett;
+        this.board = getBrett;
+    }
 
-    /**
-     * GameBoard sets the values of the cells int the boards
-     *
-     * @author Andreas Jacobsen
-     * @version 0.2 - April 18, 2016
-     *
-     * @param row row holds the ammount and thereby also the values of the booleans
-     * @param column column holds the ammount of colloums where the rows holds values
-     */
     public GameBoard (int row, int column ){
 
-        board = new boolean[row][column];
+        board = new byte[row][column];
 
-         board  = new boolean[][]{
-                {false,true,false,false,false,false,false},          //1
-                {false,false,true,false,false,false,false},          //2
-                {true,true,true,false,false,false,false},            //3
-                {false,false,false,false,false,false,false},         //4
-                {false,false,false,false,false,false,false},         //5
-                {false,false,false,false,false,false,false},         //6
-                {false,false,false,false,false,false,false},         //7
-
-        };
-
-        /*
-        board  = new boolean[][]{
-                {false,false,true,true,false,false,false},          //1
-                {false,true,false,true,false,false,false},          //2
-                {true,false,false,true,false,true,true},            //3
-                {true,true,false,true,false,false,true},            //4
-                {false,true,false,true,false,false,false},          //5
-                {false,true,false,false,true,false,false},          //6
-                {false,false,true,true,false,false,false},          //7
-
-        };
-        */
+        board  = new byte[100][100];
     }
 
     public GameBoard (){
     }
 
-    public boolean[][] getBoard() {
+    public byte[][] getBoard() {
         return board;
     }
 
-    /**
-     * GameBoard here calculates the ammount of "live" neighbors
-     *
-     * @author Kristian Munter Simonsen
-     * @version 0.2 - April 18, 2016
-     *
-     * @param row row holds the values of the cells
-     * @param column column holds the ammount of colloums in the board
-     *
-     * @return neighbors neighbors holds the ammount of live cells around each cell
-     */
     public int checkNeighbors(int row, int column){
         int neighbors = 0;
 
         if(row > 0){
 
-            if(board[row-1][column]) neighbors++;
+            if(board[row-1][column] == 1) neighbors++;
 
             if(column > 0) {
-                if (board[row - 1][column - 1]) neighbors++;
+                if (board[row - 1][column - 1]  == 1) neighbors++;
             }
 
             if (column < board[0].length-1){
-                if(board[row-1][column+1]) neighbors++;
+                if(board[row-1][column+1] == 1) neighbors++;
             }
         }
 
         if (column > 0) {
-            if (board[row][column - 1]) {
+            if (board[row][column - 1] == 1) {
                 neighbors++;
             }
         }
 
         if (column < board[0].length-1){
-            if(board[row][column+1]) neighbors++;
+            if(board[row][column+1] == 1) neighbors++;
         }
 
 
@@ -100,15 +64,15 @@ public class GameBoard {
 
 
         if(row < board.length-1){
-            if(board[row+1][column]){ neighbors++;}
+            if(board[row+1][column] == 1){ neighbors++;}
 
 
             if (column > 0) {
-                if (board[row+1][column - 1]) neighbors++;
+                if (board[row+1][column - 1] == 1) neighbors++;
             }
 
             if (column < board[0].length-1){
-                    if(board[row+1][column+1]) neighbors++;
+                    if(board[row+1][column+1] == 1) neighbors++;
             }
         }
 
@@ -116,41 +80,51 @@ public class GameBoard {
 
     }
 
-    /**
-     * nextGen executes the rules of game of life for the next generation
-     *
-     * @author Boris Illievski
-     * @version 0.2 - April 18, 2016
-     */
     public void nextGen(){
-
-        boolean[][] nextGenBoard  = new boolean[board.length][board[0].length];
+        System.out.println(board.length + " collength " + board[0].length);
+        byte[][] nextGenBoard  = new byte[board.length][board[0].length];
 
         for(int row = 0; row < board.length; row++){
-            for(int column = 0; column < board.length; column++){
+            for(int column = 0; column < board[0].length; column++){
 
-                System.out.print(checkNeighbors(row,column)+ " ");
 
                     if(checkNeighbors(row,column) == 3){
-                        nextGenBoard[row][column] = true;
+                        nextGenBoard[row][column] = 1;
                     }
-                    else if(board[row][column] && checkNeighbors(row,column) ==2){
-                        nextGenBoard[row][column] = true;
+                    else if(board[row][column] == 1 && checkNeighbors(row,column) ==2){
+                        nextGenBoard[row][column] = 1;
                     }
                     else if (checkNeighbors(row,column) > 3){
-                        nextGenBoard[row][column] = false;
+                        nextGenBoard[row][column] = 0;
                     }
                     else if (checkNeighbors(row,column) < 2){
-                        nextGenBoard[row][column] = false;
+                        nextGenBoard[row][column] = 0;
                     }
             }
 
-            System.out.println();
+           // System.out.println();
 
         }
 
         board = nextGenBoard;
 
+    }
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < board.length ; i++) {
+            for (int j = 0; j < board[0].length ; j++) {
+
+                if (board[i][j] ==1){
+                    sb.append("1");
+                }
+                else{
+                    sb.append("0");
+                }
+
+            }
+        }
+        return sb.toString();
     }
 
 }
