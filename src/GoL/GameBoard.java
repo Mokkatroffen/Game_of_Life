@@ -46,7 +46,6 @@ public class GameBoard {
                 {0,0,0,0,0,1,1}
         };
 
-        //git funk ffs
 
         */
 
@@ -126,13 +125,14 @@ public class GameBoard {
      * @version 0.2 - April 18, 2016.
      */
     public void nextGen(){
-        System.out.println(board.length + " collength " + board[0].length);
+        //System.out.println(board.length + " collength " + board[0].length);
         byte[][] nextGenBoard  = new byte[board.length][board[0].length];
         //byte[][] nextGenBoard = board;
 
         for(int row = 0; row < board.length; row++){
             for(int column = 0; column < board[0].length; column++){
 
+                System.out.print(checkNeighbors(row,column)+ " ");
 
                     if(checkNeighbors(row,column) == 3){
                         nextGenBoard[row][column] = 1;
@@ -148,7 +148,7 @@ public class GameBoard {
                     }
             }
 
-           // System.out.println();
+           System.out.println();
 
         }
 
