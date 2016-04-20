@@ -4,10 +4,8 @@
  * @version 1.0 - April 18, 2016
  * Every major change to the file will result in a +0.1 to version while a new hand-in results in a whole new version
  */
-package sample;
+package GoL;
 
-
-import java.util.Arrays;
 
 public class GameBoard {
 
@@ -36,11 +34,24 @@ public class GameBoard {
         board = new byte[row][column];
 
         board  = new byte[100][100];
+
+        /* GLIDER FOR TESTING
+        board  = new byte[][] {
+                {0,1,0,0,0,0,0},
+                {0,0,1,0,0,0,0},
+                {1,1,1,0,0,0,0},
+                {0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,1},
+                {0,0,0,0,0,1,1}
+        };
+        */
+
+
     }
 
     public GameBoard (){
     }
-
     public byte[][] getBoard() {
         return board;
     }
@@ -114,6 +125,7 @@ public class GameBoard {
     public void nextGen(){
         System.out.println(board.length + " collength " + board[0].length);
         byte[][] nextGenBoard  = new byte[board.length][board[0].length];
+        //byte[][] nextGenBoard = board;
 
         for(int row = 0; row < board.length; row++){
             for(int column = 0; column < board[0].length; column++){
