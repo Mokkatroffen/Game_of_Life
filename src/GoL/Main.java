@@ -16,9 +16,11 @@ import javafx.stage.Stage;
  */
 
 public class Main extends Application {
-    @Override
+    //prefHeight="600.0" prefWidth="900.0"
+    private int width = 900;
+    private int height = 600;
 
-/**
+    /**
  * The start method initialises the stage Stage while the Exception controls any exceptions.
  *
  * @author Boris Illievski.
@@ -28,17 +30,16 @@ public class Main extends Application {
  * @see Exception Constructs a new exception with {@code null} as its detail message.
  * @see Stage The JavaFX {@code Stage} class is the top level JavaFX container.
  */
+    @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().
-                getResource("grafikk.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("grafikk.fxml"));
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, width, height);
 
         stage.setTitle("Game Of Life");
         stage.setScene(scene);
         stage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);

@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -22,8 +23,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 //test|
-public class Controller implements Initializable{
-   @FXML
+public class Controller implements Initializable {
+    @FXML
     Canvas canvas;
     @FXML
     Button startButton;
@@ -31,10 +32,9 @@ public class Controller implements Initializable{
     Slider slider;
     @FXML
     Label speedometer;
-    GraphicsContext graphicsContext;
-    GameBoard gb = new GameBoard(11,12);
-    Timeline timeline;
-
+    private GraphicsContext graphicsContext;
+    private GameBoard gb = new GameBoard(11, 12);
+    private Timeline timeline;
 
 
     @Override
@@ -43,45 +43,60 @@ public class Controller implements Initializable{
         graphicsContext.setFill(Color.HOTPINK);
         draw();
         updateSpeed(5);
-        slider();
+        addSliderListner();
 
 
     }
 
-    private void updateSpeed(int frames){
+    private void updateSpeed(int frames) {
 
-        Duration duration = Duration.millis(1000/frames);
+        Duration duration = Duration.millis(1000 / frames);
         KeyFrame keyFrame = new KeyFrame(duration, (ActionEvent e) -> {
             gb.nextGen();
             draw();
         });
 
-        if (Objects.nonNull(timeline))
+        boolean running = false;
+        if (Objects.nonNull(timeline)) {
+            running = timeline.getStatus() == Animation.Status.RUNNING;
             timeline.stop();
+        }
+
         timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
+        if (running)
+            timeline.play();
     }
 
-    private void slider(){
-       slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (!slider.isValueChanging()) {
+    private void addSliderListner() {
+        slider.setOnMouseReleased(event -> {
+            if (slider.getValue() == slider.getMax() || slider.getValue() == slider.getMin()) {
+                updateSpeed((int) slider.getValue());
+                setSliderText(slider.getValue());
+            }
+        });
+
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (!slider.isPressed() && !slider.isValueChanging()) {
                 updateSpeed(newValue.intValue());
-                timeline.play();
-                        speedometer.setText(newValue + " frames");
+                setSliderText(newValue.doubleValue());
             }
         });
     }
 
+    private void setSliderText(double value) {
+        speedometer.setText((int) value + " frames");
+    }
+
     @FXML
-    private void start(){
-        if(timeline.getStatus() == Animation.Status.STOPPED){
+    private void start() {
+        if (timeline.getStatus() == Animation.Status.STOPPED) {
             timeline.play();
             startButton.setText("Stop");
             rleParser innlastedFil = new rleParser();
-         byte[][] board1 = innlastedFil.getBoard();
+            byte[][] board1 = innlastedFil.getBoard();
 
-        }
-        else {
+        } else {
             timeline.stop();
             startButton.setText("Start");
 
@@ -96,31 +111,30 @@ public class Controller implements Initializable{
     @FXML
     void NextGen(ActionEvent event) {
         gb.nextGen();
-        draw(); 
+        draw();
     }
 
     @FXML
-    private void fileOpener (){
+    private void fileOpener() {
 
         timeline.stop(); //Stopper timeline for å laste filen, god praksis og stoppe
 
-        Stage mainStage = (Stage)canvas.getScene().getWindow();
+        Stage mainStage = (Stage) canvas.getScene().getWindow();
 
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(
-         new FileChooser.ExtensionFilter("RLE files", "*.rle"));
+                new FileChooser.ExtensionFilter("RLE files", "*.rle"));
 
         File selectedFile = fileChooser.showOpenDialog(mainStage);
         if (selectedFile != null) {
 
             rleParser parser = new rleParser();
             try {
-            parser.readGameBoardFromDisk(selectedFile);
+                parser.readGameBoardFromDisk(selectedFile);
                 gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på grid i rle fil, fungerer ikke før du trykker start
-            }
-            catch(IOException e){ //spytter ut eventuelle feilmedling
+            } catch (IOException e) { //spytter ut eventuelle feilmedling
                 System.out.println(e.getMessage());
             }
 
@@ -128,7 +142,6 @@ public class Controller implements Initializable{
         draw();
 
     }
-
 
 
     private void draw(/*innparameter-med-eget-predefinert-board-*/) {
@@ -143,18 +156,18 @@ public class Controller implements Initializable{
         //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
         double cellwidth = canvas.getWidth() / board[0].length;
         double cellheight = canvas.getHeight() / board.length;
-        if(cellwidth > cellheight) {
+        if (cellwidth > cellheight) {
             cellSize = cellheight;
         } else {
             cellSize = cellwidth;
         }
 
 
-        graphicsContext.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-        for(int row = 0; row < board.length; row++){        //her settes den første linjnen / dimensjonen av rekken i griddet
-            for(int column = 0; column < board[0].length; column++){ //
-                if(board[row][column] == 1){                                     // Celle Død eller Levende
-                    graphicsContext.fillRect(xPos,yPos,cellSize,cellSize);
+        graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        for (byte[] aBoard : board) {        //her settes den første linjnen / dimensjonen av rekken i griddet
+            for (int column = 0; column < board[0].length; column++) { //
+                if (aBoard[column] == 1) {                                     // Celle Død eller Levende
+                    graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
                 }
                 xPos += cellSize;
             }
@@ -163,38 +176,34 @@ public class Controller implements Initializable{
         }
         grid();
     }
-                   //  boardTufte = new boolean[rows][colms]; test
+    //  boardTufte = new boolean[rows][colms]; test
 
 
-
-
-    public void grid(){
-
-
+    private void grid() {
         final byte[][] board = gb.getBoard();
-
         double cellSize;
-
 
         //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
         double cellwidth = canvas.getWidth() / board[0].length;
         double cellheight = canvas.getHeight() / board.length;
-        if(cellwidth > cellheight) {
+
+        if (cellwidth > cellheight) {
             cellSize = cellheight;
         } else {
             cellSize = cellwidth;
         }
         double boardWidth = cellSize * board[0].length;
-        double boardHeight = cellSize * board.length ;
+        double boardHeight = cellSize * board.length;
         graphicsContext.setLineWidth(0.25);
-        for (int i=0; i<= board.length; i++){
-            double horizontal = i*cellSize;
-            graphicsContext.strokeLine(0,horizontal,boardWidth,horizontal);
+
+        for (int i = 0; i <= board.length; i++) {
+            double horizontal = i * cellSize;
+            graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
         }
 
-        for (int i=0; i<= board[0].length; i++){
-            double vertical = i*cellSize;
-            graphicsContext.strokeLine(vertical,0,vertical,boardHeight);
+        for (int i = 0; i <= board[0].length; i++) {
+            double vertical = i * cellSize;
+            graphicsContext.strokeLine(vertical, 0, vertical, boardHeight);
         }
 
         /*
@@ -209,6 +218,4 @@ public class Controller implements Initializable{
             graphicsContext.strokeLine(vertical,0,vertical,canvas.getHeight());
         }*/
     }
-
-
 }
