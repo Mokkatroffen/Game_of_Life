@@ -37,7 +37,7 @@ public class rleParser {
     public String getAlive() {
         return setAlive();
     }
-    public void isAlive(String getLife){
+    public void isAlive(Sting getLife){r
         this.boardAlive = getLife;
     }
 */
@@ -141,6 +141,7 @@ public class rleParser {
                         } else if (patternMatch.group(2).matches("[$]")) {
                             row++;
                             col = 0;
+                            number--; //Manglet tidligere. Førte til evig loop da den looper på 'number'. Uren reduksjon av number har du evig loop på programmet.
                             continue;
                         }
                         col++;
@@ -174,33 +175,6 @@ public class rleParser {
         } catch (IOException IOEFeil) {
             System.out.println("Feilmelding for IOE-Feil");
         }
-    }
-
- /**
-     * readGameBoardFromUrl reads .rle file from an URL an implements it into the board.
-     *
-     * @author Kristian Munter Simonsen.
-     * @version 0.2 - April 18, 2016.
-     *
-     * @param url url is the parameter which you gather the file from.
-     * @throws IOException IOException throws out an error message if needed.
-     */
-    public void readGameBoardFromURL(String url) throws IOException {
-
-        try {
-            URL urlString = new URL(url); //Importer java.net
-            URLConnection connect = urlString.openConnection();
-            try (BufferedReader bfr = new BufferedReader(new InputStreamReader(connect.getInputStream()))) {
-                readGameBoard(bfr);
-            } catch (IOException ioefeil) {
-                System.out.println("Feilmelding for IOE-Feil");
-            }
-        } catch (MalformedURLException urlFeil) {
-            System.out.println("Typisk URL feil");
-        } catch (IOException IOEFeil) {
-            System.out.println("Typ 404 feil");
-        }
-
     }
 
 }
