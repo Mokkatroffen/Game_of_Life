@@ -33,21 +33,21 @@ public class GameBoard {
 
         board = new byte[row][column];
 
-        board  = new byte[100][100];
+        //board  = new byte[100][100];
 
-        /* GLIDER FOR TESTING
+        //GLIDER FOR TESTING
         board  = new byte[][] {
                 {0,1,0,0,0,0,0},
                 {0,0,1,0,0,0,0},
                 {1,1,1,0,0,0,0},
                 {0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,1},
-                {0,0,0,0,0,1,1}
+                {0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0}
         };
 
 
-        */
+        /**/
 
 
     }

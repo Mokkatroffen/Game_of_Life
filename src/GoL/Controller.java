@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -16,6 +18,7 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 //test|
@@ -24,9 +27,14 @@ public class Controller implements Initializable{
     Canvas canvas;
     @FXML
     Button startButton;
+    @FXML
+    Slider slider;
+    @FXML
+    Label speedometer;
     GraphicsContext graphicsContext;
     GameBoard gb = new GameBoard(11,12);
     Timeline timeline;
+
 
 
     @Override
@@ -34,16 +42,34 @@ public class Controller implements Initializable{
         graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.setFill(Color.HOTPINK);
         draw();
+        updateSpeed(5);
+        slider();
 
-        Duration duration = Duration.millis(1000/5);
+
+    }
+
+    private void updateSpeed(int frames){
+
+        Duration duration = Duration.millis(1000/frames);
         KeyFrame keyFrame = new KeyFrame(duration, (ActionEvent e) -> {
             gb.nextGen();
             draw();
         });
 
+        if (Objects.nonNull(timeline))
+            timeline.stop();
         timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
+    }
 
+    private void slider(){
+       slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (!slider.isValueChanging()) {
+                updateSpeed(newValue.intValue());
+                timeline.play();
+                        speedometer.setText(newValue + " frames");
+            }
+        });
     }
 
     @FXML
