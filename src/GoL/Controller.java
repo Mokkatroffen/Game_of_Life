@@ -4,13 +4,17 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -44,8 +48,16 @@ public class Controller implements Initializable {
         draw();
         updateSpeed(5);
         addSliderListner();
+        startButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
 
 
+    }
+
+    private void canvasResizer(){
+        StackPane stackPane = (StackPane) canvas.getParent();
+        canvas.setWidth(stackPane.getWidth());
+        canvas.setHeight(stackPane.getHeight());
+        draw();
     }
 
     private void updateSpeed(int frames) {
@@ -129,6 +141,7 @@ public class Controller implements Initializable {
 
         File selectedFile = fileChooser.showOpenDialog(mainStage);
         if (selectedFile != null) {
+            System.out.println("Controller.fileOpener:" + selectedFile);
 
             rleParser parser = new rleParser();
             try {
@@ -137,6 +150,7 @@ public class Controller implements Initializable {
             } catch (IOException e) { //spytter ut eventuelle feilmedling
                 System.out.println(e.getMessage());
             }
+            System.out.println("Loaded File " + selectedFile);
 
         }
         draw();

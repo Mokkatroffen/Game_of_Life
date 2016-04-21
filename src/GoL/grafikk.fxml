@@ -9,16 +9,20 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller">
    <center>
-      <Canvas fx:id="canvas" height="500.0" width="500.0" BorderPane.alignment="CENTER">
+      <StackPane BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
-      </Canvas>
+         <children>
+            <Canvas fx:id="canvas" height="500.0" width="500.0" />
+         </children>
+      </StackPane>
    </center>
    <bottom>
       <HBox prefHeight="83.0" prefWidth="900.0" BorderPane.alignment="CENTER">
