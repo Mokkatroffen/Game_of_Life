@@ -12,10 +12,6 @@ import java.net.URLConnection;
  */
 public class UrlHandler {
 
-    public UrlHandler() {
-
-    }
-
     /**
      * readGameBoardFromUrl reads .rle file from an URL an implements it into the board.
      *
@@ -27,10 +23,11 @@ public class UrlHandler {
     public void readGameBoardFromURL(String url) throws IOException {
 
         try {
+            rleParser pars = new rleParser();
             URL urlString = new URL(url); //Importer java.net
             URLConnection connect = urlString.openConnection();
             try (BufferedReader bfr = new BufferedReader(new InputStreamReader(connect.getInputStream()))) {
-                readGameBoard(bfr);
+                pars.readGameBoard(bfr);
             } catch (IOException ioefeil) {
                 System.out.println("Feilmelding for IOE-Feil");
             }

@@ -16,10 +16,11 @@ public class rleParser {
      * @author Andreas Jacobsen.
      * @version 0.2 - April 18, 2016.
      *
-     * @param r r is an buffered reader.
+     * @par                readGameBoard(bfr);
+ am r r is an buffered reader.
      * @throws IOException IOException throws out an error message if needed.
      */
-
+    private URL destination;// blir satt av metode lenger ned.
     private byte[][] boardTufte; //Skal sendes til gameboard på slutten av metuden under. lar oss ha costum størrelse.
 
     //henter data fra boardTufte som henter størrelse om brettet
@@ -176,5 +177,7 @@ public class rleParser {
             System.out.println("Feilmelding for IOE-Feil");
         }
     }
+
+
 
 }

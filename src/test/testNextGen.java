@@ -2,6 +2,8 @@ package test;
 import org.junit.Test;
 import GoL.*;
 
+import java.io.IOException;
+
 
 /**
  * testNextGen is an JUnit test for a given iteration of the given board.
@@ -10,6 +12,10 @@ import GoL.*;
  * @version 0.2 - April 18, 2016.
  */
 public class testNextGen  {
+    private GameBoard testBoard;
+    public testNextGen()throws IOException{
+        testBoard = new GameBoard(7,7);
+    }
     @Test
     public void testNextGen(){
 
@@ -23,6 +29,7 @@ public class testNextGen  {
                 {0,0,0,0,0,0,0}
         };
 
+
         /*INFO:
 
         I testen vises det at hvis vi bytter ut en celle helt neders i høyre hjørne og kjøre next gen 2 ganger, så sier testen at den er riktig
@@ -32,7 +39,8 @@ public class testNextGen  {
         */
 
 
-        GameBoard testBoard = new GameBoard(7,7);
+
+
         testBoard.setBoard(fasitBoard);
         testBoard.nextGen();
         testBoard.nextGen();

@@ -31,12 +31,17 @@ import java.util.ResourceBundle;
  */
 public class Controller implements Initializable{
    @FXML
-    Canvas canvas;
+    private Canvas canvas;
     @FXML
-    Button startButton;
-    GraphicsContext graphicsContext;
-    GameBoard gb = new GameBoard(11,12);
-    Timeline timeline;
+    private Button startButton;
+    private GraphicsContext graphicsContext;
+    private GameBoard gb;
+    private Timeline timeline;
+
+
+    public Controller() throws IOException {
+        gb = new GameBoard(11,12);
+    }
 
 
     @Override
@@ -56,7 +61,6 @@ public class Controller implements Initializable{
         graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.setFill(Color.HOTPINK);
         draw();
-
         Duration duration = Duration.millis(1000/5);
         KeyFrame keyFrame = new KeyFrame(duration, (ActionEvent e) -> {
             gb.nextGen();

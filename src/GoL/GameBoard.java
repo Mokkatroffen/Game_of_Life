@@ -7,18 +7,20 @@
 package GoL;
 
 
+import java.io.IOException;
+
+
 public class GameBoard {
-
-
-
     private byte [][] board;
-     public void setBoard(byte [][]getBrett){
-         // boardTufte = getBrett;
-        this.board = getBrett;
-    }
 
+    // En default constructur, denne blir kalt dersom det ikke sendes med noen parametre. Det er viktig å ha med default konstruktør når man definerer andre konstruktører. Da default forsvinner når det opprettes en med parametre.
+    public GameBoard () {
+        board = new byte[100][100];
+
+
+    }
     /**
-     * GameBoard sets the values of the cells int the boards.
+     * GameBoard sets the values of the cells in the boards.
      *
      * static representation of an given value from boolean[][].
      * This is in other words a two dimentional array.
@@ -29,11 +31,10 @@ public class GameBoard {
      * @param row row holds the amount and thereby also the values of the booleans.
      * @param column column holds the amount of columns where the rows holds values.
      */
-    public GameBoard (int row, int column ){
+    // Denne konstruktøren sendes dersom det sendes med paramatre.
+    public GameBoard (int row, int column ) throws IOException {
 
         board = new byte[row][column];
-
-        board  = new byte[100][100];
 
         /* GLIDER FOR TESTING
         board  = new byte[][] {
@@ -49,12 +50,13 @@ public class GameBoard {
         //git funk
 
         */
-
-
     }
 
-    public GameBoard (){
+
+    public void setBoard(byte [][] board){
+        this.board = board;
     }
+
     public byte[][] getBoard() {
         return board;
     }
@@ -95,10 +97,6 @@ public class GameBoard {
         if (column < board[0].length-1){
             if(board[row][column+1] == 1) neighbors++;
         }
-
-
-
-
 
         if(row < board.length-1){
             if(board[row+1][column] == 1){ neighbors++;}
