@@ -30,7 +30,7 @@ public class UrlHandler {
 
 
         /*try {
-            URL urlString = new URL(url); //Importer java.net
+            URL urlString = new URL(url); //Importer java.netf
             URLConnection connect = urlString.openConnection();*/
            try /*(BufferedReader bfr = new BufferedReader(new InputStreamReader(connect.getInputStream())))*/ {
 
