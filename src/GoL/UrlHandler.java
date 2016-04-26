@@ -1,5 +1,7 @@
 package GoL;
 
+import javafx.scene.control.TextInputDialog;
+
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.net.URLConnection;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.net.*;
+import java.util.Optional;
 
 /**
  * Created by andreas on 21.04.16.
@@ -26,7 +29,19 @@ public class UrlHandler {
      * @version 0.2 - April 18, 2016.
      */
     public void readGameBoardFromURL(String url) throws IOException {
+        TextInputDialog dialog = new TextInputDialog("walter");
+        dialog.setTitle("Text Input Dialog");
+        dialog.setHeaderText("Look, a Text Input Dialog");
+        dialog.setContentText("Please enter your name:");
 
+// Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Your name: " + result.get());
+        }
+
+// The Java 8 way to get the response value (with lambda expression).
+        result.ifPresent(name -> System.out.println("Your name: " + name));
 
         /*try {
             URL urlString = new URL(url); //Importer java.netf
