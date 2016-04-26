@@ -1,5 +1,6 @@
 package GoL;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 
 import java.io.*;
@@ -8,6 +9,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+
 
 public class rleParser {
  /**
@@ -93,18 +96,7 @@ public class rleParser {
                     colms = Integer.parseInt(matcher.group(1)); //for å gjøre det om til tall istedenfor string på colmns (y-akse)
 
                     boardTufte = new byte[rows][colms];
-                    // System.out.println(Arrays.deepToString(boardTufte)); // <- test for å se om boardTufte funker, drep senere.
 
-                    /*if(line.matches(String.valueOf(patternMatch)) ) {
-                    System.out.println("lol");
-                    //trenger å laste inn dataen først
-                   // Pattern thePattern = Pattern.compile("([0-9]{0,7})([a-zA-Z$]{1})");
-                   // Matcher patternMatch = thePattern.matcher(line);
-                    if (patternMatch.find()) { //returnener en bolsk verdi på hver av matchene den får, gruppert slik at bokstaver og tall skilles. Bruker ikke gruppene
-                        cells = patternMatch.group(0);
-
-
-                        System.out.println(cells); */
                     break;
                     //Nå vil du være på første linje som omhandler brettet
                 }
@@ -123,39 +115,22 @@ public class rleParser {
         int col = 0;
         //WHILE LOOP FOR SELVE BRETTET
         while ((line = r.readLine()) != null) {
-            System.out.println(line);
             Matcher patternMatch = thePattern.matcher(line);
             while(patternMatch.find()) {
-               /* if (!patternMatch.group(1).matches("[0-9]")) { //sjekker om det er ett tall
-                    if (patternMatch.group(2).matches("o")) { //hvis pattern match er levende (0(
-                        boardTufte[row][col++] = 1; //så sett patternet til true, startposision 00.
-                    } else if (patternMatch.group(2).matches("[$]")) {
-                        row++;
-                        col = 0;
-                        continue;
-                    }
-                    //col++;
-                } else {*/
                     number = 1;
                     if(patternMatch.group(1).matches("\\d+")){
                         number = Integer.parseInt(patternMatch.group(1));
                     }
 
-                    System.out.println(number);
                     while(number-- > 0) {
                         if (patternMatch.group(2).matches("[oObB]")) { //hvis pattern match er levende (0(
                             boardTufte[row][col++] = patternMatch.group(2).matches("o") ? (byte)1 : 0; //så sett patternet til true, startposision 00.
                         } else if (patternMatch.group(2).matches("[$]")) {
                             row++;
                             col = 0;
-                            //number--; //Manglet tidligere. Førte til evig loop da den looper på 'number'. Uren reduksjon av number har du evig loop på programmet.
                             continue;
-                       // }
-                       // col++;
-                       // number--;
                     }
                 }
-                //continue;
 
             }
         }

@@ -124,7 +124,7 @@ public class GameBoard {
      * @version 0.2 - April 18, 2016.
      */
     public void nextGen(){
-        System.out.println(board.length + " collength " + board[0].length);
+    //    System.out.println(board.length + " collength " + board[0].length);
         byte[][] nextGenBoard  = new byte[board.length][board[0].length];
         //byte[][] nextGenBoard = board;
 

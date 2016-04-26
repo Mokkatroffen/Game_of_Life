@@ -36,9 +36,12 @@ public class Controller implements Initializable {
     Slider slider;
     @FXML
     Label speedometer;
+    @FXML
+    Button loadURL;
     private GraphicsContext graphicsContext;
     private GameBoard gb = new GameBoard(11, 12);
     private Timeline timeline;
+
     public Controller() throws IOException {
         gb = new GameBoard(11, 12);
     }
@@ -160,7 +163,10 @@ public class Controller implements Initializable {
 
     }
 
-
+    public void readGameBoardFromURL(String url) throws IOException{
+        UrlHandler u = new UrlHandler();
+        u.readGameBoardFromURL(url);
+    }
     private void draw(/*innparameter-med-eget-predefinert-board-*/) {
 
         byte[][] board = gb.getBoard();

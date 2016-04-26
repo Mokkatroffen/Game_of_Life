@@ -106,6 +106,7 @@
                   </MenuButton>
                </children>
             </VBox>
+            <Button fx:id="loadURL" onAction="#readGameBoardFromURL" mnemonicParsing="false" text="Last URL" />
          </children>
       </HBox>
    </bottom>
