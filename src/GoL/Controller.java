@@ -33,6 +33,8 @@ public class Controller implements Initializable {
     @FXML
     Button startButton;
     @FXML
+    Button  nextGenButton;
+    @FXML
     Slider slider;
     @FXML
     Label speedometer;
@@ -52,7 +54,7 @@ public class Controller implements Initializable {
         draw();
         updateSpeed(5);
         addSliderListner();
-        startButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
+        nextGenButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
 
 
     }
@@ -93,7 +95,7 @@ public class Controller implements Initializable {
         });
 
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (!slider.isPressed() && !slider.isValueChanging()) {
+            if (!slider.isValueChanging()) {
                 updateSpeed(newValue.intValue());
                 setSliderText(newValue.doubleValue());
             }
@@ -223,7 +225,9 @@ public class Controller implements Initializable {
         double boardHeight = cellSize * board.length;
         graphicsContext.setLineWidth(0.25);
 
-        for (int i = 0; i <= board.length; i++) {
+        //GRID LINES
+
+        /*for (int i = 0; i <= board.length; i++) {
             double horizontal = i * cellSize;
             graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
         }
@@ -231,7 +235,7 @@ public class Controller implements Initializable {
         for (int i = 0; i <= board[0].length; i++) {
             double vertical = i * cellSize;
             graphicsContext.strokeLine(vertical, 0, vertical, boardHeight);
-        }
+        }*/
 
         /*
         graphicsContext.setLineWidth(0.25);
