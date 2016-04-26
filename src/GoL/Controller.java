@@ -208,7 +208,7 @@ public class Controller implements Initializable{
         double boardWidth = cellSize * board[0].length;
         double boardHeight = cellSize * board.length ;
         graphicsContext.setLineWidth(0.25);
-        for (int i=0; i<= board.length; i++){
+    /*    for (int i=0; i<= board.length; i++){
             double horizontal = i*cellSize;
             graphicsContext.strokeLine(0,horizontal,boardWidth,horizontal);
         }
@@ -217,7 +217,7 @@ public class Controller implements Initializable{
             double vertical = i*cellSize;
             graphicsContext.strokeLine(vertical,0,vertical,boardHeight);
         }
-
+*/
         /*
         graphicsContext.setLineWidth(0.25);
         for (int i=0; i<= gb.getBoard().length; i++){

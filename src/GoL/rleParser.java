@@ -118,38 +118,44 @@ public class rleParser {
         alert.showAndWait();
 
 
-        Pattern thePattern = Pattern.compile("([0-9]{0,7})([oObB$]{1})");
+        Pattern thePattern = Pattern.compile("([0-9]*)([oObB$])");
         int row = 0;
         int col = 0;
         //WHILE LOOP FOR SELVE BRETTET
         while ((line = r.readLine()) != null) {
+            System.out.println(line);
             Matcher patternMatch = thePattern.matcher(line);
             while(patternMatch.find()) {
-                if (!patternMatch.group(1).matches("[0-9]")) { //sjekker om det er ett tall
+               /* if (!patternMatch.group(1).matches("[0-9]")) { //sjekker om det er ett tall
                     if (patternMatch.group(2).matches("o")) { //hvis pattern match er levende (0(
-                        boardTufte[row][col] = 1; //så sett patternet til true, startposision 00.
+                        boardTufte[row][col++] = 1; //så sett patternet til true, startposision 00.
                     } else if (patternMatch.group(2).matches("[$]")) {
                         row++;
                         col = 0;
                         continue;
                     }
-                    col++;
-                } else {
-                    number = Integer.parseInt(patternMatch.group(1));
-                    while(number > 0) {
-                        if (patternMatch.group(2).matches("o")) { //hvis pattern match er levende (0(
-                            boardTufte[row][col] = 1; //så sett patternet til true, startposision 00.
+                    //col++;
+                } else {*/
+                    number = 1;
+                    if(patternMatch.group(1).matches("\\d+")){
+                        number = Integer.parseInt(patternMatch.group(1));
+                    }
+
+                    System.out.println(number);
+                    while(number-- > 0) {
+                        if (patternMatch.group(2).matches("[oObB]")) { //hvis pattern match er levende (0(
+                            boardTufte[row][col++] = patternMatch.group(2).matches("o") ? (byte)1 : 0; //så sett patternet til true, startposision 00.
                         } else if (patternMatch.group(2).matches("[$]")) {
                             row++;
                             col = 0;
-                            number--; //Manglet tidligere. Førte til evig loop da den looper på 'number'. Uren reduksjon av number har du evig loop på programmet.
+                            //number--; //Manglet tidligere. Førte til evig loop da den looper på 'number'. Uren reduksjon av number har du evig loop på programmet.
                             continue;
-                        }
-                        col++;
-                        number--;
+                       // }
+                       // col++;
+                       // number--;
                     }
                 }
-                continue;
+                //continue;
 
             }
         }

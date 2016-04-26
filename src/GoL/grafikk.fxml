@@ -90,7 +90,7 @@
                   </MenuButton>
                </children>
             </VBox>
-            <Button mnemonicParsing="false" prefHeight="81.0" prefWidth="120.0" text="Last URL" textAlignment="CENTER" textFill="#862323" textOverrun="CLIP" />
+            <Button fx:id="loadURL" mnemonicParsing="false" prefHeight="81.0" prefWidth="120.0" text="Last URL" textAlignment="CENTER" textFill="#862323" textOverrun="CLIP" />
          </children>
       </HBox>
    </bottom>
