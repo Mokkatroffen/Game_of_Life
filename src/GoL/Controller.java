@@ -26,10 +26,8 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-
 //test|
 public class Controller implements Initializable {
-    String url1 = "www.hioagaming.no/rats.rle";
     @FXML
     Canvas canvas;
     @FXML
@@ -38,8 +36,6 @@ public class Controller implements Initializable {
     Slider slider;
     @FXML
     Label speedometer;
-    @FXML
-    Button loadURL;
     private GraphicsContext graphicsContext;
     private GameBoard gb = new GameBoard(11, 12);
     private Timeline timeline;
@@ -57,10 +53,9 @@ public class Controller implements Initializable {
         updateSpeed(5);
         addSliderListner();
         startButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
-           // loadURL.setOnAction(event -> readGameBoardFromURL());
 
 
-        }
+    }
 
     private void canvasResizer(){
         StackPane stackPane = (StackPane) canvas.getParent();
@@ -134,10 +129,6 @@ public class Controller implements Initializable {
         gb.nextGen();
         draw();
     }
-    @FXML
-    void loadURL(ActionEvent event) throws IOException {
-        readGameBoardFromURL(url1);
-    }
 
     @FXML
     private void fileOpener() {
@@ -169,6 +160,7 @@ public class Controller implements Initializable {
         draw();
 
     }
+
     public void readGameBoardFromURL(String url) throws IOException{
         UrlHandler u = new UrlHandler();
         u.readGameBoardFromURL(url);
