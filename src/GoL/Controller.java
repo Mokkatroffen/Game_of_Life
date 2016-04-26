@@ -39,9 +39,12 @@ public class Controller implements Initializable {
     private GraphicsContext graphicsContext;
     private GameBoard gb = new GameBoard(11, 12);
     private Timeline timeline;
+    public Controller() throws IOException {
+        gb = new GameBoard(11, 12);
+    }
 
 
-    @Override
+        @Override
     public void initialize(URL location, ResourceBundle resources) {
         graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.setFill(Color.HOTPINK);
