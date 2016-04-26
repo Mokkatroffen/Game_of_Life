@@ -36,26 +36,24 @@ public class UrlHandler {
         /*String tekst = dialog.getContentText();
         System.out.println(tekst);*/
         Optional<String> result = dialog.showAndWait();
-
-// The Java 8 way to get the response value (with lambda expression).
-        result.ifPresent(link -> System.out.println(link));
-
-        /*try {
-            URL urlString = new URL(url); //Importer java.netf
-            URLConnection connect = urlString.openConnection();*/
-           try /*(BufferedReader bfr = new BufferedReader(new InputStreamReader(connect.getInputStream())))*/ {
+       // System.out.println(result);
+        String test = result.get();
+        System.out.println(test);
 
 
-               URL rlesite = new URL("http://hioagaming.no/deepcell.rle");
-               ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
-               FileOutputStream fos = new FileOutputStream("src/GoL/information.rle");
-               fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+        //String url1 = result.toString();
+        //System.out.println(url1 + "rawr");
+        //result.ifPresent(link -> System.out.println(link));
 
-
-            } catch (IOException ioefeil) {
+        try {
+            URL rlesite = new URL(test);
+            ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
+            FileOutputStream fos = new FileOutputStream("src/GoL/information.rle");
+            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+        } catch (IOException ioefeil) {
                 System.out.println("Feilmelding for IOE-Feil");
-            }
-       /* } catch (MalformedURLException urlFeil) {
+        }/*
+         catch (MalformedURLException urlFeil) {
             System.out.println("Typisk URL feil");
         } catch (IOException IOEFeil) {
             System.out.println("Typ 404 feil");
