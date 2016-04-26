@@ -29,10 +29,10 @@ public class UrlHandler {
      * @version 0.2 - April 18, 2016.
      */
     public void readGameBoardFromURL(String url) throws IOException {
-        TextInputDialog dialog = new TextInputDialog("walter");
-        dialog.setTitle("Text Input Dialog");
-        dialog.setHeaderText("Look, a Text Input Dialog");
-        dialog.setContentText("Please enter your name:");
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("URL");
+        dialog.setHeaderText("This program only handles java valid URLs, remember http://.");
+        dialog.setContentText("Please enter the URL:");
 
 // Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
