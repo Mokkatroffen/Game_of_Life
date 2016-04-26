@@ -1,12 +1,9 @@
 package GoL;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,21 +27,6 @@ public class rleParser {
     public byte[][] getBoard() {
         return boardTufte;
     }
-
-    //setter størrelsen fra boardTufte, siden den er public kan vi kalle den ifra GameBoard
-    /*public void setBoard(boolean[][] getBrett) {
-
-        this.boardTufte = getBrett;
-    }*/
-   /* private String[] boardAlive;
-
-    public String getAlive() {
-        return setAlive();
-    }
-    public void isAlive(Sting getLife){r
-        this.boardAlive = getLife;
-    }
-*/
 
     /**
      * readGameBoard gathers files and draws the actual grid.

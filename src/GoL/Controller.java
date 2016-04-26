@@ -4,17 +4,14 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -33,7 +30,7 @@ public class Controller implements Initializable {
     @FXML
     Button startButton;
     @FXML
-    Button  nextGenButton;
+    Button nextGenButton;
     @FXML
     Slider slider;
     @FXML
@@ -47,23 +44,43 @@ public class Controller implements Initializable {
     }
 
 
-        @Override
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.setFill(Color.HOTPINK);
-        draw();
         updateSpeed(5);
         addSliderListner();
-        nextGenButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
+        //nextGenButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
+        //canvasResizer();
 
 
+        //lasete inn default
+        File selectedFile = new File("src/GoL/rats.rle");
+        if (selectedFile != null) {
+            System.out.println("Controller.fileOpener:" + selectedFile);
+
+            rleParser parser = new rleParser();
+            try {
+                parser.readGameBoardFromDisk(selectedFile);
+                gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på drawCellGrid i rle fil, fungerer ikke før du trykker start
+            } catch (IOException e) { //spytter ut eventuelle feilmedling
+                System.out.println(e.getMessage());
+            }
+        }
+        draw();
     }
 
-    private void canvasResizer(){
-        StackPane stackPane = (StackPane) canvas.getParent();
-        canvas.setWidth(stackPane.getWidth());
-        canvas.setHeight(stackPane.getHeight());
+    private void canvasResizer() {
+        AnchorPane anchorPane = (AnchorPane) canvas.getParent();
+        canvas.setWidth(anchorPane.getWidth());
+        canvas.setHeight(anchorPane.getHeight());
         draw();
+        anchorPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+            canvas.setWidth(newValue.doubleValue());
+            System.out.println(newValue);
+            //canvas.setHeight(anchorPane.getHeight());
+        });
+
     }
 
     private void updateSpeed(int frames) {
@@ -122,11 +139,6 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    void startGrid(ActionEvent event) {
-        grid();
-    }
-
-    @FXML
     void NextGen(ActionEvent event) {
         gb.nextGen();
         draw();
@@ -152,7 +164,7 @@ public class Controller implements Initializable {
             rleParser parser = new rleParser();
             try {
                 parser.readGameBoardFromDisk(selectedFile);
-                gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på grid i rle fil, fungerer ikke før du trykker start
+                gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på drawCellGrid i rle fil, fungerer ikke før du trykker start
             } catch (IOException e) { //spytter ut eventuelle feilmedling
                 System.out.println(e.getMessage());
             }
@@ -170,27 +182,19 @@ public class Controller implements Initializable {
         UrlHandler u = new UrlHandler();
         u.readGameBoardFromURL(url1);
     }
-    /*public void readGameBoardFromURL(String url) throws IOException{
 
-    }*/
-    private void draw(/*innparameter-med-eget-predefinert-board-*/) {
+
+    //hack fixer
+    private void draw() {
+        draw(40);
+    }
+
+    private void draw(double cellSize) {
 
         byte[][] board = gb.getBoard();
 
         double xPos = 0;
         double yPos = 0;
-
-        double cellSize;
-
-        //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
-        double cellwidth = canvas.getWidth() / board[0].length;
-        double cellheight = canvas.getHeight() / board.length;
-        if (cellwidth > cellheight) {
-            cellSize = cellheight;
-        } else {
-            cellSize = cellwidth;
-        }
-
 
         graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (byte[] aBoard : board) {        //her settes den første linjnen / dimensjonen av rekken i griddet
@@ -203,31 +207,22 @@ public class Controller implements Initializable {
             xPos = 0;
             yPos += cellSize;
         }
-        grid();
+
+        drawCellGrid(cellSize);
     }
     //  boardTufte = new boolean[rows][colms]; test
 
 
-    private void grid() {
+    private void drawCellGrid(double cellSize) {
         final byte[][] board = gb.getBoard();
-        double cellSize;
 
-        //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
-        double cellwidth = canvas.getWidth() / board[0].length;
-        double cellheight = canvas.getHeight() / board.length;
-
-        if (cellwidth > cellheight) {
-            cellSize = cellheight;
-        } else {
-            cellSize = cellwidth;
-        }
         double boardWidth = cellSize * board[0].length;
         double boardHeight = cellSize * board.length;
         graphicsContext.setLineWidth(0.25);
 
         //GRID LINES
 
-        /*for (int i = 0; i <= board.length; i++) {
+        for (int i = 0; i <= board.length; i++) {
             double horizontal = i * cellSize;
             graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
         }
@@ -235,7 +230,7 @@ public class Controller implements Initializable {
         for (int i = 0; i <= board[0].length; i++) {
             double vertical = i * cellSize;
             graphicsContext.strokeLine(vertical, 0, vertical, boardHeight);
-        }*/
+        }
 
         /*
         graphicsContext.setLineWidth(0.25);
