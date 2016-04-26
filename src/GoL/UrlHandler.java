@@ -28,11 +28,11 @@ public class UrlHandler {
     public void readGameBoardFromURL(String url) throws IOException {
 
 
-
         /*try {
             URL urlString = new URL(url); //Importer java.netf
             URLConnection connect = urlString.openConnection();*/
            try /*(BufferedReader bfr = new BufferedReader(new InputStreamReader(connect.getInputStream())))*/ {
+
 
                URL rlesite = new URL("http://hioagaming.no/deepcell.rle");
                ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());

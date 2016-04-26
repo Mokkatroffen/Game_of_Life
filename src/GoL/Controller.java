@@ -54,7 +54,7 @@ public class Controller implements Initializable {
         draw();
         updateSpeed(5);
         addSliderListner();
-        nextGenButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
+ //       nextGenButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
 
 
     }
