@@ -108,7 +108,7 @@
             </VBox>
             <VBox prefHeight="83.0" prefWidth="160.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#readGameBoardFromURL" prefHeight="82.0" prefWidth="188.0" text="Load URL">
+                  <Button fx:id="readURL" mnemonicParsing="false" onAction="#readGameBoardFromURL" prefHeight="82.0" prefWidth="188.0" text="Load URL">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>

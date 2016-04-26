@@ -1,16 +1,21 @@
 package GoL;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.net.*;
 
 /**
  * Created by andreas on 21.04.16.
  */
 public class UrlHandler {
+
 
     /**
      * readGameBoardFromUrl reads .rle file from an URL an implements it into the board.
@@ -22,20 +27,27 @@ public class UrlHandler {
      */
     public void readGameBoardFromURL(String url) throws IOException {
 
-        try {
-            rleParser pars = new rleParser();
+
+
+        /*try {
             URL urlString = new URL(url); //Importer java.net
-            URLConnection connect = urlString.openConnection();
-            try (BufferedReader bfr = new BufferedReader(new InputStreamReader(connect.getInputStream()))) {
-                pars.readGameBoard(bfr);
+            URLConnection connect = urlString.openConnection();*/
+           try /*(BufferedReader bfr = new BufferedReader(new InputStreamReader(connect.getInputStream())))*/ {
+
+               URL rlesite = new URL("http://hioagaming.no/deepcell.rle");
+               ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
+               FileOutputStream fos = new FileOutputStream("src/GoL/information.rle");
+               fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+
+
             } catch (IOException ioefeil) {
                 System.out.println("Feilmelding for IOE-Feil");
             }
-        } catch (MalformedURLException urlFeil) {
+       /* } catch (MalformedURLException urlFeil) {
             System.out.println("Typisk URL feil");
         } catch (IOException IOEFeil) {
             System.out.println("Typ 404 feil");
-        }
+        }*/
 
     }
 

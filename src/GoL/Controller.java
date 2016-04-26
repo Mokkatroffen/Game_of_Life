@@ -164,7 +164,7 @@ public class Controller implements Initializable {
 
     @FXML
     void readGameBoardFromURL(ActionEvent event) throws IOException {
-        String url1 = "http://www.hioagaming.no/rats.rle";
+        String url1 = "http://hioagaming.no/rats.rle";
         UrlHandler u = new UrlHandler();
         u.readGameBoardFromURL(url1);
     }
