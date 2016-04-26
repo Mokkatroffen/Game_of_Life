@@ -161,10 +161,16 @@ public class Controller implements Initializable {
 
     }
 
-    public void readGameBoardFromURL(String url) throws IOException{
+
+    @FXML
+    void readGameBoardFromURL(ActionEvent event) throws IOException {
+        String url1 = "http://www.hioagaming.no/rats.rle";
         UrlHandler u = new UrlHandler();
-        u.readGameBoardFromURL(url);
+        u.readGameBoardFromURL(url1);
     }
+    /*public void readGameBoardFromURL(String url) throws IOException{
+
+    }*/
     private void draw(/*innparameter-med-eget-predefinert-board-*/) {
 
         byte[][] board = gb.getBoard();
