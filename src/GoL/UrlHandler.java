@@ -33,15 +33,12 @@ public class UrlHandler {
         dialog.setTitle("URL");
         dialog.setHeaderText("This program only handles java valid URLs, remember http://.");
         dialog.setContentText("Please enter the URL:");
-
-// Traditional way to get the response value.
+        /*String tekst = dialog.getContentText();
+        System.out.println(tekst);*/
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
-            System.out.println("Your name: " + result.get());
-        }
 
 // The Java 8 way to get the response value (with lambda expression).
-        result.ifPresent(name -> System.out.println("Your name: " + name));
+        result.ifPresent(link -> System.out.println(link));
 
         /*try {
             URL urlString = new URL(url); //Importer java.netf
