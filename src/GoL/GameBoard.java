@@ -7,20 +7,18 @@
 package GoL;
 
 
-import java.io.IOException;
-
-
 public class GameBoard {
+
+
+
     private byte [][] board;
-
-    // En default constructur, denne blir kalt dersom det ikke sendes med noen parametre. Det er viktig å ha med default konstruktør når man definerer andre konstruktører. Da default forsvinner når det opprettes en med parametre.
-    public GameBoard () {
-        board = new byte[100][100];
-
-
+    public void setBoard(byte [][]getBrett){
+        // boardTufte = getBrett;
+        this.board = getBrett;
     }
+
     /**
-     * GameBoard sets the values of the cells in the boards.
+     * GameBoard sets the values of the cells int the boards.
      *
      * static representation of an given value from boolean[][].
      * This is in other words a two dimentional array.
@@ -31,32 +29,31 @@ public class GameBoard {
      * @param row row holds the amount and thereby also the values of the booleans.
      * @param column column holds the amount of columns where the rows holds values.
      */
-    // Denne konstruktøren sendes dersom det sendes med paramatre.
-    public GameBoard (int row, int column ) throws IOException {
+    public GameBoard (int row, int column ){
 
         board = new byte[row][column];
 
-        /* GLIDER FOR TESTING
+        //board  = new byte[100][100];
+
+        //GLIDER FOR TESTING
         board  = new byte[][] {
                 {0,1,0,0,0,0,0},
                 {0,0,1,0,0,0,0},
                 {1,1,1,0,0,0,0},
                 {0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,1},
-                {0,0,0,0,0,1,1}
+                {0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0}
         };
 
-        //git funk
 
-        */
+        /**/
+
+
     }
 
-
-    public void setBoard(byte [][] board){
-        this.board = board;
+    public GameBoard (){
     }
-
     public byte[][] getBoard() {
         return board;
     }
@@ -98,6 +95,10 @@ public class GameBoard {
             if(board[row][column+1] == 1) neighbors++;
         }
 
+
+
+
+
         if(row < board.length-1){
             if(board[row+1][column] == 1){ neighbors++;}
 
@@ -107,7 +108,7 @@ public class GameBoard {
             }
 
             if (column < board[0].length-1){
-                    if(board[row+1][column+1] == 1) neighbors++;
+                if(board[row+1][column+1] == 1) neighbors++;
             }
         }
 
@@ -124,29 +125,30 @@ public class GameBoard {
      * @version 0.2 - April 18, 2016.
      */
     public void nextGen(){
-    //    System.out.println(board.length + " collength " + board[0].length);
+        //System.out.println(board.length + " collength " + board[0].length);
         byte[][] nextGenBoard  = new byte[board.length][board[0].length];
         //byte[][] nextGenBoard = board;
 
         for(int row = 0; row < board.length; row++){
             for(int column = 0; column < board[0].length; column++){
 
+                System.out.print(checkNeighbors(row,column)+ " ");
 
-                    if(checkNeighbors(row,column) == 3){
-                        nextGenBoard[row][column] = 1;
-                    }
-                    else if(board[row][column] == 1 && checkNeighbors(row,column) ==2){
-                        nextGenBoard[row][column] = 1;
-                    }
-                    else if (checkNeighbors(row,column) > 3){
-                        nextGenBoard[row][column] = 0;
-                    }
-                    else if (checkNeighbors(row,column) < 2){
-                        nextGenBoard[row][column] = 0;
-                    }
+                if(checkNeighbors(row,column) == 3){
+                    nextGenBoard[row][column] = 1;
+                }
+                else if(board[row][column] == 1 && checkNeighbors(row,column) ==2){
+                    nextGenBoard[row][column] = 1;
+                }
+                else if (checkNeighbors(row,column) > 3){
+                    nextGenBoard[row][column] = 0;
+                }
+                else if (checkNeighbors(row,column) < 2){
+                    nextGenBoard[row][column] = 0;
+                }
             }
 
-           // System.out.println();
+            System.out.println();
 
         }
 
