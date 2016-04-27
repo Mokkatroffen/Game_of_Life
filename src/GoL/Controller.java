@@ -55,8 +55,6 @@ public class Controller implements Initializable {
         updateSpeed(5);
         addSliderListner();
         nextGenButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
-
-
     }
 
     private void canvasResizer(){
@@ -235,18 +233,6 @@ public class Controller implements Initializable {
         for (int i = 0; i <= board[0].length; i++) {
             double vertical = i * cellSize;
             graphicsContext.strokeLine(vertical, 0, vertical, boardHeight);
-        }*/
-
-        /*
-        graphicsContext.setLineWidth(0.25);
-        for (int i=0; i<= gb.getBoard().length; i++){
-            double horizontal = i*(gb.getBoard().length*canvas.getHeight() / gb.getBoard().length)/gb.getBoard().length;
-            graphicsContext.strokeLine(0,horizontal,canvas.getWidth(),horizontal);
-        }
-
-        for (int i=0; i<= gb.getBoard().length; i++){
-            double vertical = i*(gb.getBoard().length*canvas.getWidth() / gb.getBoard().length)/gb.getBoard().length;
-            graphicsContext.strokeLine(vertical,0,vertical,canvas.getHeight());
         }*/
     }
 }

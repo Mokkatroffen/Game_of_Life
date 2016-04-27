@@ -13,14 +13,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller">
+<BorderPane prefHeight="900.0" prefWidth="907.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller">
    <center>
       <StackPane BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <children>
-            <Canvas fx:id="canvas" height="500.0" width="500.0" />
+            <Canvas fx:id="canvas" height="700.0" width="700.0" />
          </children>
       </StackPane>
    </center>

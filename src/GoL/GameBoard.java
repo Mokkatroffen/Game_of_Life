@@ -132,7 +132,7 @@ public class GameBoard {
         for(int row = 0; row < board.length; row++){
             for(int column = 0; column < board[0].length; column++){
 
-                System.out.print(checkNeighbors(row,column)+ " ");
+                //System.out.print(checkNeighbors(row,column)+ " ");
 
                 if(checkNeighbors(row,column) == 3){
                     nextGenBoard[row][column] = 1;
@@ -148,7 +148,7 @@ public class GameBoard {
                 }
             }
 
-            System.out.println();
+            //System.out.println();
 
         }
 
