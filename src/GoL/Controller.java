@@ -50,7 +50,7 @@ public class Controller implements Initializable {
         @Override
     public void initialize(URL location, ResourceBundle resources) {
         graphicsContext = canvas.getGraphicsContext2D();
-        graphicsContext.setFill(Color.HOTPINK);
+        graphicsContext.setFill(Color.BLACK);
         draw();
         updateSpeed(5);
         addSliderListner();
@@ -221,7 +221,7 @@ public class Controller implements Initializable {
         }
         double boardWidth = cellSize * board[0].length;
         double boardHeight = cellSize * board.length;
-        graphicsContext.setLineWidth(0.25);
+        graphicsContext.setLineWidth(0.20);
 
         //GRID LINES
 
