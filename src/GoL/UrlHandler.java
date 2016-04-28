@@ -20,7 +20,7 @@ import java.util.Optional;
 public class UrlHandler {
 
 
-    /**
+    /**1
      * readGameBoardFromUrl reads .rle file from an URL an implements it into the board.
      *
      * @param url url is the parameter which you gather the file from.

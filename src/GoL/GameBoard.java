@@ -1,4 +1,4 @@
-/**
+/**1
  * GameBoard.java  contains the creation and paramters, values and limits of the board which the interaction is preformed.
  * @author Andreas Jacobsen, Boris Illievski & Kristian Munter Simonsen
  * @version 1.0 - April 18, 2016
@@ -33,7 +33,7 @@ public class GameBoard {
 
         board = new byte[row][column];
 
-        board  = new byte[100][100];
+        board  = new byte[10][10];
 
         //GLIDER FOR TESTING
         /*

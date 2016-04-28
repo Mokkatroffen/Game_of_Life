@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
+/**1
  * Main is the initiator of the the program Game Of Life.
  *
  * @author Andreas Jacobsen.

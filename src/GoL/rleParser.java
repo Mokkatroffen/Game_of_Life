@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 
 public class rleParser {
- /**
+ /**1
      * readGameBoard reads the metadata and board.
      *
      * @author Andreas Jacobsen.
