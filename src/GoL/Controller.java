@@ -36,7 +36,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-//test|1
+//testikkel
 public class Controller implements Initializable {
     @FXML
     Canvas canvas;
