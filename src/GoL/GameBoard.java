@@ -11,7 +11,7 @@ public class GameBoard {
 
 
 
-    private byte [][] board;
+    private byte[][] board;
     public void setBoard(byte [][]getBrett){
         // boardTufte = getBrett;
         this.board = getBrett;
@@ -33,9 +33,10 @@ public class GameBoard {
 
         board = new byte[row][column];
 
-        //board  = new byte[100][100];
+        board  = new byte[100][100];
 
         //GLIDER FOR TESTING
+        /*
         board  = new byte[][] {
                 {0,1,0,0,0,0,0},
                 {0,0,1,0,0,0,0},
@@ -45,6 +46,7 @@ public class GameBoard {
                 {0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0}
         };
+        */
 
 
         /**/

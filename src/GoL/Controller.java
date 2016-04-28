@@ -1,5 +1,15 @@
 package GoL;
-
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -41,13 +51,14 @@ public class Controller implements Initializable {
     private GraphicsContext graphicsContext;
     private GameBoard gb = new GameBoard(11, 12);
     private Timeline timeline;
+    double cellSize;
 
     public Controller() throws IOException {
         gb = new GameBoard(11, 12);
     }
 
 
-        @Override
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.setFill(Color.BLACK);
@@ -55,6 +66,38 @@ public class Controller implements Initializable {
         updateSpeed(5);
         addSliderListner();
         nextGenButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
+    }
+
+    @FXML
+    public void scrollHandler(ScrollEvent event){
+        double zoomFactor = 1.5;
+
+        if (event.getDeltaY() <= 0) {
+            // zoom out
+            zoomFactor = 1 / zoomFactor;
+        }
+        zoom(zoomFactor, event.getSceneX(), event.getSceneY());
+    }
+
+    public void zoom( double factor, double x, double y) {
+        // determine scale
+        double oldScale = canvas.getScaleX();
+        double scale = oldScale * factor;
+        if(scale<6 && scale>0.4){
+
+
+            double f = (scale / oldScale) - 1;
+
+            // determine offset that we will have to move the canvas
+            Bounds bounds = canvas.localToScene(canvas.getBoundsInLocal());
+            double dx = (x - (bounds.getWidth() / 2 + bounds.getMinX()));
+            double dy = (y - (bounds.getHeight() / 2 + bounds.getMinY()));
+
+            canvas.setTranslateX(canvas.getTranslateX()-f*dx);
+            canvas.setTranslateY(canvas.getTranslateY()-f*dy);
+            canvas.setScaleX(scale);
+            canvas.setScaleY(scale);
+        }
     }
 
     private void canvasResizer(){
@@ -130,6 +173,7 @@ public class Controller implements Initializable {
         draw();
     }
 
+
     @FXML
     private void fileOpener() {
 
@@ -161,6 +205,41 @@ public class Controller implements Initializable {
 
     }
 
+    @FXML
+    public void drawCell(MouseEvent event){
+
+        int xCord =(int)( Math.floor(event.getX()/cellSize));
+        int yCord =(int)( Math.floor(event.getY()/cellSize));
+
+        //System.out.println(xCord +", "+yCord);
+
+        if(gb.getBoard()[yCord][xCord] == 1) {
+            gb.getBoard()[yCord][xCord] = 0;
+            graphicsContext.clearRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+
+        }
+        else if (gb.getBoard()[yCord][xCord] == 0){
+            gb.getBoard()[yCord][xCord] = 1;
+            graphicsContext.fillRect(xCord*cellSize, yCord*cellSize, cellSize, cellSize);
+        }
+    }
+
+    @FXML
+    public void dragCell(MouseEvent event){
+
+        int xCord =(int)( Math.floor(event.getX()/cellSize));
+        int yCord =(int)( Math.floor(event.getY()/cellSize));
+
+        //System.out.println(xCord +", "+yCord);
+        if((xCord*cellSize) < canvas.getHeight() && (yCord*cellSize)< canvas.getWidth() && xCord>=0 && yCord>=0) {
+
+
+            gb.getBoard()[yCord][xCord] = 1;
+            graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+
+        }
+    }
+
 
     @FXML
     void readGameBoardFromURL(ActionEvent event) throws IOException {
@@ -178,7 +257,7 @@ public class Controller implements Initializable {
         double xPos = 0;
         double yPos = 0;
 
-        double cellSize;
+
 
         //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
         double cellwidth = canvas.getWidth() / board[0].length;
@@ -188,7 +267,6 @@ public class Controller implements Initializable {
         } else {
             cellSize = cellwidth;
         }
-
 
         graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (byte[] aBoard : board) {        //her settes den første linjnen / dimensjonen av rekken i griddet
@@ -225,7 +303,7 @@ public class Controller implements Initializable {
 
         //GRID LINES
 
-        /*for (int i = 0; i <= board.length; i++) {
+        for (int i = 0; i <= board.length; i++) {
             double horizontal = i * cellSize;
             graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
         }
@@ -233,6 +311,6 @@ public class Controller implements Initializable {
         for (int i = 0; i <= board[0].length; i++) {
             double vertical = i * cellSize;
             graphicsContext.strokeLine(vertical, 0, vertical, boardHeight);
-        }*/
+        }
     }
 }

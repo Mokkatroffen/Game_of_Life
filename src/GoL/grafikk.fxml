@@ -13,14 +13,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="900.0" prefWidth="907.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller">
+<BorderPane prefHeight="900.0" prefWidth="907.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller" >
    <center>
       <StackPane BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <children>
-            <Canvas fx:id="canvas" height="700.0" width="700.0" />
+            <Canvas fx:id="canvas" height="700.0" width="700.0" onMousePressed ="#drawCell"  onMouseDragged="#dragCell" onScroll="#scrollHandler"/>
          </children>
       </StackPane>
    </center>
@@ -96,10 +96,10 @@
                      </font>
                   </Label>
                   <MenuButton mnemonicParsing="false" prefHeight="0.0" prefWidth="99.0" text="Small">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Medium" />
-                      <MenuItem mnemonicParsing="false" text="Large" />
-                    </items>
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Medium" />
+                        <MenuItem mnemonicParsing="false" text="Large" />
+                     </items>
                      <VBox.margin>
                         <Insets bottom="20.0" left="20.0" />
                      </VBox.margin>
