@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 
 public class rleParser {
- /**
+ /**1
      * readGameBoard reads the metadata and board.
      *
      * @author Andreas Jacobsen.
@@ -45,7 +45,7 @@ public class rleParser {
         int colms;
         int rows;
         int number;
-
+//push
 
         StringBuilder melding = new StringBuilder();  //"Kommentar: " + comment + "\n Navn" + name + "Forfatter: " + author + "Kommentar: " + comment;
 

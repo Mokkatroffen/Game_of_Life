@@ -1,0 +1,11 @@
+#pane{
+    -fx-background-image: url("http://www.mayoclinic.org/~/media/kcms/gbs/patient%20consumer/images/2013/08/26/10/46/my01023_im02647_pr7_circumcisionthu_jpg.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 900 506;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+<!---->
+}
+#BorderPane{
+    -fx-background-color: red;
+}

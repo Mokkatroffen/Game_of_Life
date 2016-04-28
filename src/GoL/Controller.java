@@ -1,17 +1,30 @@
 package GoL;
-
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -23,21 +36,22 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-//test|
+//testikkel
 public class Controller implements Initializable {
     @FXML
     Canvas canvas;
     @FXML
     Button startButton;
     @FXML
-    Button nextGenButton;
+    Button  nextGenButton;
     @FXML
     Slider slider;
     @FXML
     Label speedometer;
     private GraphicsContext graphicsContext;
-    public GameBoard gb = new GameBoard(11, 12); //sett tilbake til private
+    private GameBoard gb = new GameBoard(11, 12);
     private Timeline timeline;
+    double cellSize;
 
     public Controller() throws IOException {
         gb = new GameBoard(11, 12);
@@ -47,26 +61,50 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         graphicsContext = canvas.getGraphicsContext2D();
-        graphicsContext.setFill(Color.HOTPINK);
+        graphicsContext.setFill(Color.BLACK);
+        draw();
         updateSpeed(5);
         addSliderListner();
         //nextGenButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
-        //canvasResizer();
-        draw();
-
     }
 
-    private void canvasResizer() {
-        AnchorPane anchorPane = (AnchorPane) canvas.getParent();
-        canvas.setWidth(anchorPane.getWidth());
-        canvas.setHeight(anchorPane.getHeight());
-        draw();
-        anchorPane.widthProperty().addListener((observable, oldValue, newValue) -> {
-            canvas.setWidth(newValue.doubleValue());
-            System.out.println(newValue);
-            //canvas.setHeight(anchorPane.getHeight());
-        });
+    @FXML
+    public void scrollHandler(ScrollEvent event){
+        double zoomFactor = 1.5;
 
+        if (event.getDeltaY() <= 0) {
+            // zoom out
+            zoomFactor = 1 / zoomFactor;
+        }
+        zoom(zoomFactor, event.getSceneX(), event.getSceneY());
+    }
+
+    public void zoom( double factor, double x, double y) {
+        // determine scale
+        double oldScale = canvas.getScaleX();
+        double scale = oldScale * factor;
+        if(scale<6 && scale>0.4){
+
+
+            double f = (scale / oldScale) - 1;
+
+            // determine offset that we will have to move the canvas
+            Bounds bounds = canvas.localToScene(canvas.getBoundsInLocal());
+            double dx = (x - (bounds.getWidth() / 2 + bounds.getMinX()));
+            double dy = (y - (bounds.getHeight() / 2 + bounds.getMinY()));
+
+            canvas.setTranslateX(canvas.getTranslateX()-f*dx);
+            canvas.setTranslateY(canvas.getTranslateY()-f*dy);
+            canvas.setScaleX(scale);
+            canvas.setScaleY(scale);
+        }
+    }
+
+    private void canvasResizer(){
+        StackPane stackPane = (StackPane) canvas.getParent();
+        canvas.setWidth(stackPane.getWidth());
+        canvas.setHeight(stackPane.getHeight());
+        draw();
     }
 
     private void updateSpeed(int frames) {
@@ -125,10 +163,16 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    void startGrid(ActionEvent event) {
+        grid();
+    }
+
+    @FXML
     void NextGen(ActionEvent event) {
         gb.nextGen();
         draw();
     }
+
 
     @FXML
     private void fileOpener() {
@@ -150,7 +194,7 @@ public class Controller implements Initializable {
             rleParser parser = new rleParser();
             try {
                 parser.readGameBoardFromDisk(selectedFile);
-                gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på drawCellGrid i rle fil, fungerer ikke før du trykker start
+                gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på grid i rle fil, fungerer ikke før du trykker start
             } catch (IOException e) { //spytter ut eventuelle feilmedling
                 System.out.println(e.getMessage());
             }
@@ -161,26 +205,65 @@ public class Controller implements Initializable {
 
     }
 
+    @FXML
+    public void drawCell(MouseEvent event){
 
-   @FXML
+        int xCord =(int)( Math.floor(event.getX()/cellSize));
+        int yCord =(int)( Math.floor(event.getY()/cellSize));
+
+        //System.out.println(xCord +", "+yCord);
+
+        if(gb.getBoard()[yCord][xCord] == 1) {
+            gb.getBoard()[yCord][xCord] = 0;
+            graphicsContext.clearRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+
+        }
+        else if (gb.getBoard()[yCord][xCord] == 0){
+            gb.getBoard()[yCord][xCord] = 1;
+            graphicsContext.fillRect(xCord*cellSize, yCord*cellSize, cellSize, cellSize);
+        }
+    }
+
+    @FXML
+    public void dragCell(MouseEvent event){
+
+        int xCord =(int)( Math.floor(event.getX()/cellSize));
+        int yCord =(int)( Math.floor(event.getY()/cellSize));
+
+        //System.out.println(xCord +", "+yCord);
+        if((xCord*cellSize) < canvas.getHeight() && (yCord*cellSize)< canvas.getWidth() && xCord>=0 && yCord>=0) {
+            gb.getBoard()[yCord][xCord] = 1;
+            graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+        }
+    }
+
+
+    @FXML
     void readGameBoardFromURL(ActionEvent event) throws IOException {
         String url1 = "http://www.hioagaming.no/rats.rle";
         UrlHandler u = new UrlHandler();
-        gb = u.readGameBoardFromURL(gb);
+        u.readGameBoardFromURL(url1);
     }
+    /*public void readGameBoardFromURL(String url) throws IOException{
 
-
-    //hack fixer
-    public void draw() {
-        draw(40);
-    }
-
-    public void draw(double cellSize) {
+    }*/
+    private void draw(/*innparameter-med-eget-predefinert-board-*/) {
 
         byte[][] board = gb.getBoard();
 
         double xPos = 0;
         double yPos = 0;
+
+
+
+        //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
+        double cellwidth = canvas.getWidth() / board[0].length;
+        double cellheight = canvas.getHeight() / board.length;
+        if (cellwidth > cellheight) {
+            cellSize = cellheight;
+        } else {
+            cellSize = cellwidth;
+        }
 
         graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (byte[] aBoard : board) {        //her settes den første linjnen / dimensjonen av rekken i griddet
@@ -193,18 +276,27 @@ public class Controller implements Initializable {
             xPos = 0;
             yPos += cellSize;
         }
-
-        drawCellGrid(cellSize);
+        grid();
     }
     //  boardTufte = new boolean[rows][colms]; test
 
 
-    private void drawCellGrid(double cellSize) {
+    private void grid() {
         final byte[][] board = gb.getBoard();
+        double cellSize;
 
+        //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
+        double cellwidth = canvas.getWidth() / board[0].length;
+        double cellheight = canvas.getHeight() / board.length;
+
+        if (cellwidth > cellheight) {
+            cellSize = cellheight;
+        } else {
+            cellSize = cellwidth;
+        }
         double boardWidth = cellSize * board[0].length;
         double boardHeight = cellSize * board.length;
-        graphicsContext.setLineWidth(0.25);
+        graphicsContext.setLineWidth(0.20);
 
         //GRID LINES
 
@@ -217,20 +309,5 @@ public class Controller implements Initializable {
             double vertical = i * cellSize;
             graphicsContext.strokeLine(vertical, 0, vertical, boardHeight);
         }
-
-        /*
-        graphicsContext.setLineWidth(0.25);
-        for (int i=0; i<= gb.getBoard().length; i++){
-            double horizontal = i*(gb.getBoard().length*canvas.getHeight() / gb.getBoard().length)/gb.getBoard().length;
-            graphicsContext.strokeLine(0,horizontal,canvas.getWidth(),horizontal);
-        }
-
-        for (int i=0; i<= gb.getBoard().length; i++){
-            double vertical = i*(gb.getBoard().length*canvas.getWidth() / gb.getBoard().length)/gb.getBoard().length;
-            graphicsContext.strokeLine(vertical,0,vertical,canvas.getHeight());
-        }*/
     }
-
-
-
 }
