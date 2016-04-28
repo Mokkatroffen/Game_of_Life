@@ -36,7 +36,7 @@ public class Controller implements Initializable {
     @FXML
     Label speedometer;
     private GraphicsContext graphicsContext;
-    private GameBoard gb = new GameBoard(11, 12);
+    public GameBoard gb = new GameBoard(11, 12); //sett tilbake til private
     private Timeline timeline;
 
     public Controller() throws IOException {
@@ -52,22 +52,8 @@ public class Controller implements Initializable {
         addSliderListner();
         //nextGenButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
         //canvasResizer();
-
-
-        //lasete inn default
-        File selectedFile = new File("src/GoL/rats.rle");
-        if (selectedFile != null) {
-            System.out.println("Controller.fileOpener:" + selectedFile);
-
-            rleParser parser = new rleParser();
-            try {
-                parser.readGameBoardFromDisk(selectedFile);
-                gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på drawCellGrid i rle fil, fungerer ikke før du trykker start
-            } catch (IOException e) { //spytter ut eventuelle feilmedling
-                System.out.println(e.getMessage());
-            }
-        }
         draw();
+
     }
 
     private void canvasResizer() {
@@ -176,20 +162,20 @@ public class Controller implements Initializable {
     }
 
 
-    @FXML
+   @FXML
     void readGameBoardFromURL(ActionEvent event) throws IOException {
         String url1 = "http://www.hioagaming.no/rats.rle";
         UrlHandler u = new UrlHandler();
-        u.readGameBoardFromURL(url1);
+        gb = u.readGameBoardFromURL(gb);
     }
 
 
     //hack fixer
-    private void draw() {
+    public void draw() {
         draw(40);
     }
 
-    private void draw(double cellSize) {
+    public void draw(double cellSize) {
 
         byte[][] board = gb.getBoard();
 
@@ -244,4 +230,7 @@ public class Controller implements Initializable {
             graphicsContext.strokeLine(vertical,0,vertical,canvas.getHeight());
         }*/
     }
+
+
+
 }

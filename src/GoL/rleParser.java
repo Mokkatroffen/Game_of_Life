@@ -3,7 +3,6 @@ package GoL;
 import javafx.scene.control.Alert;
 
 import java.io.*;
-import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +19,7 @@ public class rleParser {
  am r r is an buffered reader.
      * @throws IOException IOException throws out an error message if needed.
      */
-    private URL destination;// blir satt av metode lenger ned.
+    //private URL destination;// blir satt av metode lenger ned.
     private byte[][] boardTufte; //Skal sendes til gameboard på slutten av metuden under. lar oss ha costum størrelse.
 
     //henter data fra boardTufte som henter størrelse om brettet
@@ -50,7 +49,7 @@ public class rleParser {
 
         StringBuilder melding = new StringBuilder();  //"Kommentar: " + comment + "\n Navn" + name + "Forfatter: " + author + "Kommentar: " + comment;
 
-        //WHILE LOOP FOR METADATA OG BRETTSTØRRELSE
+        //WHILE LOOP FOR METAtestDATA OG BRETTSTØRRELSE
         while ((line = r.readLine()) != null) { //r er en buffered reader, sjekker på om det eksistere noe i BufferedReaderen.
             if (line.charAt(0) == '#') { //leser etter metadata i kommentarer her, åpner det og lagrer dataen om feks forfatter.
                 if (line.charAt(1) == 'C') {
@@ -139,6 +138,20 @@ public class rleParser {
         } catch (IOException IOEFeil) {
             System.out.println("Feilmelding for IOE-Feil");
         }
+    }
+
+    public void readGameBoardFromURL(File file) throws IOException {
+        if (!file.canRead()) {
+            System.out.println("Kunne ikke lese fil.");
+        }
+        try (BufferedReader bfr = new BufferedReader(new FileReader(new File("src/GoL/web.rle")))) {
+            readGameBoard(bfr);
+        } catch (FileNotFoundException FileNotFound) {
+            System.out.println("Feilmelding for buffer");
+        } catch (IOException IOEFeil) {
+            System.out.println("Feilmelding for IOE-Feil");
+        }
+        System.out.println("dette funket");
     }
 
 
