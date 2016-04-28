@@ -45,6 +45,8 @@ public class Controller implements Initializable {
     @FXML
     Button  nextGenButton;
     @FXML
+    Button URLbutton;
+    @FXML
     Slider slider;
     @FXML
     Label speedometer;
@@ -58,6 +60,7 @@ public class Controller implements Initializable {
     }
 
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         graphicsContext = canvas.getGraphicsContext2D();
@@ -65,6 +68,7 @@ public class Controller implements Initializable {
         draw();
         updateSpeed(5);
         addSliderListner();
+        //URLbutton.setOnAction(event ->  );
         //nextGenButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
     }
 
@@ -242,7 +246,8 @@ public class Controller implements Initializable {
     void readGameBoardFromURL(ActionEvent event) throws IOException {
         String url1 = "http://www.hioagaming.no/rats.rle";
         UrlHandler u = new UrlHandler();
-        u.readGameBoardFromURL(url1);
+        //u.readGameBoardFromURL(url1);
+        gb = u.readGameBoardFromURL(gb);
     }
     /*public void readGameBoardFromURL(String url) throws IOException{
 

@@ -58,7 +58,7 @@ public class UrlHandler {
             System.out.println("trolol");
         }*/
 
-       // System.out.println(findErrors(test));
+        // System.out.println(findErrors(test));
         /*Matcher urlMatch = urlPattern.matcher(test);
         if(urlMatch.find()) {
             System.out.println("Regexxen vellykket!");
@@ -67,19 +67,24 @@ public class UrlHandler {
             System.out.println("Den funker, men feil input.");
 
         }
-        */System.out.println(test);
+        */
+        System.out.println(test);
         File selectedFile = new File(test);
 
         //else feilmelding
-        String[] patterns = {"^(https?|^ftp|^ssh)(:\\/\\/)", "(.rle$)"};
+        String[] patterns = {"^(https?|^ftp|^ssh)(:\\/\\/).*", "^.*(\\.rle$)"};
         String[] responses = {"Manglende http[s], ftp eller ssh.", "Mangler .rle"};
         MatchMaster m = new MatchMaster(patterns, responses, "Feil nr", true);
 
-        m.match(test);
+        String tester = test;
+        System.out.println(tester);
+        m.match("hioagaming.no/rats.rle");
+
+        String kake = m.match("hioagaming.no/rats.rle");
+        System.out.println(kake);
 
 
 
-        {
             try {
 
                 URL rlesite = new URL(test);
@@ -135,8 +140,9 @@ public class UrlHandler {
         return gb;
 
 
+        }
     }
-}}
+
 /*
     private static String findErrors(String s) {
         String[] matcher = {"((http[s]?|ftp[s]?|ssh):\\/\\/)", "([^:\\/\\s]+)(:[0-9]+)", "((?:\\/\\w+)*\\/)", "([\\w\\-\\.]+[^#?\\s]+)", "([^#\\s]*)", "(#[\\w\\-]+)", "(.rle)"};
