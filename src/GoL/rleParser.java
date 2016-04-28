@@ -46,7 +46,7 @@ public class rleParser {
         int colms;
         int rows;
         int number;
-
+//push
 
         StringBuilder melding = new StringBuilder();  //"Kommentar: " + comment + "\n Navn" + name + "Forfatter: " + author + "Kommentar: " + comment;
 

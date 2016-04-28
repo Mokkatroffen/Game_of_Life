@@ -13,21 +13,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<!--funk-->
-
-<BorderPane prefHeight="900.0" prefWidth="907.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller" >
+<BorderPane prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller">
    <center>
-      <StackPane BorderPane.alignment="CENTER">
+      <StackPane prefHeight="800.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <children>
-            <Canvas fx:id="canvas" height="700.0" width="700.0" onMousePressed ="#drawCell"  onMouseDragged="#dragCell" onScroll="#scrollHandler"/>
+            <Canvas fx:id="canvas" height="700.0" onMouseDragged="#dragCell" onMousePressed="#drawCell" onScroll="#scrollHandler" width="700.0" />
          </children>
       </StackPane>
    </center>
    <bottom>
-      <HBox prefHeight="83.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="76.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="83.0" prefWidth="88.0">
                <children>

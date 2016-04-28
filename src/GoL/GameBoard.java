@@ -13,7 +13,7 @@ public class GameBoard {
 
     private byte[][] board;
     public void setBoard(byte [][]getBrett){
-        // boardTufte = getBrett;
+        // boardTufte = getBrett;1
         this.board = getBrett;
     }
 
