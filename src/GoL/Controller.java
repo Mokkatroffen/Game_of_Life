@@ -232,11 +232,8 @@ public class Controller implements Initializable {
 
         //System.out.println(xCord +", "+yCord);
         if((xCord*cellSize) < canvas.getHeight() && (yCord*cellSize)< canvas.getWidth() && xCord>=0 && yCord>=0) {
-
-
             gb.getBoard()[yCord][xCord] = 1;
             graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
-
         }
     }
 
