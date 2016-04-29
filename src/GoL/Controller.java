@@ -89,6 +89,7 @@ public class Controller implements Initializable {
             zoomFactor = 1 / zoomFactor;
         }
         zoom(zoomFactor, event.getSceneX(), event.getSceneY());
+        //draw();
     }
 
     public void zoom(double factor, double x, double y) {
