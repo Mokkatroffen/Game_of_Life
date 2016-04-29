@@ -5,6 +5,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.effect.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
@@ -67,8 +68,11 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        canvas.setEffect(new Glow());
         graphicsContext = canvas.getGraphicsContext2D();
-        graphicsContext.setFill(Color.BLACK);
+
+        //graphicsContext.setFill(Color.GREEN);
+        graphicsContext.setStroke(Color.BLUE);
         draw();
         updateSpeed(5);
         addSliderListner();
@@ -229,6 +233,10 @@ public class Controller implements Initializable {
             gb.getBoard()[yCord][xCord] = 1;
             graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
         }
+        if(drawGrid.isSelected()){
+            graphicsContext.strokeRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+
+        }
     }
 
     @FXML
@@ -277,6 +285,8 @@ public class Controller implements Initializable {
         for (byte[] aBoard : board) {        //her settes den første linjnen / dimensjonen av rekken i griddet
             for (int column = 0; column < board[0].length; column++) { //
                 if (aBoard[column] == 1) {                                     // Celle Død eller Levende
+                    graphicsContext.setFill(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
+                    //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
                     graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
                 }
                 xPos += cellSize;
@@ -284,11 +294,18 @@ public class Controller implements Initializable {
             xPos = 0;
             yPos += cellSize;
         }
-        //grid();
+        if (drawGrid.isSelected()){
+            grid();
     }
-    //  boardTufte = new boolean[rows][colms]; test
+        //  boardTufte = new boolean[rows][colms]; test
+    }
 
-    @FXML
+        @FXML
+        private void setGrid () {
+        draw();
+        }
+
+    //@FXML
     private void grid() {
         final byte[][] board = gb.getBoard();
         double cellSize;
@@ -307,7 +324,7 @@ public class Controller implements Initializable {
         graphicsContext.setLineWidth(0.20);
 
         //GRID LINES
-        if (drawGrid.isSelected()) {
+        //if (drawGrid.isSelected()) {
             for (int i = 0; i <= board.length; i++) {
                 double horizontal = i * cellSize;
                 graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
@@ -317,10 +334,10 @@ public class Controller implements Initializable {
                 double vertical = i * cellSize;
                 graphicsContext.strokeLine(vertical, 0, vertical, boardHeight);
             }
-        }
-        else{
+        //}
+       /* else{
             draw();
-        }
+        }*/
     }
 }
 
