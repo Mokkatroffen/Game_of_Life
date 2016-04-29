@@ -14,14 +14,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: hotPink;" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller">
+<BorderPane prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: hotPink;" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller">
    <center>
       <StackPane prefHeight="800.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <children>
-            <Canvas fx:id="canvas" height="700.0"  onMouseDragged="#dragCell" onMouseClicked="#drawCell" onScroll="#scrollHandler" width="700.0" />
+            <Canvas fx:id="canvas" height="700.0" onMouseClicked="#drawCell" onMouseDragged="#dragCell" onScroll="#scrollHandler" width="700.0" />
          </children>
       </StackPane>
    </center>
@@ -121,7 +121,10 @@
                   </Button>
                </children>
             </VBox>
-            <VBox prefHeight="83.0" prefWidth="160.0" />
+            <VBox prefHeight="83.0" prefWidth="160.0">
+               <children>
+                  <CheckBox fx:id="getLSD" mnemonicParsing="false" text="LSD mode" />
+               </children></VBox>
          </children>
       </HBox>
    </bottom>

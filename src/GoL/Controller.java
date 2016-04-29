@@ -54,7 +54,11 @@ public class Controller implements Initializable {
     Label speedometer;
 
     @FXML
+    private CheckBox getLSD;
+
+    @FXML
     CheckBox drawGrid;
+
 
     private GraphicsContext graphicsContext;
     private GameBoard gb = new GameBoard(11, 12);
@@ -63,6 +67,7 @@ public class Controller implements Initializable {
     //======== Variabler for drag ========
     double pressedX;
     double pressedY;
+    boolean randomCollors = false;
     //===============================
 
     public Controller() throws IOException {
@@ -79,7 +84,7 @@ public class Controller implements Initializable {
             pressedY = e.getY();
         });
         //=================================
-
+        getLSD.setOnAction(event -> setRandomCollors());
 
         canvas.setEffect(new Glow());
         graphicsContext = canvas.getGraphicsContext2D();
@@ -187,6 +192,11 @@ public class Controller implements Initializable {
             startButton.setText("Start");
 
         }
+    }
+
+    private void setRandomCollors()
+    {
+        randomCollors = !randomCollors;
     }
 
     @FXML
@@ -306,22 +316,45 @@ public class Controller implements Initializable {
             cellSize = cellwidth;
         }
 
-        graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (byte[] aBoard : board) {        //her settes den første linjnen / dimensjonen av rekken i griddet
-            for (int column = 0; column < board[0].length; column++) { //
-                if (aBoard[column] == 1) {                                     // Celle Død eller Levende
-                    graphicsContext.setFill(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
-                    //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
-                    graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
+        if(randomCollors)
+        {
+            graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            for (byte[] aBoard : board) {        //her settes den første linjnen / dimensjonen av rekken i griddet
+                for (int column = 0; column < board[0].length; column++) { //
+                    if (aBoard[column] == 1) {                                     // Celle Død eller Levende
+                        graphicsContext.setFill(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
+                        //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
+                        graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
+                    }
+                    xPos += cellSize;
                 }
-                xPos += cellSize;
+                xPos = 0;
+                yPos += cellSize;
             }
-            xPos = 0;
-            yPos += cellSize;
+            if (drawGrid.isSelected()){
+                grid();
+            }
         }
-        if (drawGrid.isSelected()){
-            grid();
-    }
+
+        else  {
+            graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            for (byte[] aBoard : board) {        //her settes den første linjnen / dimensjonen av rekken i griddet
+                for (int column = 0; column < board[0].length; column++) { //
+                    if (aBoard[column] == 1) {                                     // Celle Død eller Levende
+                        graphicsContext.setFill(Color.BLACK);
+                        //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
+                        graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
+                    }
+                    xPos += cellSize;
+                }
+                xPos = 0;
+                yPos += cellSize;
+            }
+            if (drawGrid.isSelected()){
+                grid();
+            }
+        }
+
         //  boardTufte = new boolean[rows][colms]; test
     }
 
