@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
@@ -43,13 +44,17 @@ public class Controller implements Initializable {
     @FXML
     Button startButton;
     @FXML
-    Button  nextGenButton;
+    Button nextGenButton;
     @FXML
     Button URLbutton;
     @FXML
     Slider slider;
     @FXML
     Label speedometer;
+
+    @FXML
+    CheckBox drawGrid;
+
     private GraphicsContext graphicsContext;
     private GameBoard gb = new GameBoard(11, 12);
     private Timeline timeline;
@@ -58,7 +63,6 @@ public class Controller implements Initializable {
     public Controller() throws IOException {
         gb = new GameBoard(11, 12);
     }
-
 
 
     @Override
@@ -73,7 +77,7 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    public void scrollHandler(ScrollEvent event){
+    public void scrollHandler(ScrollEvent event) {
         double zoomFactor = 1.5;
 
         if (event.getDeltaY() <= 0) {
@@ -83,11 +87,11 @@ public class Controller implements Initializable {
         zoom(zoomFactor, event.getSceneX(), event.getSceneY());
     }
 
-    public void zoom( double factor, double x, double y) {
+    public void zoom(double factor, double x, double y) {
         // determine scale
         double oldScale = canvas.getScaleX();
         double scale = oldScale * factor;
-        if(scale<6 && scale>0.4){
+        if (scale < 6 && scale > 0.4) {
 
 
             double f = (scale / oldScale) - 1;
@@ -97,14 +101,14 @@ public class Controller implements Initializable {
             double dx = (x - (bounds.getWidth() / 2 + bounds.getMinX()));
             double dy = (y - (bounds.getHeight() / 2 + bounds.getMinY()));
 
-            canvas.setTranslateX(canvas.getTranslateX()-f*dx);
-            canvas.setTranslateY(canvas.getTranslateY()-f*dy);
+            canvas.setTranslateX(canvas.getTranslateX() - f * dx);
+            canvas.setTranslateY(canvas.getTranslateY() - f * dy);
             canvas.setScaleX(scale);
             canvas.setScaleY(scale);
         }
     }
 
-    private void canvasResizer(){
+    private void canvasResizer() {
         StackPane stackPane = (StackPane) canvas.getParent();
         canvas.setWidth(stackPane.getWidth());
         canvas.setHeight(stackPane.getHeight());
@@ -210,32 +214,31 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    public void drawCell(MouseEvent event){
+    public void drawCell(MouseEvent event) {
 
-        int xCord =(int)( Math.floor(event.getX()/cellSize));
-        int yCord =(int)( Math.floor(event.getY()/cellSize));
+        int xCord = (int) (Math.floor(event.getX() / cellSize));
+        int yCord = (int) (Math.floor(event.getY() / cellSize));
 
         //System.out.println(xCord +", "+yCord);
 
-        if(gb.getBoard()[yCord][xCord] == 1) {
+        if (gb.getBoard()[yCord][xCord] == 1) {
             gb.getBoard()[yCord][xCord] = 0;
             graphicsContext.clearRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
 
-        }
-        else if (gb.getBoard()[yCord][xCord] == 0){
+        } else if (gb.getBoard()[yCord][xCord] == 0) {
             gb.getBoard()[yCord][xCord] = 1;
-            graphicsContext.fillRect(xCord*cellSize, yCord*cellSize, cellSize, cellSize);
+            graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
         }
     }
 
     @FXML
-    public void dragCell(MouseEvent event){
+    public void dragCell(MouseEvent event) {
 
-        int xCord =(int)( Math.floor(event.getX()/cellSize));
-        int yCord =(int)( Math.floor(event.getY()/cellSize));
+        int xCord = (int) (Math.floor(event.getX() / cellSize));
+        int yCord = (int) (Math.floor(event.getY() / cellSize));
 
         //System.out.println(xCord +", "+yCord);
-        if((xCord*cellSize) < canvas.getHeight() && (yCord*cellSize)< canvas.getWidth() && xCord>=0 && yCord>=0) {
+        if ((xCord * cellSize) < canvas.getHeight() && (yCord * cellSize) < canvas.getWidth() && xCord >= 0 && yCord >= 0) {
             gb.getBoard()[yCord][xCord] = 1;
             graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
         }
@@ -249,6 +252,7 @@ public class Controller implements Initializable {
         //u.readGameBoardFromURL(url1);
         gb = u.readGameBoardFromURL(gb);
     }
+
     /*public void readGameBoardFromURL(String url) throws IOException{
 
     }*/
@@ -258,7 +262,6 @@ public class Controller implements Initializable {
 
         double xPos = 0;
         double yPos = 0;
-
 
 
         //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
@@ -281,11 +284,11 @@ public class Controller implements Initializable {
             xPos = 0;
             yPos += cellSize;
         }
-        grid();
+        //grid();
     }
     //  boardTufte = new boolean[rows][colms]; test
 
-
+    @FXML
     private void grid() {
         final byte[][] board = gb.getBoard();
         double cellSize;
@@ -304,15 +307,20 @@ public class Controller implements Initializable {
         graphicsContext.setLineWidth(0.20);
 
         //GRID LINES
+        if (drawGrid.isSelected()) {
+            for (int i = 0; i <= board.length; i++) {
+                double horizontal = i * cellSize;
+                graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
+            }
 
-        for (int i = 0; i <= board.length; i++) {
-            double horizontal = i * cellSize;
-            graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
+            for (int i = 0; i <= board[0].length; i++) {
+                double vertical = i * cellSize;
+                graphicsContext.strokeLine(vertical, 0, vertical, boardHeight);
+            }
         }
-
-        for (int i = 0; i <= board[0].length; i++) {
-            double vertical = i * cellSize;
-            graphicsContext.strokeLine(vertical, 0, vertical, boardHeight);
+        else{
+            draw();
         }
     }
 }
+
