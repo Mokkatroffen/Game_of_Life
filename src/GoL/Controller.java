@@ -60,6 +60,10 @@ public class Controller implements Initializable {
     private GameBoard gb = new GameBoard(11, 12);
     private Timeline timeline;
     double cellSize;
+    //======== Variabler for drag ========
+    double pressedX;
+    double pressedY;
+    //===============================
 
     public Controller() throws IOException {
         gb = new GameBoard(11, 12);
@@ -68,6 +72,15 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        //===============================
+        canvas.setOnMousePressed(e->{
+            pressedX = e.getX();
+            pressedY = e.getY();
+        });
+        //=================================
+
+
         canvas.setEffect(new Glow());
         graphicsContext = canvas.getGraphicsContext2D();
 
@@ -97,6 +110,7 @@ public class Controller implements Initializable {
         double oldScale = canvas.getScaleX();
         double scale = oldScale * factor;
         if (scale < 6 && scale > 0.4) {
+
 
 
             double f = (scale / oldScale) - 1;
@@ -224,7 +238,7 @@ public class Controller implements Initializable {
         int xCord = (int) (Math.floor(event.getX() / cellSize));
         int yCord = (int) (Math.floor(event.getY() / cellSize));
 
-        //System.out.println(xCord +", "+yCord);
+        System.out.println(xCord +", "+yCord);
 
         if (gb.getBoard()[yCord][xCord] == 1) {
             gb.getBoard()[yCord][xCord] = 0;
@@ -241,15 +255,25 @@ public class Controller implements Initializable {
     }
 
     @FXML
+
     public void dragCell(MouseEvent event) {
 
-        int xCord = (int) (Math.floor(event.getX() / cellSize));
-        int yCord = (int) (Math.floor(event.getY() / cellSize));
+        if (event.isSecondaryButtonDown()){
+            //==============zoom=================
+            canvas.setTranslateX(canvas.getTranslateX() + event.getX() - pressedX);
+            canvas.setTranslateY(canvas.getTranslateY() + event.getY() - pressedY);
+            //===============================
+        }
+        if(event.isPrimaryButtonDown()) {
+            int xCord = (int) (Math.floor(event.getX() / cellSize));
+            int yCord = (int) (Math.floor(event.getY() / cellSize));
 
-        //System.out.println(xCord +", "+yCord);
-        if ((xCord * cellSize) < canvas.getHeight() && (yCord * cellSize) < canvas.getWidth() && xCord >= 0 && yCord >= 0) {
-            gb.getBoard()[yCord][xCord] = 1;
-            graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+
+            //System.out.println(xCord +", "+yCord);
+            if ((xCord * cellSize) < canvas.getHeight() && (yCord * cellSize) < canvas.getWidth() && xCord >= 0 && yCord >= 0) {
+                gb.getBoard()[yCord][xCord] = 1;
+                graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+            }
         }
     }
 
