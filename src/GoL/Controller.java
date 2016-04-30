@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.effect.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
@@ -79,7 +80,7 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         //===============================
-        canvas.setOnMousePressed(e->{
+        canvas.setOnMousePressed(e -> {
             pressedX = e.getX();
             pressedY = e.getY();
         });
@@ -115,7 +116,6 @@ public class Controller implements Initializable {
         double oldScale = canvas.getScaleX();
         double scale = oldScale * factor;
         if (scale < 6 && scale > 0.4) {
-
 
 
             double f = (scale / oldScale) - 1;
@@ -194,8 +194,7 @@ public class Controller implements Initializable {
         }
     }
 
-    private void setRandomCollors()
-    {
+    private void setRandomCollors() {
         randomCollors = !randomCollors;
     }
 
@@ -248,33 +247,37 @@ public class Controller implements Initializable {
         int xCord = (int) (Math.floor(event.getX() / cellSize));
         int yCord = (int) (Math.floor(event.getY() / cellSize));
 
-        System.out.println(xCord +", "+yCord);
-
-        if (gb.getBoard()[yCord][xCord] == 1) {
-            gb.getBoard()[yCord][xCord] = 0;
-            graphicsContext.clearRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
-
-        } else if (gb.getBoard()[yCord][xCord] == 0) {
-            gb.getBoard()[yCord][xCord] = 1;
-            graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+        System.out.println(xCord + ", " + yCord);
+        if(event.getButton().equals(MouseButton.PRIMARY)){
+            if (gb.getBoard()[yCord][xCord] == 1 && event.isControlDown()) {
+                gb.getBoard()[yCord][xCord] = 0;
+                graphicsContext.clearRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+            }
+            else if (gb.getBoard()[yCord][xCord] == 0) {
+                gb.getBoard()[yCord][xCord] = 1;
+                graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+            }
+            if (drawGrid.isSelected()) {
+                graphicsContext.strokeRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+            }
+            }
         }
-        if(drawGrid.isSelected()){
-            graphicsContext.strokeRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
 
-        }
-    }
+
+
 
     @FXML
 
     public void dragCell(MouseEvent event) {
 
         if (event.isSecondaryButtonDown()){
-            //==============zoom=================
+            //==============pan=================
             canvas.setTranslateX(canvas.getTranslateX() + event.getX() - pressedX);
             canvas.setTranslateY(canvas.getTranslateY() + event.getY() - pressedY);
+
             //===============================
         }
-        if(event.isPrimaryButtonDown()) {
+        if(event.isPrimaryButtonDown() && !event.isSecondaryButtonDown()) {
             int xCord = (int) (Math.floor(event.getX() / cellSize));
             int yCord = (int) (Math.floor(event.getY() / cellSize));
 
