@@ -94,6 +94,12 @@ public class UrlHandler {
         }
         else {
             System.out.println(adrian);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Feil i formatering av URL:");
+            alert.setHeaderText("Look, an Error Dialog");
+            alert.setContentText(adrian);
+
+            alert.showAndWait();
         }
 
             try {
