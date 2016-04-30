@@ -81,9 +81,20 @@ public class UrlHandler {
         m.match("hioagaming.no/rats.rle");
 
         String kake = m.match("hioagaming.no/rats.rle");
-        System.out.println(kake);
 
+        String adrian = m.match(test);
 
+        if(adrian == null) {
+            System.out.println("lolriktigadriandildi");
+            URL rlesite = new URL(test);
+            ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
+            FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
+            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+
+        }
+        else {
+            System.out.println(adrian);
+        }
 
             try {
 
@@ -142,30 +153,3 @@ public class UrlHandler {
 
         }
     }
-
-/*
-    private static String findErrors(String s) {
-        String[] matcher = {"((http[s]?|ftp[s]?|ssh):\\/\\/)", "([^:\\/\\s]+)(:[0-9]+)", "((?:\\/\\w+)*\\/)", "([\\w\\-\\.]+[^#?\\s]+)", "([^#\\s]*)", "(#[\\w\\-]+)", "(.rle)"};
-
-        StringBuilder result = new StringBuilder();
-        if(!s.matches(matcher[0])) {
-            result.append("Du mangler http[s], ftp eller ssh.\n");
-        } if(!s.matches(matcher[1])) {
-            result.append("Du mangler 1 \n");
-        } if(!s.matches(matcher[2])) {
-            result.append("Du mangler 2 \n");
-        } if(!s.matches(matcher[3])) {
-            result.append("Du mangler 3 \n");
-        } if(!s.matches(matcher[4])) {
-            result.append("Du mangler 4 \n");
-        } if(!s.matches(matcher[5])) {
-            result.append("Du mangler 4 \n");
-        } if(!s.matches(matcher[6])) {
-            result.append("Du mangler 5 \n");
-        }
-
-        return result.toString();
-    }
-}
-
-*/
