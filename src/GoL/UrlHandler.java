@@ -59,13 +59,14 @@ public class UrlHandler {
         m.match("hioagaming.no/rats.rle");
 
         String error = m.match(test);
-
+        int x = 0;
         if (error == null) {
             System.out.println("lolriktigadriandildi");
             URL rlesite = new URL(test);
             ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
             FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+            x++;
 
         } else {
             System.out.println(error);
@@ -78,16 +79,18 @@ public class UrlHandler {
         }
 
         try {
+            if(x == 1) {
+                URL rlesite = new URL(test);
+                ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
+                FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
+                fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+            }
 
-            URL rlesite = new URL(test);
-            ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
-            FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
-            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
         } catch (IOException ioefeil) {
             System.out.println("Feilmelding for IOE-Feil");
         }
 
-        if (selectedFile != null) {
+        if (selectedFile != null && x == 1) {
             System.out.println("Controller.fileOpener:" + selectedFile);
 
             rleParser parser = new rleParser();

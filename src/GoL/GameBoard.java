@@ -126,7 +126,7 @@ public class GameBoard {
         //System.out.println(board.length + " collength " + board[0].length);
         byte[][] nextGenBoard  = new byte[board.length][board[0].length];
         //byte[][] nextGenBoard = board;
-
+        long start = System.currentTimeMillis();
         for(int row = 0; row < board.length; row++){
             for(int column = 0; column < board[0].length; column++){
 
@@ -146,13 +146,17 @@ public class GameBoard {
                 }
             }
 
-            //System.out.println();
+            long elapsed = System.currentTimeMillis() - start;
+            System.out.println("Counting time (ms): " + elapsed + "\n stoppet");
+            int numWorkers = Runtime.getRuntime().availableProcessors();
+            System.out.println(numWorkers);
 
         }
 
         board = nextGenBoard;
 
     }
+
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
