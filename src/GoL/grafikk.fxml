@@ -14,14 +14,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: hotPink;" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller">
+<BorderPane prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: hotPink;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller">
    <center>
       <StackPane prefHeight="800.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <children>
-            <Canvas fx:id="canvas" height="700.0" onMouseClicked="#drawCell" onMouseDragged="#dragCell"  onScroll="#scrollHandler" width="700.0" />
+            <Canvas fx:id="canvas" height="700.0" onMouseClicked="#drawCell" onMouseDragged="#dragCell" onScroll="#scrollHandler" width="700.0" />
          </children>
       </StackPane>
    </center>
@@ -88,7 +88,7 @@
             </VBox>
             <VBox prefHeight="76.0" prefWidth="134.0">
                <children>
-                  <Label prefHeight="34.0" prefWidth="124.0" text="Size">
+                  <Label prefHeight="34.0" prefWidth="124.0" text="Board Type">
                      <VBox.margin>
                         <Insets left="20.0" />
                      </VBox.margin>
@@ -96,10 +96,10 @@
                         <Font name="Arial" size="18.0" />
                      </font>
                   </Label>
-                  <MenuButton mnemonicParsing="false" prefHeight="0.0" prefWidth="99.0" text="Small">
+                  <MenuButton mnemonicParsing="false" prefHeight="0.0" prefWidth="99.0" text="Static">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Medium" />
-                        <MenuItem mnemonicParsing="false" text="Large" />
+                        <MenuItem mnemonicParsing="false" text="Static" />
+                        <MenuItem mnemonicParsing="false" text="Dynamic" />
                      </items>
                      <VBox.margin>
                         <Insets bottom="20.0" left="20.0" />
