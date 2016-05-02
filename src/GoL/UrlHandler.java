@@ -61,6 +61,7 @@ public class UrlHandler {
         String error = m.match(test);
         System.out.println(error);
         int x = 0;
+        try {
         if (error == null) {
             System.out.println("lolriktigadriandildi");
             URL rlesite = new URL(test);
@@ -79,7 +80,7 @@ public class UrlHandler {
             alert.showAndWait();
         }
 
-        try {
+
             if(x == 1) {
                 URL rlesite = new URL(test);
                 ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
@@ -92,6 +93,15 @@ public class UrlHandler {
 
         } catch (IOException ioefeil) {
             System.out.println("Feilmelding for IOE-Feil");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error reading file");
+            alert.setHeaderText("Could not get from the URL");
+            alert.setContentText("Please check that your URL contains a .rle file");
+
+            alert.showAndWait();
+        }
+        catch (Exception feilmeldinger) {
+            System.out.println(feilmeldinger + "Dette skal være feilene");
         }
 
         if (selectedFile != null && x == 1) {
