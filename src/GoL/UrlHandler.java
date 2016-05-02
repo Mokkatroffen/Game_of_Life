@@ -59,6 +59,7 @@ public class UrlHandler {
         m.match("hioagaming.no/rats.rle");
 
         String error = m.match(test);
+        System.out.println(error);
         int x = 0;
         if (error == null) {
             System.out.println("lolriktigadriandildi");
@@ -84,6 +85,9 @@ public class UrlHandler {
                 ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
                 FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
                 fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+            }
+            else {
+                System.out.println("Ingen gyldig fil funnet i URL");
             }
 
         } catch (IOException ioefeil) {
