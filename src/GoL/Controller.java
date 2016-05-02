@@ -97,6 +97,8 @@ public class Controller implements Initializable {
         addSliderListner();
         //URLbutton.setOnAction(event ->  );
         //nextGenButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
+
+
     }
 
     @FXML

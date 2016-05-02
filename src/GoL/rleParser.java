@@ -116,6 +116,8 @@ public class rleParser {
             }
         }
         System.out.println("Ferdig å laste program!");
+        nextGenerationPrintPerfomance n = new nextGenerationPrintPerfomance();
+        n.calls();
     }
 
  /**
