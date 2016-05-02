@@ -63,14 +63,17 @@ public class Controller implements Initializable {
 
     private GraphicsContext graphicsContext;
     private GameBoard gb = new GameBoard(11, 12);
-    private Timeline timeline;
+    //private Timeline timeline;
     double cellSize;
+    private Timeline timeline;
     //======== Variabler for drag ========
     double pressedX;
     double pressedY;
     boolean randomCollors = false;
     //===============================
-
+    /*public AnimatedZoomOperator() {
+        this.timeline = new Timeline(60);
+    }*/
     public Controller() throws IOException {
         gb = new GameBoard(11, 12);
     }

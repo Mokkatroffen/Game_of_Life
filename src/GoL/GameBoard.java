@@ -97,10 +97,6 @@ public class GameBoard {
             if(board[row][column+1] == 1) neighbors++;
         }
 
-
-
-
-
         if(row < board.length-1){
             if(board[row+1][column] == 1){ neighbors++;}
 
