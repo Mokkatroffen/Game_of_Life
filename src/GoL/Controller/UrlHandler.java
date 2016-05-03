@@ -1,4 +1,4 @@
-package GoL;
+package GoL.Controller;
 
 import javafx.scene.control.Alert;
 
@@ -63,10 +63,10 @@ public class UrlHandler {
         int x = 0;
         try {
         if (error == null) {
-            System.out.println("lolriktigadriandildi");
+            System.out.println("lolriktigadriandildi"); // TODO hva er dette ?
             URL rlesite = new URL(test);
             ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
-            FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
+            FileOutputStream fos = new FileOutputStream("src/GoL/Model/temp/web.rle");
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
             x++;
 
@@ -84,7 +84,7 @@ public class UrlHandler {
             if(x == 1) {
                 URL rlesite = new URL(test);
                 ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
-                FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
+                FileOutputStream fos = new FileOutputStream("src/GoL/Model/temp/web.rle");
                 fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
             }
             else {
@@ -110,7 +110,7 @@ public class UrlHandler {
             rleParser parser = new rleParser();
             try {
 
-                File file = new File("src/GoL/web.rle");
+                File file = new File("src/GoL/Model/temp/web.rle");
                 System.out.println(file.getAbsolutePath());
                 parser.readGameBoardFromDisk(file);
                 gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på drawCellGrid i rle fil, fungerer ikke før du trykker start.
@@ -121,7 +121,7 @@ public class UrlHandler {
         try {
             URL rlesite = new URL(test);
             ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
-            FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
+            FileOutputStream fos = new FileOutputStream("src/GoL/Model/temp/web.rle");
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
             System.out.println(fos.toString());
         } catch (IOException ioefeil) {

@@ -1,4 +1,4 @@
-package GoL;
+package GoL.Controller;
 
 import javafx.scene.control.Alert;
 

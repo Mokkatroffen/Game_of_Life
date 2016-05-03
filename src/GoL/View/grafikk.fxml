@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: hotPink;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller">
+<BorderPane prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: hotPink;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller.Controller">
    <center>
       <StackPane prefHeight="800.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>

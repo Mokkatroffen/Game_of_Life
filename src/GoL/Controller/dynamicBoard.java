@@ -1,4 +1,4 @@
-package GoL;
+package GoL.Controller;
 
 import java.util.List;
 

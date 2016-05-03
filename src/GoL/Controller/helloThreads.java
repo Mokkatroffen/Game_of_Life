@@ -1,4 +1,4 @@
-package GoL;
+package GoL.Controller;
 
 public class helloThreads implements Runnable {
     @Override

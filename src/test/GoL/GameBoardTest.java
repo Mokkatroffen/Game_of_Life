@@ -1,6 +1,6 @@
 package test.GoL;
 
-import GoL.GameBoard;
+import GoL.Controller.GameBoard;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
