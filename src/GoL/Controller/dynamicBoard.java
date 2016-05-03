@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by andreas on 30.04.16.
  */
-public class dynamicBoard {
+public class dynamicBoard extends GameBoard {
 
 
     private ArrayList<ArrayList<Byte>> board;
@@ -48,6 +48,8 @@ public class dynamicBoard {
         return collum;
     }
 
+
+
     public void setColumn(int collum) {
         this.collum = collum;
     }
@@ -57,9 +59,10 @@ public class dynamicBoard {
         for (int i = 0; i < newBoard.length; i++) {
             board.add(new ArrayList<>());
             for (int j = 0; j < newBoard[i].length; j++) {
-                board.get(i).add(newBoard[j][i]);
+                board.get(i).add(newBoard[i][j]); //rettet i og j sin rekkefølge
             }
         }
+
     }
 
     public int checkNeighbors(int row, int column){

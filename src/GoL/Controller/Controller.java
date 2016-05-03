@@ -64,7 +64,7 @@ public class Controller implements Initializable {
 //if mouse e inside grid
 
     private GraphicsContext graphicsContext;
-    private GameBoard gb = new GameBoard(11, 12); //Bytt disse for å veksle mellom dynamic og
+    private dynamicBoard gb = new dynamicBoard(11, 12); //Bytt disse for å veksle mellom dynamic og
     //private Timeline timeline;
     double cellSize;
     private Timeline timeline;
@@ -77,7 +77,7 @@ public class Controller implements Initializable {
         this.timeline = new Timeline(60);
     }*/
     public Controller() throws IOException {
-        gb = new GameBoard(11, 12);
+        gb = new dynamicBoard(11, 12);
     }
 
 
