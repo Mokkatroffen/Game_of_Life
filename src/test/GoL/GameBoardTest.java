@@ -56,10 +56,4 @@ public class GameBoardTest {
 
         assertEquals(testBoard.toString(), "0000000001000010100000110000000000000000000000000");
     }
-
-    @Test
-    public void toStringTest() throws Exception {
-
-    }
-
 }
