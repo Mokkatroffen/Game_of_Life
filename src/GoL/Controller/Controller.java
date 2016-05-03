@@ -417,7 +417,7 @@ public class Controller implements Initializable {
                     }else{
                     for (int column = 0; column < boardColumn; column++) {
 //                    if (aBoard[column] == 1) {                                   // Celle Død eller Levende
-                        if (gb.getCellState(row, column) == 1) {                                    // Celle Død eller Levende
+                        if (db.getCellState(row, column) == 1) {                                    // Celle Død eller Levende
                             graphicsContext.setFill(Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255)));
                             //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
                             graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
