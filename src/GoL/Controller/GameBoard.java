@@ -12,8 +12,8 @@ public class GameBoard {
 
 
     private byte[][] board;
-    public int row;
-    public int column;
+    private int row;
+    private int column;
 
     /**
      * GameBoard sets the values of the cells int the boards.

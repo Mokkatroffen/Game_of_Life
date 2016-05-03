@@ -131,7 +131,7 @@
                  </children></VBox>
              <VBox prefHeight="83.0" prefWidth="160.0">
                  <children>
-                     <CheckBox fx:id="setDynamic" mnemonicParsing="false" text="Static" onAction="#setDynamic" />
+                     <CheckBox fx:id="setDynamic" mnemonicParsing="false" text="Dynamic" onAction="#setDynamic" />
                  </children></VBox>
          </children>
       </HBox>
