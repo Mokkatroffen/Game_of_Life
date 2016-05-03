@@ -30,7 +30,7 @@ public class Main extends Application {
  */
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("GoL\\View\\grafikk.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("GoL/View/grafikk.fxml"));
 
         Scene scene = new Scene(root, width, height);
 
@@ -38,7 +38,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
-//push
     public static void main(String[] args) {
         launch(args);
 
