@@ -59,13 +59,16 @@ public class UrlHandler {
         m.match("hioagaming.no/rats.rle");
 
         String error = m.match(test);
-
+        System.out.println(error);
+        int x = 0;
+        try {
         if (error == null) {
             System.out.println("lolriktigadriandildi");
             URL rlesite = new URL(test);
             ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
             FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+            x++;
 
         } else {
             System.out.println(error);
@@ -77,17 +80,31 @@ public class UrlHandler {
             alert.showAndWait();
         }
 
-        try {
 
-            URL rlesite = new URL(test);
-            ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
-            FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
-            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+            if(x == 1) {
+                URL rlesite = new URL(test);
+                ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
+                FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
+                fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+            }
+            else {
+                System.out.println("Ingen gyldig fil funnet i URL");
+            }
+
         } catch (IOException ioefeil) {
             System.out.println("Feilmelding for IOE-Feil");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error reading file");
+            alert.setHeaderText("Could not get from the URL");
+            alert.setContentText("Please check that your URL contains a .rle file");
+
+            alert.showAndWait();
+        }
+        catch (Exception feilmeldinger) {
+            System.out.println(feilmeldinger + "Dette skal være feilene");
         }
 
-        if (selectedFile != null) {
+        if (selectedFile != null && x == 1) {
             System.out.println("Controller.fileOpener:" + selectedFile);
 
             rleParser parser = new rleParser();
