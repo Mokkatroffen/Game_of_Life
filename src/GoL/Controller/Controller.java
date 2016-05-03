@@ -86,12 +86,12 @@ public class Controller implements Initializable {
 
     @FXML
     public void setStatic(){
-        db = new dynamicBoard(11,12);
+        gb = new GameBoard(11,12);
         draw();
     }
     @FXML
     public void setDynamic(){
-        gb = new GameBoard(11,12);
+        db = new dynamicBoard(11,12);
         draw();
     }
 

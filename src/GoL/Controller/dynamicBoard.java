@@ -23,9 +23,6 @@ public class dynamicBoard {
         createBoard();
     }
 
-
-
-
     // oppretter brettet, kalles i konstruktøren
     private void  createBoard(){
         board=new ArrayList<>();
@@ -39,8 +36,9 @@ public class dynamicBoard {
 
 
 
-    public byte getCellState(int x, int y){
-        return board.get(x).get(y);
+    public byte getCellState(int row, int col){
+
+        return board.get(row).get(col);
     }
 
     public void setCellState(int x, int y, byte state){
