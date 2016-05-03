@@ -1,5 +1,8 @@
-package GoL.Controller;
+package GoL;
 
+import GoL.Controller.GameBoard;
+import GoL.Controller.MatchMaster;
+import GoL.Controller.rleParser;
 import javafx.scene.control.Alert;
 
 import java.io.*;
@@ -20,7 +23,7 @@ public class UrlHandler {
     /**
      * readGameBoardFromUrl reads .rle file from an URL an implements it into the board.
      *
-     * @param url url is the parameter which you gather the file from.
+     * @param url is the parameter which you gather the file from.
      * @throws IOException IOException throws out an error message if needed.
      * @author Kristian Munter Simonsen.
      * @version 0.2 - April 18, 2016.
@@ -29,7 +32,7 @@ public class UrlHandler {
 
     public static GameBoard readGameBoardFromURL(GameBoard gb) throws IOException {
         Pattern urlPattern = Pattern.compile("^((http[s]?|ftp[s]?|ssh):\\/\\/)   ?    ([^:\\/\\s]+)(:[0-9]+)   ?    ((?:\\/\\w+)*\\/) ([\\w\\-\\.]+[^#?\\s]+) ([^#\\s]*) ? (#[\\w\\-]+)? (.rle)$"
-        );
+        ); //dette kan slettes etter test TODO:
 
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("URL");
@@ -56,17 +59,15 @@ public class UrlHandler {
 
         String tester = test;
         System.out.println(tester);
-        m.match("hioagaming.no/rats.rle");
 
         String error = m.match(test);
         System.out.println(error);
         int x = 0;
         try {
         if (error == null) {
-            System.out.println("lolriktigadriandildi"); // TODO hva er dette ?
             URL rlesite = new URL(test);
             ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
-            FileOutputStream fos = new FileOutputStream("src/GoL/Model/temp/web.rle");
+            FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
             x++;
 
@@ -84,24 +85,15 @@ public class UrlHandler {
             if(x == 1) {
                 URL rlesite = new URL(test);
                 ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
-                FileOutputStream fos = new FileOutputStream("src/GoL/Model/temp/web.rle");
+                FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
                 fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
             }
-            else {
-                System.out.println("Ingen gyldig fil funnet i URL");
-            }
-
         } catch (IOException ioefeil) {
-            System.out.println("Feilmelding for IOE-Feil");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error reading file");
-            alert.setHeaderText("Could not get from the URL");
+            alert.setHeaderText("Could not get the .rle-file from URL");
             alert.setContentText("Please check that your URL contains a .rle file");
-
             alert.showAndWait();
-        }
-        catch (Exception feilmeldinger) {
-            System.out.println(feilmeldinger + "Dette skal være feilene");
         }
 
         if (selectedFile != null && x == 1) {
@@ -110,7 +102,7 @@ public class UrlHandler {
             rleParser parser = new rleParser();
             try {
 
-                File file = new File("src/GoL/Model/temp/web.rle");
+                File file = new File("src/GoL/web.rle");
                 System.out.println(file.getAbsolutePath());
                 parser.readGameBoardFromDisk(file);
                 gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på drawCellGrid i rle fil, fungerer ikke før du trykker start.
@@ -121,7 +113,7 @@ public class UrlHandler {
         try {
             URL rlesite = new URL(test);
             ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
-            FileOutputStream fos = new FileOutputStream("src/GoL/Model/temp/web.rle");
+            FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
             System.out.println(fos.toString());
         } catch (IOException ioefeil) {
