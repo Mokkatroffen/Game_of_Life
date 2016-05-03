@@ -13,10 +13,21 @@ public class dynamicBoard {
     public int row;
     public int collum;
 
+    public dynamicBoard(){
+        row = 12;
+        collum = 11;
+    }
     public dynamicBoard(int row, int collum){
         this.row = row;
         this.collum = collum;
+        createBoard();
+    }
 
+
+
+
+    // oppretter brettet, kalles i konstruktøren
+    private void  createBoard(){
         board=new ArrayList<>();
         for (int i = 0; i <row ; i++) {
             board.add(new ArrayList<>());

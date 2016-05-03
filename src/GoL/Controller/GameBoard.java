@@ -15,11 +15,6 @@ public class GameBoard {
     public int row;
     public int column;
 
-    public void setBoard(byte [][]getBrett){
-        // boardTufte = getBrett;1
-        this.board = getBrett;
-    }
-
     /**
      * GameBoard sets the values of the cells int the boards.
      *
@@ -57,6 +52,13 @@ public class GameBoard {
 
 
     }
+    public void setBoard(byte [][]getBrett){
+        // boardTufte = getBrett;1
+        this.board = getBrett;
+    }
+
+
+
 
     public void setCellState(int x, int y, byte state){
         this.board[x][y]=state;

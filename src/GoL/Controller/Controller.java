@@ -1,5 +1,5 @@
 package GoL.Controller;
-import GoL.UrlHandler;
+
 import GoL.Controller.dynamicBoard;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -63,10 +63,12 @@ public class Controller implements Initializable {
     @FXML
     CheckBox drawGrid;
 
+
 //if mouse e inside grid
 
     private GraphicsContext graphicsContext;
-    private dynamicBoard gb = new dynamicBoard(11, 12); //Bytt disse for å veksle mellom dynamic og
+    public  dynamicBoard db;
+    public  GameBoard gb ;
     //private Timeline timeline;
     double cellSize;
     private Timeline timeline;
@@ -79,9 +81,19 @@ public class Controller implements Initializable {
         this.timeline = new Timeline(60);
     }*/
     public Controller() throws IOException {
-        gb = new dynamicBoard(11, 12);
+
     }
 
+    @FXML
+    public void setStatic(){
+        db = new dynamicBoard(11,12);
+        draw();
+    }
+    @FXML
+    public void setDynamic(){
+        gb = new GameBoard(11,12);
+        draw();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -99,7 +111,7 @@ public class Controller implements Initializable {
 
         //graphicsContext.setFill(Color.GREEN);
         graphicsContext.setStroke(Color.BLUE);
-        draw();
+        // draw();
         updateSpeed(5);
         addSliderListner();
         //URLbutton.setOnAction(event ->  );
@@ -150,7 +162,12 @@ public class Controller implements Initializable {
 
         Duration duration = Duration.millis(1000 / frames);
         KeyFrame keyFrame = new KeyFrame(duration, (ActionEvent e) -> {
-            gb.nextGen();
+            if(gb!=null){
+                gb.nextGen();
+            }
+            else{
+                db.nextGen();
+            }
             draw();
         });
 
@@ -237,7 +254,13 @@ public class Controller implements Initializable {
             rleParser parser = new rleParser();
             try {
                 parser.readGameBoardFromDisk(selectedFile);
-                gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på grid i rle fil, fungerer ikke før du trykker start
+                if(gb!=null){
+                    gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på grid i rle fil, fungerer ikke før du trykker start
+                }
+                else{
+                    db.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på grid i rle fil, fungerer ikke før du trykker start
+                }
+
             } catch (IOException e) { //spytter ut eventuelle feilmedling
                 System.out.println(e.getMessage());
             }
@@ -248,6 +271,31 @@ public class Controller implements Initializable {
 
     }
 
+    //brukes i drawCell dersom det  er dynamic board
+    private void drawDynamicBoard(int xCord, int yCord, MouseEvent event){
+        if (db.getCellState(yCord, xCord) == 1 && event.isControlDown()) {
+//                db.getBoard()[yCord][xCord] = 0;
+            db.setCellState(yCord,xCord,(byte)0) ;
+            graphicsContext.clearRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+        }
+        else if (db.getCellState(yCord, xCord)  == 0) {
+            db.setCellState(yCord,xCord,(byte)1) ;
+            graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+        }
+    }
+
+    //brukes i drawcell hvis det er static board
+    private void drawStaticBoard(int xCord, int yCord, MouseEvent event){
+        if (gb.getCellState(yCord, xCord) == 1 && event.isControlDown()) {
+//                gb.getBoard()[yCord][xCord] = 0;
+            gb.setCellState(yCord,xCord,(byte)0) ;
+            graphicsContext.clearRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+        }
+        else if (gb.getCellState(yCord, xCord)  == 0) {
+            gb.setCellState(yCord,xCord,(byte)1) ;
+            graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+        }
+    }
     @FXML
     public void drawCell(MouseEvent event) {
 
@@ -256,15 +304,13 @@ public class Controller implements Initializable {
 
         System.out.println(xCord + ", " + yCord);
         if(event.getButton().equals(MouseButton.PRIMARY)){
-            if (gb.getCellState(yCord, xCord) == 1 && event.isControlDown()) {
-//                gb.getBoard()[yCord][xCord] = 0;
-                gb.setCellState(yCord,xCord,(byte)0) ;
-                graphicsContext.clearRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+            if(gb!=null){
+                drawStaticBoard(xCord, yCord, event);
             }
-            else if (gb.getCellState(yCord, xCord)  == 0) {
-                gb.setCellState(yCord,xCord,(byte)1) ;
-                graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
+            else{
+                drawDynamicBoard(xCord, yCord, event);
             }
+
             if (drawGrid.isSelected()) {
                 graphicsContext.strokeRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
             }
@@ -293,7 +339,12 @@ public class Controller implements Initializable {
             //System.out.println(xCord +", "+yCord);
             if ((xCord * cellSize) < canvas.getHeight() && (yCord * cellSize) < canvas.getWidth() && xCord >= 0 && yCord >= 0) {
 //                gb.getBoard()[yCord][xCord] = 1;
-                gb.setCellState(yCord,xCord,(byte)1) ;
+               if(gb!=null) {
+                   gb.setCellState(yCord,xCord,(byte)1) ;
+               }
+                else if(db!=null){
+                   db.setCellState(yCord,xCord,(byte)1) ;
+               }
                 graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
             }
         }
@@ -305,7 +356,12 @@ public class Controller implements Initializable {
         String url1 = "http://www.hioagaming.no/rats.rle";
         UrlHandler u = new UrlHandler();
         //u.readGameBoardFromURL(url1);
-        //gb = u.readGameBoardFromURL(gb);
+        if(gb!=null){
+            gb = u.readGameBoardFromURL(gb);
+        }
+        else{
+            db = u.readGameBoardFromURL(db);
+        }
     }
 
     /*public void readGameBoardFromURL(String url) throws IOException{
@@ -317,10 +373,17 @@ public class Controller implements Initializable {
 
         double xPos = 0;
         double yPos = 0;
-        int boardRow = gb.getRow();
-        int boardColumn = gb.getColumn();
-        System.out.println(boardRow+", "+boardColumn);
-
+        int boardRow;
+        int boardColumn;
+        if(gb!= null) {
+            boardRow=gb.getRow();
+            boardColumn = gb.getColumn();
+            System.out.println(boardRow + ", " + boardColumn);
+        }else{
+            boardRow= db.getRow();
+            boardColumn = db.getColumn();
+            System.out.println(boardRow + ", " + boardColumn);
+        }
         //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
 //        double cellwidth = canvas.getWidth() / board[0].length;
         double cellwidth = canvas.getWidth() / boardColumn;
@@ -338,14 +401,30 @@ public class Controller implements Initializable {
 //            for (byte[] aBoard : board) {        //her settes den første linjnen / dimensjonen av rekken i griddet
             for(int row = 0; row < boardRow; row++){
 //                for (int column = 0; column < board[0].length; column++) { //
-                for (int column = 0; column < boardColumn; column++) {
-//                    if (aBoard[column] == 1) {                                     // Celle Død eller Levende
-                    if (gb.getCellState(row,column) == 1) {                                    // Celle Død eller Levende
-                        graphicsContext.setFill(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
-                        //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
-                        graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
+                if(gb!=null) {
+
+                    for (int column = 0; column < boardColumn; column++) {
+//                    if (aBoard[column] == 1) {                                   // Celle Død eller Levende
+                        if (gb.getCellState(row, column) == 1) {                                    // Celle Død eller Levende
+                            graphicsContext.setFill(Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255)));
+                            //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
+                            graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
+                        }
+                        xPos += cellSize;
                     }
-                    xPos += cellSize;
+
+
+                    }else{
+                    for (int column = 0; column < boardColumn; column++) {
+//                    if (aBoard[column] == 1) {                                   // Celle Død eller Levende
+                        if (gb.getCellState(row, column) == 1) {                                    // Celle Død eller Levende
+                            graphicsContext.setFill(Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255)));
+                            //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
+                            graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
+                        }
+                        xPos += cellSize;
+                    }
+
                 }
                 xPos = 0;
                 yPos += cellSize;
@@ -360,15 +439,29 @@ public class Controller implements Initializable {
             //for (byte[] aBoard : board) {        //her settes den første linjnen / dimensjonen av rekken i griddet
             for(int row = 0; row < boardRow; row++){
                 //for (int column = 0; column < board[0].length; column++) { //
-                for (int column = 0; column < boardColumn; column++) {
-                    //if (aBoard[column] == 1) {
-                     if (gb.getCellState(row,column) == 1) {   //Celle Død eller Levende
-                        graphicsContext.setFill(Color.BLACK);
-                        //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
-                        graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
+                if(gb!=null){
+                    for (int column = 0; column < boardColumn; column++) {
+                        //if (aBoard[column] == 1) {
+                        if (gb.getCellState(row,column) == 1) {   //Celle Død eller Levende
+                            graphicsContext.setFill(Color.BLACK);
+                            //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
+                            graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
+                        }
+                        xPos += cellSize;
                     }
-                    xPos += cellSize;
+                }else{
+                    for (int column = 0; column < boardColumn; column++) {
+                        //if (aBoard[column] == 1) {
+                        if (db.getCellState(row,column) == 1) {   //Celle Død eller Levende
+                            graphicsContext.setFill(Color.BLACK);
+                            //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
+                            graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
+                        }
+                        xPos += cellSize;
+                    }
+
                 }
+
                 xPos = 0;
                 yPos += cellSize;
             }
@@ -389,31 +482,58 @@ public class Controller implements Initializable {
     private void grid() {
 //        final byte[][] board = gb.getBoard();
         double cellSize;
-
+        double col;
+        double row;
+        if(gb!=null){
+            col = gb.getColumn();
+            row = gb.getRow();
+        }else{
+            col = db.getColumn();
+            row = db.getRow();
+        }
         //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
-        double cellwidth = canvas.getWidth() / gb.getColumn();
-        double cellheight = canvas.getHeight() / gb.getRow();
+        double cellwidth = canvas.getWidth() / col;
+        double cellheight = canvas.getHeight() / row;
 
         if (cellwidth > cellheight) {
             cellSize = cellheight;
         } else {
             cellSize = cellwidth;
         }
-        double boardWidth = cellSize * gb.getColumn();
-        double boardHeight = cellSize * gb.getRow();
-        graphicsContext.setLineWidth(0.20);
+        if(gb!=null){
+            double boardWidth = cellSize * gb.getColumn();
+            double boardHeight = cellSize * gb.getRow();
+            graphicsContext.setLineWidth(0.20);
+            //GRID LINES
+            //if (drawGrid.isSelected()) {
+            for (int i = 0; i <= row; i++) {
+                double horizontal = i * cellSize;
+                graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
+            }
 
-        //GRID LINES
-        //if (drawGrid.isSelected()) {
-        for (int i = 0; i <= gb.getRow(); i++) {
-            double horizontal = i * cellSize;
-            graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
+            for (int i = 0; i <= col; i++) {
+                double vertical = i * cellSize;
+                graphicsContext.strokeLine(vertical, 0, vertical, boardHeight);
+            }
+        }else{
+            double boardWidth = cellSize * db.getColumn();
+            double boardHeight = cellSize * db.getRow();
+            graphicsContext.setLineWidth(0.20);
+
+            //GRID LINES
+            //if (drawGrid.isSelected()) {
+            for (int i = 0; i <= db.getRow(); i++) {
+                double horizontal = i * cellSize;
+                graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
+            }
+
+            for (int i = 0; i <= db.getColumn(); i++) {
+                double vertical = i * cellSize;
+                graphicsContext.strokeLine(vertical, 0, vertical, boardHeight);
+            }
         }
 
-        for (int i = 0; i <= gb.getColumn(); i++) {
-            double vertical = i * cellSize;
-            graphicsContext.strokeLine(vertical, 0, vertical, boardHeight);
-        }
+
         //}
        /* else{
             draw();
