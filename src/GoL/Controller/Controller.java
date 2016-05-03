@@ -6,7 +6,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.*;
 import javafx.scene.effect.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -26,9 +26,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -57,7 +54,12 @@ public class Controller implements Initializable {
     Label speedometer;
     @FXML
     private CheckBox getLSD;
-
+    @FXML
+    MenuButton Menu;
+    @FXML
+    MenuItem setStatic;
+    @FXML
+    MenuItem setDynamic;
     @FXML
     CheckBox drawGrid;
 

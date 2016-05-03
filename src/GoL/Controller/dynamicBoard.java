@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by andreas on 30.04.16.
  */
-public class dynamicBoard extends GameBoard {
+public class dynamicBoard {
 
 
     private ArrayList<ArrayList<Byte>> board;
