@@ -57,9 +57,9 @@ public class Controller implements Initializable {
     @FXML
     MenuButton Menu;
     @FXML
-    MenuItem setStatic;
+    CheckBox setStatic;
     @FXML
-    MenuItem setDynamic;
+    CheckBox setDynamic;
     @FXML
     CheckBox drawGrid;
 
