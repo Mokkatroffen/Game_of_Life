@@ -21,7 +21,7 @@
             <Insets />
          </BorderPane.margin>
          <children>
-            <Canvas fx:id="canvas" height="700.0" onMouseClicked="#drawCell" onMouseDragged="#dragCell" onScroll="#scrollHandler" width="700.0" />
+            <Canvas fx:id="canvas" height="700.0" onMouseClicked="#drawCell" onMouseDragged="#dragCell" onScroll="#scrollHandler" width="700.0"  />
          </children>
       </StackPane>
    </center>

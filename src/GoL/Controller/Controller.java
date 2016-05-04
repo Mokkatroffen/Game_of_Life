@@ -302,7 +302,21 @@ public class Controller implements Initializable {
 
         int xCord = (int) (Math.floor(event.getX() / cellSize));
         int yCord = (int) (Math.floor(event.getY() / cellSize));
-
+        if(db != null){
+            int maxX = db.getColumn();
+            int maxY = db.getRow();
+            if(xCord > maxX-1) return;
+            if(yCord > maxY -1) return;
+        }
+        if(gb != null){
+            int maxX = gb.getColumn();
+            int maxY = gb.getRow();
+            if(xCord > maxX-1) return;
+            if(yCord > maxY -1) return;
+        }
+        else{
+            return;
+        }
         System.out.println(xCord + ", " + yCord);
         if(event.getButton().equals(MouseButton.PRIMARY)){
             if(gb!=null){
@@ -324,7 +338,23 @@ public class Controller implements Initializable {
     @FXML
 
     public void dragCell(MouseEvent event) {
-
+        int xCord = (int) (Math.floor(event.getX() / cellSize));
+        int yCord = (int) (Math.floor(event.getY() / cellSize));
+        if(db != null){
+            int maxX = db.getColumn();
+            int maxY = db.getRow();
+            if(xCord > maxX-1) return;
+            if(yCord > maxY -1) return;
+        }
+        if(gb != null){
+            int maxX = gb.getColumn();
+            int maxY = gb.getRow();
+            if(xCord > maxX-1) return;
+            if(yCord > maxY -1) return;
+        }
+        else{
+            return;
+        }
         if (event.isSecondaryButtonDown()){
             //==============pan=================
             canvas.setTranslateX(canvas.getTranslateX() + event.getX() - pressedX);
@@ -333,10 +363,6 @@ public class Controller implements Initializable {
             //===============================
         }
         if(event.isPrimaryButtonDown() && !event.isSecondaryButtonDown()) {
-            int xCord = (int) (Math.floor(event.getX() / cellSize));
-            int yCord = (int) (Math.floor(event.getY() / cellSize));
-
-
             //System.out.println(xCord +", "+yCord);
             if ((xCord * cellSize) < canvas.getHeight() && (yCord * cellSize) < canvas.getWidth() && xCord >= 0 && yCord >= 0) {
 //                gb.getBoard()[yCord][xCord] = 1;
