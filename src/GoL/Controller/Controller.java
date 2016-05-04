@@ -63,10 +63,6 @@ public class Controller implements Initializable {
     @FXML
     CheckBox drawGrid;
 
-    public void test(MouseEvent e){
-        System.out.println("Entered");
-    }
-
 
 //if mouse e inside grid
 
@@ -311,11 +307,14 @@ public class Controller implements Initializable {
             if(xCord > maxX-1) return;
             if(yCord > maxY -1) return;
         }
-        else{
+        if(gb != null){
             int maxX = gb.getColumn();
             int maxY = gb.getRow();
             if(xCord > maxX-1) return;
             if(yCord > maxY -1) return;
+        }
+        else{
+            return;
         }
         System.out.println(xCord + ", " + yCord);
         if(event.getButton().equals(MouseButton.PRIMARY)){
@@ -346,11 +345,14 @@ public class Controller implements Initializable {
             if(xCord > maxX-1) return;
             if(yCord > maxY -1) return;
         }
-        else{
+        if(gb != null){
             int maxX = gb.getColumn();
             int maxY = gb.getRow();
             if(xCord > maxX-1) return;
             if(yCord > maxY -1) return;
+        }
+        else{
+            return;
         }
         if (event.isSecondaryButtonDown()){
             //==============pan=================
