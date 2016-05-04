@@ -103,7 +103,8 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        information.info();
+        information info = new information();
+        info.info();
         //===============================
         canvas.setOnMousePressed(e -> {
             pressedX = e.getX();

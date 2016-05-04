@@ -12,9 +12,7 @@ import javafx.stage.Stage;
  *
  * @see javafx.application.Application The entry point for JavaFX applications is the Application class.
  */
-
 public class Main extends Application {
-    //prefHeight="600.0" prefWidth="900.0";
     private int width = 900;
     private int height = 900;
 
