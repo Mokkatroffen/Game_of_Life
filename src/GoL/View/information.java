@@ -35,7 +35,7 @@ public class information {
             "-Brett som er større enn 200x200 synes ikke veldig bra med grid, så huk av checkboxen for å se mønsteret bedre\n\n"+
             "Load URL:\n"+
             "1. Trykk Load URL\n"+
-            "2. Skriv inn link (HUSK HTTP://\n"+
+            "2. Skriv inn link (HUSK HTTP://)\n"+
             "3. Trykk OK\n"+
             "4. Trykk ok når kommentaren kommer opp\n"+
             "5. Trykk Start for å se nedlastet mønster fra internett\n\n"+
