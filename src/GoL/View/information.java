@@ -1,6 +1,9 @@
 package GoL.View;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
 /**
  * Created by Boris Ilievski on 04.05.2016. .
@@ -9,10 +12,10 @@ public class information {
 
     public static void info()
     {
-    Alert alert = new Alert(Alert.AlertType.WARNING);
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle("Game Of Life Instruction");
     alert.setHeaderText("Hvordan å teste det forskjellige tingene i programmet");
-    alert.setContentText("Dynamic\n"+
+    String message ="Dynamic\n"+
             "1. Trykk dynamic checkboxen.\n"+
             "2. Tegn i canvas (trykk på grid for å få oversikt i griddet)\n"+
             "3. Tegn en Glider hvor som helst på griddet.\n"+
@@ -42,7 +45,25 @@ public class information {
             "Ekstra:\n" +
             "Speed slideren bytter mellom fps (frames per second) der min = 5, max =45\n"+
             "DiscoMode er en random color generator\n"+
-            "NextGen knappen gir deg neste generasjon i programmet uten og iterere flere ganger etterhverandre.");
+            "NextGen knappen gir deg neste generasjon i programmet uten og iterere flere ganger etterhverandre.";
+
+        TextArea textArea = new TextArea(message);
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+
+        textArea.setMaxWidth(Double.MAX_VALUE);
+        textArea.setMaxHeight(Double.MAX_VALUE);
+        GridPane.setVgrow(textArea, Priority.ALWAYS);
+        GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+        GridPane expContent = new GridPane();
+        expContent.setMaxWidth(Double.MAX_VALUE);
+        expContent.add(textArea, 0, 1);
+
+// Set expandable Exception into the dialog pane.
+        alert.getDialogPane().setExpandableContent(expContent);
+        alert.getDialogPane().expandedProperty().setValue(true);
+
 
     alert.showAndWait();
     }
