@@ -268,11 +268,13 @@ public class Controller implements Initializable {
                 parser.readGameBoardFromDisk(selectedFile);
                 if(gb!=null){
                     gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på grid i rle fil, fungerer ikke før du trykker start
+                    canvasResizer();
                 }
                 else{
                     db.setRow(parser.getRow());
                     db.setColumn(parser.getColumn());
                     db.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på grid i rle fil, fungerer ikke før du trykker start
+                    canvasResizer();
                 }
 
             } catch (IOException e) { //spytter ut eventuelle feilmedling
