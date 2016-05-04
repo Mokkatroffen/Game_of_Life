@@ -63,7 +63,9 @@ public class dynamicBoard {
         this.collum = collum;
     }
 
-    public void setBoard(byte [][]newBoard ) {
+    public void setBoard(byte[][] newBoard ) {
+        this.row = newBoard.length;
+        this.collum = newBoard[0].length;
         this.board = new ArrayList<>();
         for (int i = 0; i < newBoard.length; i++) {
             board.add(new ArrayList<>());

@@ -120,7 +120,7 @@ public class Controller implements Initializable {
         graphicsContext.setStroke(Color.BLUE);
         // draw();
         //setStatic();
-        //setDynamic();
+        setDynamic();
         updateSpeed(5);
         addSliderListner();
         //URLbutton.setOnAction(event ->  );
@@ -404,7 +404,8 @@ public class Controller implements Initializable {
         if(gb!=null){
             gb = u.readGameBoardFromURL(gb);
         }
-        else{
+        else if(db!=null){
+            System.out.println(db);
             db = u.readGameBoardFromURL(db);
         }
     }

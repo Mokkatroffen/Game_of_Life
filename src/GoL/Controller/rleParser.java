@@ -141,6 +141,7 @@ public class rleParser {
             System.out.println("Kunne ikke lese fil.");
         }
         try (BufferedReader bfr = new BufferedReader(new FileReader(file.getAbsolutePath()))) {
+            System.out.println("----!!!----");
             readGameBoard(bfr);
         } catch (FileNotFoundException FileNotFound) {
             System.out.println("Feilmelding for buffer");
