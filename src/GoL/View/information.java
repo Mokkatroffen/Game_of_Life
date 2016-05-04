@@ -3,7 +3,7 @@ package GoL.View;
 import javafx.scene.control.Alert;
 
 /**
- * Created by Boris Ilievski on 04.05.2016.
+ * Created by Boris Ilievski on 04.05.2016. .
  */
 public class information {
 
