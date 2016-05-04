@@ -21,12 +21,19 @@ public class rleParser {
      */
     //private URL destination;// blir satt av metode lenger ned.
     private byte[][] boardTufte; //Skal sendes til gameboard på slutten av metuden under. lar oss ha costum størrelse.
-
+    private int row = 0;
+    private int col = 0;
     //henter data fra boardTufte som henter størrelse om brettet
     public byte[][] getBoard() {
         return boardTufte;
     }
 
+    public int getRow(){
+        return row;
+    }
+    public int getColumn(){
+        return col;
+    }
     /**
      * readGameBoard gathers files and draws the actual grid.
      *
@@ -45,6 +52,7 @@ public class rleParser {
         int colms;
         int rows;
         int number;
+
 //push
 
         StringBuilder melding = new StringBuilder();  //"Kommentar: " + comment + "\n Navn" + name + "Forfatter: " + author + "Kommentar: " + comment;
@@ -92,8 +100,8 @@ public class rleParser {
 
 
         Pattern thePattern = Pattern.compile("([0-9]*)([oObB$])");
-        int row = 0;
-        int col = 0;
+        row = 0;
+        col = 0;
         //WHILE LOOP FOR SELVE BRETTET
         while ((line = r.readLine()) != null) {
             Matcher patternMatch = thePattern.matcher(line);
