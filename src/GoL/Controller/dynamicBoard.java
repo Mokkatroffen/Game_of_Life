@@ -38,7 +38,7 @@ public class dynamicBoard {
 
     public byte getCellState(int row, int col){
 
-        return board.get(row).get(col);
+        return board.get(row).get(col); //HER FEILER
     }
 
     public void setCellState(int x, int y, byte state){

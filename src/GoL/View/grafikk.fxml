@@ -5,8 +5,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -21,7 +19,7 @@
             <Insets />
          </BorderPane.margin>
          <children>
-            <Canvas fx:id="canvas" height="700.0" onMouseClicked="#drawCell" onMouseDragged="#dragCell" onScroll="#scrollHandler" width="700.0"  />
+            <Canvas fx:id="canvas" height="800.0" onMouseClicked="#drawCell" onMouseDragged="#dragCell" onScroll="#scrollHandler" width="800.0" />
          </children>
       </StackPane>
    </center>
@@ -127,11 +125,11 @@
                  </children></VBox>
              <VBox prefHeight="83.0" prefWidth="160.0">
                  <children>
-                     <CheckBox fx:id="setStatic" mnemonicParsing="false" text="Static" onAction="#setStatic" />
+                     <CheckBox fx:id="setStatic" mnemonicParsing="false" onAction="#setStatic" text="Static" />
                  </children></VBox>
              <VBox prefHeight="83.0" prefWidth="160.0">
                  <children>
-                     <CheckBox fx:id="setDynamic" mnemonicParsing="false" text="Dynamic" onAction="#setDynamic" />
+                     <CheckBox fx:id="setDynamic" mnemonicParsing="false" onAction="#setDynamic" text="Dynamic" />
                  </children></VBox>
          </children>
       </HBox>
