@@ -1,5 +1,5 @@
 package GoL.Controller;
-
+import GoL.View.information;
 import GoL.Controller.dynamicBoard;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -103,6 +103,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        information.info();
         //===============================
         canvas.setOnMousePressed(e -> {
             pressedX = e.getX();
