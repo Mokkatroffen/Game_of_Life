@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: hotPink;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller.Controller">
+<BorderPane prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GoL.Controller.Controller">
    <center>
       <StackPane prefHeight="800.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -24,7 +24,7 @@
       </StackPane>
    </center>
    <bottom>
-      <HBox prefHeight="76.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="76.0" prefWidth="900.0" style="-fx-background-color: darkgrey;" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="83.0" prefWidth="88.0">
                <children>
@@ -35,27 +35,27 @@
                   </Button>
                </children>
                <HBox.margin>
-                  <Insets left="10.0" />
+                  <Insets top="10.0" />
                </HBox.margin>
             </VBox>
-            <VBox prefHeight="76.0" prefWidth="78.0">
+            <VBox prefHeight="70.0" prefWidth="108.0">
                <HBox.margin>
-                  <Insets />
+                  <Insets top="10.0" />
                </HBox.margin>
                <children>
-                  <Button fx:id="URLbutton" mnemonicParsing="false" onAction="#fileOpener" prefHeight="30.0" prefWidth="78.0" text="Load">
+                  <Button fx:id="URLbutton" mnemonicParsing="false" onAction="#fileOpener" prefHeight="25.0" prefWidth="90.0" text="Load">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="nextGenButton" mnemonicParsing="false" onAction="#NextGen" prefHeight="30.0" prefWidth="80.0" text="NextGen">
+                  <Button fx:id="nextGenButton" mnemonicParsing="false" onAction="#NextGen" prefHeight="0.0" prefWidth="90.0" text="NextGen">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Button>
                </children>
             </VBox>
-            <VBox prefHeight="83.0" prefWidth="200.0">
+            <VBox prefHeight="60.0" prefWidth="190.0">
                <children>
                   <HBox prefHeight="34.0" prefWidth="152.0" spacing="10.0">
                      <VBox.margin>
@@ -77,12 +77,15 @@
                         </Label>
                      </children>
                   </HBox>
-                  <Slider fx:id="slider" blockIncrement="5.0" majorTickUnit="10.0" max="45.0" min="5.0" minorTickCount="1" prefHeight="14.0" prefWidth="165.0" showTickMarks="true" snapToTicks="true" value="5.0">
+                  <Slider fx:id="slider" blockIncrement="5.0" majorTickUnit="10.0" max="45.0" min="5.0" minorTickCount="1" prefHeight="24.0" prefWidth="164.0" showTickMarks="true" snapToTicks="true" value="5.0">
                      <VBox.margin>
-                        <Insets left="20.0" right="20.0" />
+                        <Insets left="20.0" right="10.0" />
                      </VBox.margin>
                   </Slider>
                </children>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" top="10.0" />
+               </HBox.margin>
             </VBox>
             <!--<VBox prefHeight="76.0" prefWidth="134.0">-->
                <!--<children>-->
@@ -105,32 +108,47 @@
                   <!--</MenuButton>-->
                <!--</children>-->
             <!--</VBox>-->
-            <VBox prefHeight="76.0" prefWidth="133.0">
+            <VBox prefHeight="60.0" prefWidth="199.0">
                <children>
-                  <CheckBox fx:id="drawGrid" mnemonicParsing="false" onAction="#setGrid" prefHeight="76.0" prefWidth="104.0" text="Grid">
-                     <VBox.margin>
-                        <Insets left="20.0" />
-                     </VBox.margin>
-                  </CheckBox>
-               <Button mnemonicParsing="false" onAction="#readGameBoardFromURL" prefHeight="82.0" prefWidth="188.0" text="Load URL">
+               <Button mnemonicParsing="false" onAction="#readGameBoardFromURL" prefHeight="40.0" prefWidth="163.0" text="Load URL">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </Button>
                </children>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
             </VBox>
              <VBox prefHeight="83.0" prefWidth="160.0">
-                 <children>
-                     <CheckBox fx:id="getLSD" mnemonicParsing="false" text="LSD mode" />
-                 </children></VBox>
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+               <children>
+                     <CheckBox fx:id="getLSD" mnemonicParsing="false" text="LSD mode">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin></CheckBox>
+                  <CheckBox fx:id="drawGrid" mnemonicParsing="false" onAction="#setGrid" prefHeight="0.0" prefWidth="104.0" text="Grid">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </CheckBox>
+               </children></VBox>
              <VBox prefHeight="83.0" prefWidth="160.0">
                  <children>
-                     <CheckBox fx:id="setStatic" mnemonicParsing="false" onAction="#setStatic" text="Static" />
-                 </children></VBox>
-             <VBox prefHeight="83.0" prefWidth="160.0">
-                 <children>
-                     <CheckBox fx:id="setDynamic" mnemonicParsing="false" onAction="#setDynamic" selected="true" text="Dynamic" />
-                 </children></VBox>
+                     <CheckBox fx:id="setStatic" mnemonicParsing="false" onAction="#setStatic" text="Static">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin></CheckBox>
+                     <CheckBox fx:id="setDynamic" mnemonicParsing="false" onAction="#setDynamic" selected="true" text="Dynamic">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin></CheckBox>
+                 </children>
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin></VBox>
          </children>
       </HBox>
    </bottom>
