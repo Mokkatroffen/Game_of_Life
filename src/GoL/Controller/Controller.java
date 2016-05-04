@@ -327,6 +327,9 @@ public class Controller implements Initializable {
             if(xCord > maxX-1) return;
             if(yCord > maxY -1) return;
         }
+        else if(gb == null && db == null ){
+            return;
+        }
 
         System.out.println(xCord + ", " + yCord);
         if(event.getButton().equals(MouseButton.PRIMARY)){
@@ -362,6 +365,9 @@ public class Controller implements Initializable {
             int maxY = gb.getRow();
             if(xCord > maxX-1) return;
             if(yCord > maxY -1) return;
+        }
+        else if(gb == null && db == null ){
+            return;
         }
 
         if (event.isSecondaryButtonDown()){
