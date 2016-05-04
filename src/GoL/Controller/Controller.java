@@ -320,15 +320,13 @@ public class Controller implements Initializable {
             if(xCord > maxX-1) return;
             if(yCord > maxY -1) return;
         }
-        if(gb!=null){
+        if(gb != null){
             int maxX = gb.getColumn();
             int maxY = gb.getRow();
             if(xCord > maxX-1) return;
             if(yCord > maxY -1) return;
         }
-        else{
-            return;
-        }
+
         System.out.println(xCord + ", " + yCord);
         if(event.getButton().equals(MouseButton.PRIMARY)){
             if(gb!=null){
@@ -358,15 +356,13 @@ public class Controller implements Initializable {
             if(xCord > maxX-1) return;
             if(yCord > maxY -1) return;
         }
-        if(gb !=null){
+        if(gb != null){
             int maxX = gb.getColumn();
             int maxY = gb.getRow();
             if(xCord > maxX-1) return;
             if(yCord > maxY -1) return;
         }
-        else{
-            return;
-        }
+
         if (event.isSecondaryButtonDown()){
             //==============pan=================
             canvas.setTranslateX(canvas.getTranslateX() + event.getX() - pressedX);
