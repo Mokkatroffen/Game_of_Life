@@ -1,6 +1,6 @@
 package inndata.GoL;
 
-import GoL.Controller.GameBoard;
+import GoL.Model.GameBoard;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

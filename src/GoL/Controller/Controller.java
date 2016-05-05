@@ -1,35 +1,27 @@
 package GoL.Controller;
-import GoL.View.information;
-import GoL.Controller.dynamicBoard;
-import javafx.application.Application;
-import javafx.event.EventHandler;
+import GoL.Model.GameBoard;
+import GoL.Model.UrlHandler;
+import GoL.Model.DynamicBoard;
+import GoL.Model.RleParser;
+import GoL.View.Information;
 import javafx.geometry.Bounds;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -67,8 +59,8 @@ public class Controller implements Initializable {
 //if mouse e inside grid
 
     private GraphicsContext graphicsContext;
-    public  dynamicBoard db;
-    public  GameBoard gb ;
+    public DynamicBoard db;
+    public GameBoard gb ;
     //private Timeline timeline;
     private double cellSize;
     private Timeline timeline;
@@ -91,7 +83,7 @@ public class Controller implements Initializable {
     }
     @FXML
     public void setDynamic(){
-        db = new dynamicBoard(11,12);
+        db = new DynamicBoard(11,12);
         draw();
     }
 
@@ -103,7 +95,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        information info = new information();
+        Information info = new Information();
         info.info();
         //===============================
         canvas.setOnMousePressed(e -> {
@@ -217,7 +209,7 @@ public class Controller implements Initializable {
         if (timeline.getStatus() == Animation.Status.STOPPED) {
             timeline.play();
             startButton.setText("Stop");
-            rleParser innlastedFil = new rleParser();
+            RleParser innlastedFil = new RleParser();
             byte[][] board1 = innlastedFil.getBoard();
 
         } else {
@@ -264,7 +256,7 @@ public class Controller implements Initializable {
         if (selectedFile != null) {
             System.out.println("Controller.fileOpener:" + selectedFile);
 
-            rleParser parser = new rleParser();
+            RleParser parser = new RleParser();
             try {
                 parser.readGameBoardFromDisk(selectedFile);
                 if(gb!=null){

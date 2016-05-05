@@ -1,4 +1,4 @@
-package GoL.Controller;
+package GoL.Model;
 
 import javafx.scene.control.Alert;
 
@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 
 
-public class rleParser {
+public class RleParser {
  /**1
      * readGameBoard reads the metadata and board.
      *
@@ -37,7 +37,7 @@ public class rleParser {
     /**
      * readGameBoard gathers files and draws the actual grid.
      *
-     * @param r holds the information from the BufferedReader.
+     * @param r holds the Information from the BufferedReader.
      * @throws IOException  Signals that an I/O exception of some sort has occurred.
      *
      * @see BufferedReader Reads text from a character-input stream, buffering characters so as to

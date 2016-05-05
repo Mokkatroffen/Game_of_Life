@@ -1,8 +1,5 @@
-package GoL.Controller;
+package GoL.Model;
 
-import GoL.Controller.GameBoard;
-import GoL.Controller.MatchMaster;
-import GoL.Controller.rleParser;
 import javafx.scene.control.Alert;
 
 import java.io.*;
@@ -99,7 +96,7 @@ public class UrlHandler {
         if (selectedFile != null && x == 1) {
             System.out.println("Controller.fileOpener:" + selectedFile);
 
-            rleParser parser = new rleParser();
+            RleParser parser = new RleParser();
             try {
 
                 File file = new File("src/GoL/web.rle");
@@ -123,7 +120,7 @@ public class UrlHandler {
 
     }
 
-    public static dynamicBoard readGameBoardFromURL(dynamicBoard gb) throws IOException {
+    public static DynamicBoard readGameBoardFromURL(DynamicBoard gb) throws IOException {
 
 
         TextInputDialog dialog = new TextInputDialog("");
@@ -188,7 +185,7 @@ public class UrlHandler {
         if (selectedFile != null && x == 1) {
             System.out.println("Controller.fileOpener:" + selectedFile);
 
-            rleParser parser = new rleParser();
+            RleParser parser = new RleParser();
             try {
 
                 File file = new File("src/GoL/web.rle");

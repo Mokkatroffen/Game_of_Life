@@ -1,4 +1,4 @@
-package GoL.Controller;
+package GoL.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,18 +6,18 @@ import java.util.List;
 /**
  * Created by andreas on 30.04.16.
  */
-public class dynamicBoard {
+public class DynamicBoard {
 
 
     private ArrayList<ArrayList<Byte>> board;
     public int row;
     public int collum;
 
-    public dynamicBoard(){
+    public DynamicBoard(){
         row = 12;
         collum = 11;
     }
-    public dynamicBoard(int row, int collum){
+    public DynamicBoard(int row, int collum){
         this.row = row;
         this.collum = collum;
         createBoard();

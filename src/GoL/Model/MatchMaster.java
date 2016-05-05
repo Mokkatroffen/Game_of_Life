@@ -1,4 +1,4 @@
-package GoL.Controller;
+package GoL.Model;
 
 import java.util.StringJoiner;
 /**

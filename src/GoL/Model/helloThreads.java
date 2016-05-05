@@ -1,6 +1,6 @@
-package GoL.Controller;
+package GoL.Model;
 
-public class helloThreads implements Runnable {
+public class HelloThreads implements Runnable {
     @Override
     public void run() {
         System.out.println("Hello world from thread " +
@@ -10,7 +10,7 @@ public class helloThreads implements Runnable {
         System.out.println("Hello world from thread " +
                 Thread.currentThread().getId());
 
-        Thread thread = new Thread(new helloThreads());
+        Thread thread = new Thread(new HelloThreads());
         thread.start();
     }
 }

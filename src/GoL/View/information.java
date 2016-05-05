@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 /**
  * Created by Boris Ilievski on 04.05.2016. .
  */
-public class information {
+public class Information {
 
     public void info() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
