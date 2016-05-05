@@ -1,4 +1,4 @@
-package test.GoL;
+package inndata.GoL;
 
 import GoL.Controller.GameBoard;
 import org.junit.After;
@@ -38,7 +38,7 @@ public class GameBoardTest {
     }
 
     /**
-     *  testNextGen is an JUnit test for a given iteration of the given board.
+     *  testNextGen is an JUnit inndata for a given iteration of the given board.
      *
      *  testen vises det at hvis vi bytter ut en celle helt neders i høyre hjørne og kjøre next gen 2 ganger, så sier testen at den er riktig
      * Dette er fordi etter 2 nextGen iterasjoner så vil den ene cellen i hjørnet dø ut og mønsteret vil fortsatt være = assertionen men om vi

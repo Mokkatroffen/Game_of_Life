@@ -536,7 +536,7 @@ public class Controller implements Initializable {
             }
         }
 
-        //  boardTufte = new boolean[rows][colms]; test
+        //  boardTufte = new boolean[rows][colms]; inndata
     }
 
     @FXML
