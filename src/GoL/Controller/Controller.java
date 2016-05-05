@@ -30,7 +30,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-//testikkel
+//
 public class Controller implements Initializable {
     @FXML
     Canvas canvas;
@@ -68,6 +68,10 @@ public class Controller implements Initializable {
     double pressedX;
     double pressedY;
     boolean randomCollors = false;
+
+    private boolean nonDynamic;
+    private double cellHeight, cellWidth;
+
     //===============================
     /*public AnimatedZoomOperator() {
         this.timeline = new Timeline(60);
@@ -76,15 +80,90 @@ public class Controller implements Initializable {
 
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void changeBoardType(int height, int width) {
+        if(nonDynamic) {
+            db = new DynamicBoard(width, height);
+        } else {
+            gb = new GameBoard(width, height);
+        }
+        nonDynamic = !nonDynamic;
+
+        updateSpeed(5);
+        addSliderListner();
+        draw();
+    }
+
+    private void fillCells(int boardRow, int boardColumn) {
+        double xPos = 0;
+        double yPos = 0;
+        cellHeight = canvas.getHeight() / boardColumn;
+        cellWidth = canvas.getWidth() / boardRow;
+        cellSize = (cellWidth > cellHeight) ? cellHeight : cellWidth;
+        for(int row = 0; row < boardRow; row++) {
+            for (int column = 0; column < boardColumn; column++) {
+                if(!nonDynamic) {
+                    if(db.getCellState(row, column ) == 1) {
+                        fillCell(xPos, yPos);
+                    }
+                } else {
+                    if (gb.getCellState(row, column) == 1) {
+                        fillCell(xPos, yPos);
+                    }
+                }
+
+                xPos += cellSize;
+            }
+            xPos = 0;
+            yPos += cellSize;
+        }
+    }
+
+    private void fillCell(double xPos, double yPos) {
+        graphicsContext.setFill((randomCollors)?(Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255))):(Color.BLACK));
+        graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
+    }
+
+    private void clearCanvas() {
+        graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    }
+
+    private void draw() {
+        clearCanvas();
+        int height = (!nonDynamic) ? db.getColumn() : gb.getColumn();
+        int width = (!nonDynamic) ? db.getRow() : gb.getRow();
+        fillCells(width, height);
+        if(drawGrid.isSelected()) {
+            grid();
+        }
+    }
+
     @FXML
     public void setStatic(){
-        gb = new GameBoard(11,12);
-        draw();
+        clearCanvas();
+        changeBoardType(10,10);
+
     }
     @FXML
     public void setDynamic(){
-        db = new DynamicBoard(11,12);
-        draw();
+        clearCanvas();
+        changeBoardType(10,10);
     }
 
     private void setDynamic(int row, int column){
@@ -95,6 +174,8 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+
+        nonDynamic = true;
         Information info = new Information();
         info.info();
         //===============================
@@ -163,7 +244,7 @@ public class Controller implements Initializable {
 
         Duration duration = Duration.millis(1000 / frames);
         KeyFrame keyFrame = new KeyFrame(duration, (ActionEvent e) -> {
-            if(gb!=null){
+            if(nonDynamic){
                 gb.nextGen();
             }
             else{
@@ -230,7 +311,7 @@ public class Controller implements Initializable {
 
     @FXML
     void NextGen(ActionEvent event) {
-        if(gb!=null){
+        if(nonDynamic){
             gb.nextGen();
         }else{
             db.nextGen();
@@ -259,7 +340,7 @@ public class Controller implements Initializable {
             RleParser parser = new RleParser();
             try {
                 parser.readGameBoardFromDisk(selectedFile);
-                if(gb!=null){
+                if(nonDynamic){
                     gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på grid i rle fil, fungerer ikke før du trykker start
                     canvasResizer();
                 }
@@ -308,25 +389,22 @@ public class Controller implements Initializable {
 
         int xCord = (int) (Math.floor(event.getX() / cellSize));
         int yCord = (int) (Math.floor(event.getY() / cellSize));
-        if(db != null){
+        if(!nonDynamic){
             int maxX = db.getColumn();
             int maxY = db.getRow();
             if(xCord > maxX-1) return;
             if(yCord > maxY -1) return;
         }
-        if(gb != null){
+        if(nonDynamic){
             int maxX = gb.getColumn();
             int maxY = gb.getRow();
             if(xCord > maxX-1) return;
             if(yCord > maxY -1) return;
         }
-        else if(gb == null && db == null ){
-            return;
-        }
 
         System.out.println(xCord + ", " + yCord);
         if(event.getButton().equals(MouseButton.PRIMARY)){
-            if(gb!=null){
+            if(nonDynamic){
                 drawStaticBoard(xCord, yCord, event);
             }
             else{
@@ -347,20 +425,17 @@ public class Controller implements Initializable {
     public void dragCell(MouseEvent event) {
         int xCord = (int) (Math.floor(event.getX() / cellSize));
         int yCord = (int) (Math.floor(event.getY() / cellSize));
-        if(db != null){
+        if(!nonDynamic){
             int maxX = db.getColumn();
             int maxY = db.getRow();
             if(xCord > maxX-1) return;
             if(yCord > maxY -1) return;
         }
-        if(gb != null){
+        if(nonDynamic) {
             int maxX = gb.getColumn();
             int maxY = gb.getRow();
-            if(xCord > maxX-1) return;
-            if(yCord > maxY -1) return;
-        }
-        else if(gb == null && db == null ){
-            return;
+            if (xCord > maxX - 1) return;
+            if (yCord > maxY - 1) return;
         }
 
         if (event.isSecondaryButtonDown()){
@@ -374,10 +449,10 @@ public class Controller implements Initializable {
             //System.out.println(xCord +", "+yCord);
             if ((xCord * cellSize) < canvas.getHeight() && (yCord * cellSize) < canvas.getWidth() && xCord >= 0 && yCord >= 0) {
 //                gb.getBoard()[yCord][xCord] = 1;
-                if(gb!=null) {
+                if(nonDynamic) {
                     gb.setCellState(yCord,xCord,(byte)1) ;
                 }
-                else if(db!=null){
+                else if(!nonDynamic){
                     db.setCellState(yCord,xCord,(byte)1) ;
                 }
                 graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
@@ -390,11 +465,10 @@ public class Controller implements Initializable {
     void readGameBoardFromURL(ActionEvent event) throws IOException {
         String url1 = "http://www.hioagaming.no/rats.rle";
         UrlHandler u = new UrlHandler();
-        if(gb!=null){
+        if(nonDynamic){
             gb = u.readGameBoardFromURL(gb);
         }
-        else if(db!=null){
-            System.out.println(db);
+        else {
             db = u.readGameBoardFromURL(db);
         }
     }
@@ -402,7 +476,7 @@ public class Controller implements Initializable {
     /*public void readGameBoardFromURL(String url) throws IOException{
 
     }*/
-    private void draw(/*innparameter-med-eget-predefinert-board-*/) {
+    /*private void draw() {
 
 //        byte[][] board = gb.getBoard();
 
@@ -526,7 +600,7 @@ public class Controller implements Initializable {
         }
 
         //  boardTufte = new boolean[rows][colms]; inndata
-    }
+    }*/
 
     @FXML
     private void setGrid () {
@@ -539,7 +613,7 @@ public class Controller implements Initializable {
         double cellSize;
         double col;
         double row;
-        if(gb!=null){
+        if(nonDynamic){
             col = gb.getColumn();
             row = gb.getRow();
         }else{
@@ -555,11 +629,11 @@ public class Controller implements Initializable {
         } else {
             cellSize = cellwidth;
         }
-        if(gb!=null){
+        if(nonDynamic){
             double boardWidth = cellSize * gb.getColumn();
             double boardHeight = cellSize * gb.getRow();
             graphicsContext.setLineWidth(0.20);
-            //GRID LINES
+            //GRID LINESGoL/Controller/Controller.java:653
             //if (drawGrid.isSelected()) {
             for (int i = 0; i <= row; i++) {
                 double horizontal = i * cellSize;

@@ -37,11 +37,17 @@ public class UrlHandler {
         dialog.setContentText("Please enter the URL:");
         //prøv å sette Optional STRING result til URL
         Optional<String> result = dialog.showAndWait();
+        String test;
+        if(!result.isPresent()){
+            return new GameBoard(20,20);
+        }else{
+            test = result.get();
+        }
         //pregmatchen her
         // Vi trenger å regexxe resultatet i dialogboksen før det legges i string.
 
 
-        String test = result.get();
+
 
         Matcher matcher = urlPattern.matcher(test);
 
@@ -61,22 +67,22 @@ public class UrlHandler {
         System.out.println(error);
         int x = 0;
         try {
-        if (error == null) {
-            URL rlesite = new URL(test);
-            ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
-            FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
-            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-            x++;
+            if (error == null) {
+                URL rlesite = new URL(test);
+                ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
+                FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
+                fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+                x++;
 
-        } else {
-            System.out.println(error);
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("The URL did not meet the URL-formating standards");
-            alert.setHeaderText("The inserted URL was malformated");
-            alert.setContentText(error);
+            } else {
+                System.out.println(error);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("The URL did not meet the URL-formating standards");
+                alert.setHeaderText("The inserted URL was malformated");
+                alert.setContentText(error);
 
-            alert.showAndWait();
-        }
+                alert.showAndWait();
+            }
 
 
             if(x == 1) {
@@ -129,9 +135,14 @@ public class UrlHandler {
         dialog.setContentText("Please enter the URL:");
         Optional<String> result = dialog.showAndWait();
 
+        String test;
+        if(!result.isPresent()){
+            return new DynamicBoard(20,20);
+        }else{
+            test = result.get();
+        }
 
 
-        String test = result.get();
 
 
 
