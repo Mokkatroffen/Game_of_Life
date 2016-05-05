@@ -274,10 +274,8 @@ public class Controller implements Initializable {
                 System.out.println(e.getMessage());
             }
             System.out.println("Loaded File " + selectedFile);
-
+            draw();
         }
-        draw();
-
     }
 
     //brukes i drawCell dersom det  er dynamic board
@@ -392,7 +390,6 @@ public class Controller implements Initializable {
     void readGameBoardFromURL(ActionEvent event) throws IOException {
         String url1 = "http://www.hioagaming.no/rats.rle";
         UrlHandler u = new UrlHandler();
-        //u.readGameBoardFromURL(url1);
         if(gb!=null){
             gb = u.readGameBoardFromURL(gb);
         }
