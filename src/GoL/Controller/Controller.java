@@ -1,8 +1,8 @@
 package GoL.Controller;
 import GoL.Model.GameBoard;
-import GoL.Model.UrlHandler;
 import GoL.Model.DynamicBoard;
 import GoL.Model.RleParser;
+import GoL.Model.UrlHandler;
 import GoL.View.Information;
 import javafx.geometry.Bounds;
 import javafx.scene.control.*;

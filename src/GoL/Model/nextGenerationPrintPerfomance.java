@@ -1,4 +1,0 @@
-package GoL.Model;
-
-
-
