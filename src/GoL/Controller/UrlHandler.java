@@ -130,10 +130,8 @@ public class UrlHandler {
         dialog.setTitle("URL");
         dialog.setHeaderText("This program only handles java valid URLs, remember http://.");
         dialog.setContentText("Please enter the URL:");
-        //prøv å sette Optional STRING result til URL
         Optional<String> result = dialog.showAndWait();
-        //pregmatchen her
-        // Vi trenger å regexxe resultatet i dialogboksen før det legges i string.
+
 
 
         String test = result.get();
