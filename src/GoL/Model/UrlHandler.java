@@ -37,11 +37,17 @@ public class UrlHandler {
         dialog.setContentText("Please enter the URL:");
         //prøv å sette Optional STRING result til URL
         Optional<String> result = dialog.showAndWait();
+        String test;
+        if(!result.isPresent()){
+            return new GameBoard(20,20);
+        }else{
+            test = result.get();
+        }
         //pregmatchen her
         // Vi trenger å regexxe resultatet i dialogboksen før det legges i string.
 
 
-        String test = result.get();
+
 
         Matcher matcher = urlPattern.matcher(test);
 
@@ -129,9 +135,14 @@ public class UrlHandler {
         dialog.setContentText("Please enter the URL:");
         Optional<String> result = dialog.showAndWait();
 
+        String test;
+        if(!result.isPresent()){
+            return new DynamicBoard(20,20);
+        }else{
+            test = result.get();
+        }
 
 
-        String test = result.get();
 
 
 
