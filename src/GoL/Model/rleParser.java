@@ -6,8 +6,6 @@ import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-
 public class RleParser {
  /**1
      * readGameBoard reads the metadata and board.
@@ -52,8 +50,6 @@ public class RleParser {
         int colms;
         int rows;
         int number;
-
-//push
 
         StringBuilder melding = new StringBuilder();  //"Kommentar: " + comment + "\n Navn" + name + "Forfatter: " + author + "Kommentar: " + comment;
 
