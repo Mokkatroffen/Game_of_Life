@@ -124,8 +124,7 @@ public class UrlHandler {
     }
 
     public static dynamicBoard readGameBoardFromURL(dynamicBoard gb) throws IOException {
-        Pattern urlPattern = Pattern.compile("^((http[s]?|ftp[s]?|ssh):\\/\\/)   ?    ([^:\\/\\s]+)(:[0-9]+)   ?    ((?:\\/\\w+)*\\/) ([\\w\\-\\.]+[^#?\\s]+) ([^#\\s]*) ? (#[\\w\\-]+)? (.rle)$"
-        ); //dette kan slettes etter test TODO:
+
 
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("URL");
@@ -139,7 +138,6 @@ public class UrlHandler {
 
         String test = result.get();
 
-        Matcher matcher = urlPattern.matcher(test);
 
 
         System.out.println(test);
