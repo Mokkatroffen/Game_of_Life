@@ -234,26 +234,21 @@ public class Controller implements Initializable {
         nonDynamic = true;
         Information info = new Information();
         info.info();
-        //===============================
         canvas.setOnMousePressed(e -> {
             pressedX = e.getX();
             pressedY = e.getY();
         });
-        //=================================
         getLSD.setOnAction(event -> setRandomCollors());
 
         canvas.setEffect(new Glow());
         graphicsContext = canvas.getGraphicsContext2D();
 
-        //graphicsContext.setFill(Color.GREEN);
         graphicsContext.setStroke(Color.BLUE);
-        // draw();
-        //setStatic();
+
         setDynamic();
         updateSpeed(5);
         addSliderListner();
-        //URLbutton.setOnAction(event ->  );
-        //nextGenButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
+
     }
 
     @FXML
@@ -270,11 +265,9 @@ public class Controller implements Initializable {
         double zoomFactor = 1.5;
 
         if (event.getDeltaY() <= 0) {
-            // zoom out
             zoomFactor = 1 / zoomFactor;
         }
         zoom(zoomFactor, event.getSceneX(), event.getSceneY());
-        //draw();
     }
 
 
@@ -289,7 +282,6 @@ public class Controller implements Initializable {
      * @param y y holds the y possition of the mouse pointer
      */
     private void zoom(double factor, double x, double y) {
-        // determine scale
         double oldScale = canvas.getScaleX();
         double scale = oldScale * factor;
         if (scale < 6 && scale > 0.4) {
@@ -297,7 +289,6 @@ public class Controller implements Initializable {
 
             double f = (scale / oldScale) - 1;
 
-            // determine offset that we will have to move the canvas
             Bounds bounds = canvas.localToScene(canvas.getBoundsInLocal());
             double dx = (x - (bounds.getWidth() / 2 + bounds.getMinX()));
             double dy = (y - (bounds.getHeight() / 2 + bounds.getMinY()));
@@ -517,7 +508,6 @@ public class Controller implements Initializable {
     //brukes i drawcell hvis det er static board
     private void drawStaticBoard(int xCord, int yCord, MouseEvent event){
         if (gb.getCellState(yCord, xCord) == 1 && event.isControlDown()) {
-//                gb.getBoard()[yCord][xCord] = 0;
             gb.setCellState(yCord,xCord,(byte)0) ;
             graphicsContext.clearRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
         }
@@ -588,15 +578,11 @@ public class Controller implements Initializable {
             if (yCord > maxY - 1) return;
         }
         if (event.isSecondaryButtonDown()){
-            //==============pan=================
             canvas.setTranslateX(canvas.getTranslateX() + event.getX() - pressedX);
             canvas.setTranslateY(canvas.getTranslateY() + event.getY() - pressedY);
-            //===============================
         }
         if(event.isPrimaryButtonDown() && !event.isSecondaryButtonDown()) {
-            //System.out.println(xCord +", "+yCord);
             if ((xCord * cellSize) < canvas.getHeight() && (yCord * cellSize) < canvas.getWidth() && xCord >= 0 && yCord >= 0) {
-//                gb.getBoard()[yCord][xCord] = 1;
                 if(nonDynamic) {
                     gb.setCellState(yCord,xCord,(byte)1) ;
                 }
@@ -656,7 +642,6 @@ public class Controller implements Initializable {
             col = db.getColumn();
             row = db.getRow();
         }
-        //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
         double cellwidth = canvas.getWidth() / col;
         double cellheight = canvas.getHeight() / row;
 
@@ -669,8 +654,7 @@ public class Controller implements Initializable {
             double boardWidth = cellSize * gb.getColumn();
             double boardHeight = cellSize * gb.getRow();
             graphicsContext.setLineWidth(0.20);
-            //GRID LINESGoL/Controller/Controller.java:653
-            //if (drawGrid.isSelected()) {
+
             for (int i = 0; i <= row; i++) {
                 double horizontal = i * cellSize;
                 graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
@@ -685,8 +669,7 @@ public class Controller implements Initializable {
             double boardHeight = cellSize * db.getRow();
             graphicsContext.setLineWidth(0.20);
 
-            //GRID LINES
-            //if (drawGrid.isSelected()) {
+
             for (int i = 0; i <= db.getRow(); i++) {
                 double horizontal = i * cellSize;
                 graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);

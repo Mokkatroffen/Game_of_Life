@@ -15,8 +15,7 @@ import javafx.stage.Stage;
  * Gives the user instructions on how to use the program.
  * It also gives the program it's own icon.
  * @author Boris Illievski
- * @version 1.0
- * @date May 5. 2016
+ * @version 1.0, May 5. 2016
  */
 public class Information {
 
