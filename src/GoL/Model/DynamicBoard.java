@@ -252,14 +252,12 @@ public class DynamicBoard {
         for (int y = 0; y < this.row; y++) {
             if (board.get(y).get(0) == 1) {
                 this.collum++;
-                //System.out.println("+ VENSTRE");
                 for (int i = 0; i < this.row; i++) {
                     board.get(i).add(0, (byte) 0);
                 }
             }
             if (board.get(y).get(collum - 1) == 1) {
                 this.collum++;
-                //System.out.println("+ HØYRE");
                 for (int i = 0; i < this.row; i++) {
                     board.get(i).add((byte) 0);
                 }
@@ -269,7 +267,6 @@ public class DynamicBoard {
         for (int x = 0; x < this.collum; x++) {
             if (board.get(0).get(x) == 1) {
                 this.row++;
-                //System.out.println("+ TOPP");
                 board.add(0, new ArrayList<>());
                 for (int i = 0; i < this.collum; i++) {
                     board.get(0).add((byte) 0);
@@ -277,7 +274,6 @@ public class DynamicBoard {
             }
             if (board.get(row - 1).get(x) == 1) {
                 this.row++;
-                //System.out.println("+ BUNN");
                 board.add(new ArrayList<>());
                 for (int i = 0; i < this.collum; i++) {
                     board.get(row - 1).add((byte) 0);
