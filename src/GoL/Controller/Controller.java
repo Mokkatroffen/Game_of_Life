@@ -35,7 +35,7 @@ public class Controller implements Initializable {
      * Here pressing buttons, sliders and live-drawing in the grid is handled.
      * Controller pulls data from the other classes and acts to controll data from them.
      * @author Andreas Jacobsen
-     *
+     * @date 29. March 2016
      * @version 0.8
      */
 
@@ -238,7 +238,7 @@ public class Controller implements Initializable {
             pressedX = e.getX();
             pressedY = e.getY();
         });
-        getLSD.setOnAction(event -> setRandomCollors());
+        //=================================
 
         canvas.setEffect(new Glow());
         graphicsContext = canvas.getGraphicsContext2D();
@@ -282,6 +282,7 @@ public class Controller implements Initializable {
      * @param y y holds the y possition of the mouse pointer
      */
     private void zoom(double factor, double x, double y) {
+        // determine scale
         double oldScale = canvas.getScaleX();
         double scale = oldScale * factor;
         if (scale < 6 && scale > 0.4) {
@@ -289,6 +290,7 @@ public class Controller implements Initializable {
 
             double f = (scale / oldScale) - 1;
 
+            // determine offset that we will have to move the canvas
             Bounds bounds = canvas.localToScene(canvas.getBoundsInLocal());
             double dx = (x - (bounds.getWidth() / 2 + bounds.getMinX()));
             double dy = (y - (bounds.getHeight() / 2 + bounds.getMinY()));
@@ -417,7 +419,7 @@ public class Controller implements Initializable {
      * @version 1.0 May 05, 2016
      */
     void startGrid(ActionEvent event) {
-        grid();
+       grid();
     }
 
     @FXML
@@ -508,6 +510,7 @@ public class Controller implements Initializable {
     //brukes i drawcell hvis det er static board
     private void drawStaticBoard(int xCord, int yCord, MouseEvent event){
         if (gb.getCellState(yCord, xCord) == 1 && event.isControlDown()) {
+//                gb.getBoard()[yCord][xCord] = 0;
             gb.setCellState(yCord,xCord,(byte)0) ;
             graphicsContext.clearRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
         }
@@ -582,7 +585,9 @@ public class Controller implements Initializable {
             canvas.setTranslateY(canvas.getTranslateY() + event.getY() - pressedY);
         }
         if(event.isPrimaryButtonDown() && !event.isSecondaryButtonDown()) {
+            //System.out.println(xCord +", "+yCord);
             if ((xCord * cellSize) < canvas.getHeight() && (yCord * cellSize) < canvas.getWidth() && xCord >= 0 && yCord >= 0) {
+//                gb.getBoard()[yCord][xCord] = 1;
                 if(nonDynamic) {
                     gb.setCellState(yCord,xCord,(byte)1) ;
                 }
@@ -603,6 +608,8 @@ public class Controller implements Initializable {
      *
      * @throws IOException
      */
+    //testkode for debugging av readgameboardFromURL
+    //brukes når man trenger debugging.
     void readGameBoardFromURL(ActionEvent event) throws IOException {
         String url1 = "http://www.hioagaming.no/rats.rle";
         UrlHandler u = new UrlHandler();
@@ -642,6 +649,7 @@ public class Controller implements Initializable {
             col = db.getColumn();
             row = db.getRow();
         }
+        //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
         double cellwidth = canvas.getWidth() / col;
         double cellheight = canvas.getHeight() / row;
 
@@ -669,7 +677,7 @@ public class Controller implements Initializable {
             double boardHeight = cellSize * db.getRow();
             graphicsContext.setLineWidth(0.20);
 
-
+            //GRID LINES
             for (int i = 0; i <= db.getRow(); i++) {
                 double horizontal = i * cellSize;
                 graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
