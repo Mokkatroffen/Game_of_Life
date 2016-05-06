@@ -3,15 +3,19 @@ package GoL.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by andreas on 30.04.16.
+ * Draws the dynamic board. The board calls the draw method every time a cell hits one of the edges to re-draw so the cells don't leave the canvas.
+ *
+ * @author Andreas Jacobsen
+ * @version 0.4 - May 2, 2016
  */
 public class DynamicBoard {
 
 
     private ArrayList<ArrayList<Byte>> board;
-    public int row;
-    public int collum;
+    private int row;
+    private int collum;
 
     public DynamicBoard(){
         row = 12;
@@ -34,7 +38,14 @@ public class DynamicBoard {
         }
     }
 
-
+    /**
+     * getCellState returns the state of a cell.
+     * @param row gets it's position in row.
+     * @param col gets it's position in column.
+     * @return returns data
+     * @Author Andreas Jacobsen
+     * @Date 20. April 2016
+     */
 
     public byte getCellState(int row, int col){
 
@@ -58,7 +69,6 @@ public class DynamicBoard {
     }
 
 
-
     public void setColumn(int collum) {
         this.collum = collum;
     }
@@ -76,6 +86,14 @@ public class DynamicBoard {
 
     }
 
+    /**
+     * Checks the neighbouring cells state. This data is used to determine of a cell should be alive or dead.
+     * @param row get rows.
+     * @param column get column.
+     * @return returns the life-state of the neighbouring cells.
+     * @Author Kristian Munter Simonsen
+     * @Version 0.2 21. April 2016
+     */
     public int checkNeighbors(int row, int column){
         int neighbors = 0;
         if(row > 0){
@@ -129,7 +147,6 @@ public class DynamicBoard {
      */
     public void nextGen(){
         expandBoard();
-        //System.out.println(board.length + " collength " + board[0].length);
 
         ArrayList<ArrayList<Byte>> nextGenBoard=new ArrayList<>();
         for (int i = 0; i <this.row ; i++) {
@@ -141,7 +158,6 @@ public class DynamicBoard {
         for(int row = 0; row < this.row; row++){
             for(int column = 0; column < this.collum; column++){
 
-                //System.out.print(checkNeighbors(row,column)+ " ");
 
                 if(checkNeighbors(row,column) == 3){
                     nextGenBoard.get(row).set(column,(byte)1);
@@ -157,12 +173,18 @@ public class DynamicBoard {
                 }
             }
 
-            //System.out.println();
-
         }
         board = nextGenBoard;
     }
 
+    /**
+     * Expands board based upon if any cells tries to go further then the current grid.
+     * Is only used in DynamicBoard and is thus private.
+     * @Author Boris Illievski
+     * @Version 0.2
+     * @Date 1. May. 2016
+     *
+     */
     private void expandBoard(){
         for (int y = 0; y < this.row; y++) {
             if(board.get(y).get(0)==1){
