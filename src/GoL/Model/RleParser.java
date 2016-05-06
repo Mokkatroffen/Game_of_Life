@@ -38,7 +38,10 @@ public class RleParser {
     /**
      * readGameBoard gathers files and draws the actual grid.
      *
-     * @param r holds the Information from the BufferedReader.
+     * @author Andreas Jacobsen.
+     * @version 1.0 - May 05, 2016
+     *
+     * @param r holds the information from the BufferedReader.
      * @throws IOException  Signals that an I/O exception of some sort has occurred.
      *
      * @see BufferedReader Reads text from a character-input stream, buffering characters so as to
@@ -54,7 +57,7 @@ public class RleParser {
         int rows;
         int number;
 
-        StringBuilder melding = new StringBuilder();  //"Kommentar: " + comment + "\n Navn" + name + "Forfatter: " + author + "Kommentar: " + comment;
+        StringBuilder melding = new StringBuilder();
 
         //WHILE LOOP FOR METAtestDATA OG BRETTSTØRRELSE
         while ((line = r.readLine()) != null) { //r er en buffered reader, sjekker på om det eksistere noe i BufferedReaderen.
@@ -75,8 +78,6 @@ public class RleParser {
                 continue;
 
             } else if (line.charAt(0) == 'x') {
-
-                //[x][ ][=][ ]([\\d+])[,][ ][y][ ][=][ ]([\\d+])
                 Pattern bokstaver = Pattern.compile("[x][ ][=][ ]([\\d]+)[,][ ][y][ ][=][ ]([\\d]+)"); //her bruker vi groups så sidte \\d tester på tall, vi kan kalle dem med tallposisjoner
                 Matcher matcher = bokstaver.matcher(line);
                 if (matcher.find()) { //returnerer en bolsk verdi
@@ -125,14 +126,16 @@ public class RleParser {
         System.out.println("Ferdig å laste program!");
     }
 
- /**
+    /**
      * readGameBoardFromDisk reades a file from disk onto board.
      *
      * @author Boris Illievski.
-     * @version 0.2 - April 18, 2016.
+     * @version 1.0 - May 05, 20016.
      *
      * @param file file is the file which is uploaded.
      * @throws IOException IOException throws out an error message if needed.
+     * @see File File package defines interfaces and classes for the Java virtual machine to access
+     * files, file attributes, and file systems.
      */
     public void readGameBoardFromDisk(File file) throws IOException {
         if (!file.canRead()) {

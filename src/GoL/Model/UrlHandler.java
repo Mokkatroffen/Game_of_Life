@@ -15,28 +15,40 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Optional;
 
-
+/**
+ * readGameBoardFromUrl reads .rle file from an URL an implements it into the board.
+ * This class also uses the MatchMaster-class to check for and return errors.
+ *
+ * Using other classes this class can both retrive the file, save it, and send tell the rle-parser to start work on the file.
+ * @throws IOException IOException throws out an error message if needed.
+ * @author Kristian Munter Simonsen.
+ * @version 0.2 - April 18, 2016.
+ */
 public class UrlHandler {
+
     /**
      * readGameBoardFromUrl reads .rle file from an URL an implements it into the board.
-     * This class also uses the MatchMaster-class to check for and return errors.
      *
-     * Using other classes this class can both retrive the file, save it, and send tell the rle-parser to start work on the file.
-     * @throws IOException IOException throws out an error message if needed.
+     * This method is spesificly for the static game board. Due to little time left we had to duplicate the mathod for dynamic aswell.
+     * Handling error messages when wrong files or urls are inserted. Strings and alike also are implemented here.
+     *
      * @author Kristian Munter Simonsen.
-     * @version 0.2 - April 18, 2016.
+     * @version 1.0 - May 05, 2016.
+     *
+     * @param gb Parameter for inserting url to GameBoard.
+     * @throws IOException IOException throws out an error message if needed.
+     * @return gb gb holds the return board from the URL.
+     *
+     * @see GameBoard
      */
-
-
     public static GameBoard readGameBoardFromURL(GameBoard gb) throws IOException {
         Pattern urlPattern = Pattern.compile("^((http[s]?|ftp[s]?|ssh):\\/\\/)   ?    ([^:\\/\\s]+)(:[0-9]+)   ?    ((?:\\/\\w+)*\\/) ([\\w\\-\\.]+[^#?\\s]+) ([^#\\s]*) ? (#[\\w\\-]+)? (.rle)$"
-        ); //dette kan slettes etter test TODO:
+        );
 
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("URL");
         dialog.setHeaderText("This program only handles java valid URLs, remember http://.");
         dialog.setContentText("Please enter the URL:");
-        //prøv å sette Optional STRING result til URL
         Optional<String> result = dialog.showAndWait();
         String test;
         if(!result.isPresent()){
@@ -44,14 +56,8 @@ public class UrlHandler {
         }else{
             test = result.get();
         }
-        //pregmatchen her
-        // Vi trenger å regexxe resultatet i dialogboksen før det legges i string.
-
-
-
 
         Matcher matcher = urlPattern.matcher(test);
-
 
         System.out.println(test);
         File selectedFile = new File(test);
@@ -124,12 +130,22 @@ public class UrlHandler {
             System.out.println("Feilmelding for IOE-Feil");
         }
         return gb;
-
     }
 
+    /**
+     * readGameBoardFromURL reads .rle file from an URL an implements it into the board.
+     *
+     * This method is specifically for the dynamic game board. Due to little time left we had to duplicate the method for dynamic as well.
+     * Handling error messages when wrong files or urls are inserted. Strings and alike also are implemented here.
+     *
+     * @author Kristian Munter Simonsen.
+     * @version 1.0 - May 05, 2016.
+     *
+     * @param gb Parameter for inserting url to GameBoard.
+     * @throws IOException IOException throws out an error message if needed.
+     * @return gb gb holds the board from the url and returns it.
+     */
     public static DynamicBoard readGameBoardFromURL(DynamicBoard gb) throws IOException {
-
-
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("URL");
         dialog.setHeaderText("This program only handles java valid URLs, remember http://.");
@@ -143,10 +159,6 @@ public class UrlHandler {
             test = result.get();
         }
 
-
-
-
-
         System.out.println(test);
         File selectedFile = new File(test);
 
@@ -168,18 +180,14 @@ public class UrlHandler {
                 FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
                 fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
                 x++;
-
             } else {
                 System.out.println(error);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("The URL did not meet the URL-formating standards");
                 alert.setHeaderText("The inserted URL was malformated");
                 alert.setContentText(error);
-
                 alert.showAndWait();
             }
-
-
             if(x == 1) {
                 URL rlesite = new URL(test);
                 ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
@@ -193,13 +201,10 @@ public class UrlHandler {
             alert.setContentText("Please check that your URL contains a .rle file");
             alert.showAndWait();
         }
-
         if (selectedFile != null && x == 1) {
             System.out.println("Controller.fileOpener:" + selectedFile);
-
             RleParser parser = new RleParser();
             try {
-
                 File file = new File("src/GoL/web.rle");
                 System.out.println(file.getAbsolutePath());
                 parser.readGameBoardFromDisk(file);
@@ -218,8 +223,5 @@ public class UrlHandler {
             System.out.println("Feilmelding for IOE-Feil");
         }
         return gb;
-
     }
-
-
 }
