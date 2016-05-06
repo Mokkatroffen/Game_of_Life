@@ -14,6 +14,7 @@ import javafx.stage.Stage;
  * Contains the start up dialog box and the data in the box.
  * Gives the user instructions on how to use the program.
  * It also gives the program it's own icon.
+ *
  * @author Boris Illievski
  * @version 1.0, May 5. 2016
  */
@@ -26,14 +27,14 @@ public class Information {
         alert.setGraphic(imageIcon);
         alert.setTitle("Game Of Life Instruction");
         alert.setHeaderText("Hvordan å teste det forskjellige tingene i programmet");
-        String message = "Hvordan brettet fungerer:\n"+
+        String message = "Hvordan brettet fungerer:\n" +
                 "- Du kan tegne ved å klike eller dra på brettet.\n" +
                 "- For å slette en celle holder du inne CTRL og trykker.\n" +
                 "- For å zoome bruker du musehjulet.\n" +
                 "- For å navigere på brettet holdes høyreklikke inne.\n" +
                 "- Speed slideren bytter mellom farten på itterasjonene der min = 5, max =35\n" +
                 "- DiscoMode er en random color generator\n" +
-                "- NextGen knappen gir deg neste generasjon i programmet uten og iterere flere ganger etterhverandre.\n"+
+                "- NextGen knappen gir deg neste generasjon i programmet uten og iterere flere ganger etterhverandre.\n" +
                 "\n Dynamisk brett: \n" +
                 "1. Dynamisk lastets som standard\n" +
                 "2. Trykk på grid for å få oversikt i griddet.\n" +
@@ -56,8 +57,8 @@ public class Information {
                 "2. Skriv inn link (HUSK HTTP://).\n" +
                 "3. Trykk OK.\n" +
                 "4. Trykk ok når kommentaren kommer opp.\n" +
-                "5. Trykk Start for å se nedlastet mønster fra internett.\n\n"+
-                " Dette spillet er utviklet som en eksamensoppgave i faget DATS1600 våren 2016 av\n"+
+                "5. Trykk Start for å se nedlastet mønster fra internett.\n\n" +
+                " Dette spillet er utviklet som en eksamensoppgave i faget DATS1600 våren 2016 av\n" +
                 " Andreas Jacobsen, Brois Ilievski & Kristian Munter Simonsen";
 
         TextArea textArea = new TextArea(message);

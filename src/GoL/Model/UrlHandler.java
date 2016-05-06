@@ -18,27 +18,26 @@ import java.util.Optional;
 /**
  * readGameBoardFromUrl reads .rle file from an URL an implements it into the board.
  * This class also uses the MatchMaster-class to check for and return errors.
- *
+ * <p>
  * Using other classes this class can both retrive the file, save it, and send tell the rle-parser to start work on the file.
- * @throws IOException IOException throws out an error message if needed.
+ *
  * @author Kristian Munter Simonsen.
  * @version 0.2 - April 18, 2016.
+ * @throws IOException IOException throws out an error message if needed.
  */
 public class UrlHandler {
 
     /**
      * readGameBoardFromUrl reads .rle file from an URL an implements it into the board.
-     *
+     * <p>
      * This method is spesificly for the static game board. Due to little time left we had to duplicate the mathod for dynamic aswell.
      * Handling error messages when wrong files or urls are inserted. Strings and alike also are implemented here.
      *
+     * @param gb Parameter for inserting url to GameBoard.
+     * @return gb gb holds the return board from the URL.
+     * @throws IOException IOException throws out an error message if needed.
      * @author Kristian Munter Simonsen.
      * @version 1.0 - May 05, 2016.
-     *
-     * @param gb Parameter for inserting url to GameBoard.
-     * @throws IOException IOException throws out an error message if needed.
-     * @return gb gb holds the return board from the URL.
-     *
      * @see GameBoard
      */
     public static GameBoard readGameBoardFromURL(GameBoard gb) throws IOException {
@@ -51,9 +50,9 @@ public class UrlHandler {
         dialog.setContentText("Please enter the URL:");
         Optional<String> result = dialog.showAndWait();
         String test;
-        if(!result.isPresent()){
-            return new GameBoard(20,20);
-        }else{
+        if (!result.isPresent()) {
+            return new GameBoard(20, 20);
+        } else {
             test = result.get();
         }
 
@@ -92,7 +91,7 @@ public class UrlHandler {
             }
 
 
-            if(x == 1) {
+            if (x == 1) {
                 URL rlesite = new URL(test);
                 ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
                 FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");
@@ -134,16 +133,15 @@ public class UrlHandler {
 
     /**
      * readGameBoardFromURL reads .rle file from an URL an implements it into the board.
-     *
+     * <p>
      * This method is specifically for the dynamic game board. Due to little time left we had to duplicate the method for dynamic as well.
      * Handling error messages when wrong files or urls are inserted. Strings and alike also are implemented here.
      *
+     * @param gb Parameter for inserting url to GameBoard.
+     * @return gb gb holds the board from the url and returns it.
+     * @throws IOException IOException throws out an error message if needed.
      * @author Kristian Munter Simonsen.
      * @version 1.0 - May 05, 2016.
-     *
-     * @param gb Parameter for inserting url to GameBoard.
-     * @throws IOException IOException throws out an error message if needed.
-     * @return gb gb holds the board from the url and returns it.
      */
     public static DynamicBoard readGameBoardFromURL(DynamicBoard gb) throws IOException {
         TextInputDialog dialog = new TextInputDialog("");
@@ -153,9 +151,9 @@ public class UrlHandler {
         Optional<String> result = dialog.showAndWait();
 
         String test;
-        if(!result.isPresent()){
-            return new DynamicBoard(20,20);
-        }else{
+        if (!result.isPresent()) {
+            return new DynamicBoard(20, 20);
+        } else {
             test = result.get();
         }
 
@@ -188,7 +186,7 @@ public class UrlHandler {
                 alert.setContentText(error);
                 alert.showAndWait();
             }
-            if(x == 1) {
+            if (x == 1) {
                 URL rlesite = new URL(test);
                 ReadableByteChannel rbc = Channels.newChannel(rlesite.openStream());
                 FileOutputStream fos = new FileOutputStream("src/GoL/web.rle");

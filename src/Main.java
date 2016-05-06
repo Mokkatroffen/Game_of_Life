@@ -12,23 +12,23 @@ import javafx.stage.Stage;
  *
  * @author Andreas Jacobsen.
  * @version 0.2 - April 18, 2016.
- * Main loads the .fxml file, sets icon and starts the launch method that initilazises the entire program.
- * Main also dynamically setts the size of the application.
- *
+ *          Main loads the .fxml file, sets icon and starts the launch method that initilazises the entire program.
+ *          Main also dynamically setts the size of the application.
  * @see javafx.application.Application The entry point for JavaFX applications is the Application class.
  */
 public class Main extends Application {
     private int width = 900;
     private int height = 900;
+
     /**
- * The start method initialises the stage Stage while the Exception controls any exceptions.
- *
- * @author Boris Illievski.
- * @version 0.2 - April 18, 2016.
- * @param stage sets the stage of the method.
- * @see Exception Constructs a new exception with {@code null} as its detail message.
- * @see Stage The JavaFX {@code Stage} class is the top level JavaFX container.
- */
+     * The start method initialises the stage Stage while the Exception controls any exceptions.
+     *
+     * @param stage sets the stage of the method.
+     * @author Boris Illievski.
+     * @version 0.2 - April 18, 2016.
+     * @see Exception Constructs a new exception with {@code null} as its detail message.
+     * @see Stage The JavaFX {@code Stage} class is the top level JavaFX container.
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("GoL/View/grafikk.fxml"));
@@ -43,6 +43,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
     private void addIcon(Stage stage) {
         Image image = new Image(this.getClass().getResource("GoL/View/GoL.gif").toString());
         stage.getIcons().add(image);

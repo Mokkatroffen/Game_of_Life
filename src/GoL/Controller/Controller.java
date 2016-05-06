@@ -1,4 +1,5 @@
 package GoL.Controller;
+
 import GoL.Model.GameBoard;
 import GoL.Model.DynamicBoard;
 import GoL.Model.RleParser;
@@ -23,6 +24,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -53,7 +55,7 @@ public class Controller implements Initializable {
 
     private GraphicsContext graphicsContext;
     public DynamicBoard db;
-    public GameBoard gb ;
+    public GameBoard gb;
     private double cellSize;
     private Timeline timeline;
     double pressedX;
@@ -65,10 +67,9 @@ public class Controller implements Initializable {
     /**
      * Controller Controller initializes controller
      *
+     * @throws IOException Signals that an I/O exception of some sort has occurred.
      * @author Andreas Jacobsen
      * @version 1.0 May 05, 2016
-     *
-     * @throws IOException Signals that an I/O exception of some sort has occurred.
      */
     public Controller() throws IOException {
 
@@ -78,14 +79,13 @@ public class Controller implements Initializable {
      * changeBoardType changes the board type between by creating a new dynamic og static board
      * depending on the users input.
      *
+     * @param height height sets the height of the board
+     * @param width  width sets the width of the baord
      * @author Andreas Jacobsen
      * @version 1.0 May 05, 2016
-     *
-     * @param height height sets the height of the board
-     * @param width width sets the width of the baord
      */
     public void changeBoardType(int height, int width) {
-        if(nonDynamic) {
+        if (nonDynamic) {
             db = new DynamicBoard(width, height);
         } else {
             gb = new GameBoard(width, height);
@@ -100,11 +100,10 @@ public class Controller implements Initializable {
     /**
      * fillCells fills the cells depending on the cells state
      *
-     * @author Kristian Munter Simonsen
-     * @version 1.0 May 05, 2016
-     *
      * @param boardRow
      * @param boardColumn
+     * @author Kristian Munter Simonsen
+     * @version 1.0 May 05, 2016
      */
     private void fillCells(int boardRow, int boardColumn) {
         double xPos = 0;
@@ -112,10 +111,10 @@ public class Controller implements Initializable {
         cellHeight = canvas.getHeight() / boardColumn;
         cellWidth = canvas.getWidth() / boardRow;
         cellSize = (cellWidth > cellHeight) ? cellHeight : cellWidth;
-        for(int row = 0; row < boardRow; row++) {
+        for (int row = 0; row < boardRow; row++) {
             for (int column = 0; column < boardColumn; column++) {
-                if(!nonDynamic) {
-                    if(db.getCellState(row, column ) == 1) {
+                if (!nonDynamic) {
+                    if (db.getCellState(row, column) == 1) {
                         fillCell(xPos, yPos);
                     }
                 } else {
@@ -134,14 +133,13 @@ public class Controller implements Initializable {
     /**
      * fillCell fills fills the cells based on either random or normal colours
      *
-     * @author Boris Ilievski
-     * @version 1.0 May 05, 2016
-     *
      * @param xPos xPos sets the position of the rows
      * @param yPos yPos sets the position of the columns
+     * @author Boris Ilievski
+     * @version 1.0 May 05, 2016
      */
     private void fillCell(double xPos, double yPos) {
-        graphicsContext.setFill((randomCollors)?(Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255))):(Color.BLACK));
+        graphicsContext.setFill((randomCollors) ? (Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255))) : (Color.BLACK));
         graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
     }
 
@@ -166,7 +164,7 @@ public class Controller implements Initializable {
         int height = (!nonDynamic) ? db.getColumn() : gb.getColumn();
         int width = (!nonDynamic) ? db.getRow() : gb.getRow();
         fillCells(width, height);
-        if(drawGrid.isSelected()) {
+        if (drawGrid.isSelected()) {
             grid();
         }
     }
@@ -178,9 +176,9 @@ public class Controller implements Initializable {
      * @author Kristian Munter Simonsen
      * @version 1.0 May 05, 2016
      */
-    public void setStatic(){
+    public void setStatic() {
         clearCanvas();
-        changeBoardType(10,10);
+        changeBoardType(10, 10);
     }
 
     @FXML
@@ -190,21 +188,20 @@ public class Controller implements Initializable {
      * @author Boris Ilievski
      * @version 1.0 May 05, 2016
      */
-    public void setDynamic(){
+    public void setDynamic() {
         clearCanvas();
-        changeBoardType(10,10);
+        changeBoardType(10, 10);
     }
 
     /**
      * setDynamic setDynamic sets a dynamic board based on db's row and column
      *
+     * @param row    column sets the rows of the board
+     * @param column column set the columns of the board
      * @author Andreas Jacobsen
      * @version 1.0 May 05, 2016
-     *
-     * @param row column sets the rows of the board
-     * @param column column set the columns of the board
      */
-    private void setDynamic(int row, int column){
+    private void setDynamic(int row, int column) {
         db.setRow(row);
         db.setColumn(column);
     }
@@ -272,12 +269,11 @@ public class Controller implements Initializable {
     /**
      * zoom handles the zoom opeartion via scroll
      *
+     * @param factor factor holds the factor by wich you zoom
+     * @param x      x holds the x possition of the mouse pointer
+     * @param y      y holds the y possition of the mouse pointer
      * @author Boris Ilievski
      * @version 1.0 May 05, 2016
-     *
-     * @param factor factor holds the factor by wich you zoom
-     * @param x x holds the x possition of the mouse pointer
-     * @param y y holds the y possition of the mouse pointer
      */
     public void zoom(double factor, double x, double y) {
         // determine scale
@@ -299,6 +295,7 @@ public class Controller implements Initializable {
             canvas.setScaleY(scale);
         }
     }
+
     /**
      * canvasResizer canvasResizer resizes the board based on the canvas set methods
      *
@@ -315,18 +312,16 @@ public class Controller implements Initializable {
     /**
      * updateSpeed updateSpeed handles the update speed of the cells itterations
      *
+     * @param frames frames is the inparameter from the slider
      * @author Boris Ilievski
      * @version 1.0 May 05, 2016
-     *
-     * @param frames frames is the inparameter from the slider
      */
     private void updateSpeed(int frames) {
         Duration duration = Duration.millis(1000 / frames);
         KeyFrame keyFrame = new KeyFrame(duration, (ActionEvent e) -> {
-            if(nonDynamic){
+            if (nonDynamic) {
                 gb.nextGen();
-            }
-            else{
+            } else {
                 db.nextGen();
             }
             draw();
@@ -369,9 +364,9 @@ public class Controller implements Initializable {
     /**
      * setSliderText setSliderText puts out the refresh rate of the iterations to the user based on the slider
      *
+     * @param value value is the value that the slider is set to.
      * @author Kristian Munter Simonsen
      * @version 1.0 May 05, 2016
-     * @param value value is the value that the slider is set to.
      */
     private void setSliderText(double value) {
         speedometer.setText((int) value + " frames");
@@ -427,9 +422,9 @@ public class Controller implements Initializable {
      * @version 1.0 May, 05 2016
      */
     void NextGen(ActionEvent event) {
-        if(nonDynamic){
+        if (nonDynamic) {
             gb.nextGen();
-        }else{
+        } else {
             db.nextGen();
         }
         draw();
@@ -462,11 +457,10 @@ public class Controller implements Initializable {
             RleParser parser = new RleParser();
             try {
                 parser.readGameBoardFromDisk(selectedFile);
-                if(nonDynamic){
+                if (nonDynamic) {
                     gb.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på grid i rle fil, fungerer ikke før du trykker start
                     canvasResizer();
-                }
-                else{
+                } else {
                     db.setRow(parser.getRow());
                     db.setColumn(parser.getColumn());
                     db.setBoard(parser.getBoard()); //setter størrelsen på brettet bassert på grid i rle fil, fungerer ikke før du trykker start
@@ -483,36 +477,33 @@ public class Controller implements Initializable {
 
     /**
      * drawDynamicBoard drawDynamicBoard draws the cords on the board based on the inputs from the user
-     *draws cells only if dynamic board is set
-     *
-     * @author Andreas Jacobsen
-     * @version 1.0 May 05, 2016
+     * draws cells only if dynamic board is set
      *
      * @param xCord xCord is the coordiantes of the mouses x posstion
      * @param yCord yCord is the coordiantes of the mouses y posstion
      * @param event event listens to the event click of the user.
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
      */
-    private void drawDynamicBoard(int xCord, int yCord, MouseEvent event){
+    private void drawDynamicBoard(int xCord, int yCord, MouseEvent event) {
         if (db.getCellState(yCord, xCord) == 1 && event.isControlDown()) {
 //                db.getBoard()[yCord][xCord] = 0;
-            db.setCellState(yCord,xCord,(byte)0) ;
+            db.setCellState(yCord, xCord, (byte) 0);
             graphicsContext.clearRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
-        }
-        else if (db.getCellState(yCord, xCord)  == 0) {
-            db.setCellState(yCord,xCord,(byte)1) ;
+        } else if (db.getCellState(yCord, xCord) == 0) {
+            db.setCellState(yCord, xCord, (byte) 1);
             graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
         }
     }
 
     //brukes i drawcell hvis det er static board
-    private void drawStaticBoard(int xCord, int yCord, MouseEvent event){
+    private void drawStaticBoard(int xCord, int yCord, MouseEvent event) {
         if (gb.getCellState(yCord, xCord) == 1 && event.isControlDown()) {
 //                gb.getBoard()[yCord][xCord] = 0;
-            gb.setCellState(yCord,xCord,(byte)0) ;
+            gb.setCellState(yCord, xCord, (byte) 0);
             graphicsContext.clearRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
-        }
-        else if (gb.getCellState(yCord, xCord)  == 0) {
-            gb.setCellState(yCord,xCord,(byte)1) ;
+        } else if (gb.getCellState(yCord, xCord) == 0) {
+            gb.setCellState(yCord, xCord, (byte) 1);
             graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
         }
     }
@@ -529,24 +520,23 @@ public class Controller implements Initializable {
     public void drawCell(MouseEvent event) {
         int xCord = (int) (Math.floor(event.getX() / cellSize));
         int yCord = (int) (Math.floor(event.getY() / cellSize));
-        if(!nonDynamic){
+        if (!nonDynamic) {
             int maxX = db.getColumn();
             int maxY = db.getRow();
-            if(xCord > maxX-1) return;
-            if(yCord > maxY -1) return;
+            if (xCord > maxX - 1) return;
+            if (yCord > maxY - 1) return;
         }
-        if(nonDynamic){
+        if (nonDynamic) {
             int maxX = gb.getColumn();
             int maxY = gb.getRow();
-            if(xCord > maxX-1) return;
-            if(yCord > maxY -1) return;
+            if (xCord > maxX - 1) return;
+            if (yCord > maxY - 1) return;
         }
         System.out.println(xCord + ", " + yCord);
-        if(event.getButton().equals(MouseButton.PRIMARY)){
-            if(nonDynamic){
+        if (event.getButton().equals(MouseButton.PRIMARY)) {
+            if (nonDynamic) {
                 drawStaticBoard(xCord, yCord, event);
-            }
-            else{
+            } else {
                 drawDynamicBoard(xCord, yCord, event);
             }
             if (drawGrid.isSelected()) {
@@ -565,33 +555,32 @@ public class Controller implements Initializable {
     public void dragCell(MouseEvent event) {
         int xCord = (int) (Math.floor(event.getX() / cellSize));
         int yCord = (int) (Math.floor(event.getY() / cellSize));
-        if(!nonDynamic){
+        if (!nonDynamic) {
             int maxX = db.getColumn();
             int maxY = db.getRow();
-            if(xCord > maxX-1) return;
-            if(yCord > maxY -1) return;
+            if (xCord > maxX - 1) return;
+            if (yCord > maxY - 1) return;
         }
-        if(nonDynamic) {
+        if (nonDynamic) {
             int maxX = gb.getColumn();
             int maxY = gb.getRow();
             if (xCord > maxX - 1) return;
             if (yCord > maxY - 1) return;
         }
-        if (event.isSecondaryButtonDown()){
+        if (event.isSecondaryButtonDown()) {
             //==============pan=================
             canvas.setTranslateX(canvas.getTranslateX() + event.getX() - pressedX);
             canvas.setTranslateY(canvas.getTranslateY() + event.getY() - pressedY);
             //===============================
         }
-        if(event.isPrimaryButtonDown() && !event.isSecondaryButtonDown()) {
+        if (event.isPrimaryButtonDown() && !event.isSecondaryButtonDown()) {
             //System.out.println(xCord +", "+yCord);
             if ((xCord * cellSize) < canvas.getHeight() && (yCord * cellSize) < canvas.getWidth() && xCord >= 0 && yCord >= 0) {
 //                gb.getBoard()[yCord][xCord] = 1;
-                if(nonDynamic) {
-                    gb.setCellState(yCord,xCord,(byte)1) ;
-                }
-                else if(!nonDynamic){
-                    db.setCellState(yCord,xCord,(byte)1) ;
+                if (nonDynamic) {
+                    gb.setCellState(yCord, xCord, (byte) 1);
+                } else if (!nonDynamic) {
+                    db.setCellState(yCord, xCord, (byte) 1);
                 }
                 graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
             }
@@ -610,10 +599,9 @@ public class Controller implements Initializable {
     void readGameBoardFromURL(ActionEvent event) throws IOException {
         String url1 = "http://www.hioagaming.no/rats.rle";
         UrlHandler u = new UrlHandler();
-        if(nonDynamic){
+        if (nonDynamic) {
             gb = u.readGameBoardFromURL(gb);
-        }
-        else {
+        } else {
             db = u.readGameBoardFromURL(db);
         }
     }
@@ -625,7 +613,7 @@ public class Controller implements Initializable {
      * @author Andreas Jacobsen
      * @version 1.0 May 05, 2016
      */
-    private void setGrid () {
+    private void setGrid() {
         draw();
     }
 
@@ -639,10 +627,10 @@ public class Controller implements Initializable {
         double cellSize;
         double col;
         double row;
-        if(nonDynamic){
+        if (nonDynamic) {
             col = gb.getColumn();
             row = gb.getRow();
-        }else{
+        } else {
             col = db.getColumn();
             row = db.getRow();
         }
@@ -655,7 +643,7 @@ public class Controller implements Initializable {
         } else {
             cellSize = cellwidth;
         }
-        if(nonDynamic){
+        if (nonDynamic) {
             double boardWidth = cellSize * gb.getColumn();
             double boardHeight = cellSize * gb.getRow();
             graphicsContext.setLineWidth(0.20);
@@ -670,7 +658,7 @@ public class Controller implements Initializable {
                 double vertical = i * cellSize;
                 graphicsContext.strokeLine(vertical, 0, vertical, boardHeight);
             }
-        }else{
+        } else {
             double boardWidth = cellSize * db.getColumn();
             double boardHeight = cellSize * db.getRow();
             graphicsContext.setLineWidth(0.20);
