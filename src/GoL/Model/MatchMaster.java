@@ -2,7 +2,11 @@ package GoL.Model;
 
 import java.util.StringJoiner;
 /**
- * Created by Andreas Jacobsen on 27/04/2016.
+ * Matchmaster is a helper class that is used to processes data by the UrlHandler.
+ * It returns errors and can take inn any regular expression from the class it is uesd.
+ * We only use this in UrlHandler, but it could also be used elsewhere.
+ * @Author Andreas Jacobsen
+ * @Date 18. April 2016
  */
 public class MatchMaster {
 

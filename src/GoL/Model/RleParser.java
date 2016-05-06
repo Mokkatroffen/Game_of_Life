@@ -12,12 +12,8 @@ public class RleParser {
      * Prints out the comments from every file and ahs error-handling for when the file cannot be found or read.
      * After having read the file RleParser will tell the gameboards where to draw.
      *
-     *
      * @author Andreas Jacobsen.
      * @version 0.2 - April 18, 2016.
-     *
-     * @par                readGameBoard(bfr);
- am r r is an buffered reader.
      * @throws IOException IOException throws out an error message if needed.
      */
     //private URL destination;// blir satt av metode lenger ned.
