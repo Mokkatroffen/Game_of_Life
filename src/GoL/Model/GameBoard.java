@@ -1,13 +1,10 @@
+package GoL.Model;
 /**
- * 1
  * GameBoard.java  contains the creation and paramters, values and limits of the board which the interaction is preformed.
- *
  * @author Andreas Jacobsen, Boris Illievski & Kristian Munter Simonsen
  * @version 1.0 - April 18, 2016
  * Every major change to the file will result in a +0.1 to version while a new hand-in results in a whole new version
  */
-package GoL.Model;
-
 
 public class GameBoard {
 
@@ -15,8 +12,9 @@ public class GameBoard {
      * GameBoard draws the gameboard based on values from a .rle file sent by the RleParser.
      * GameBoard also handles checking if a cell is alive or dead, and drawing cells based upon the life-state of a cell.
      * The class draws the static gameboard and can not be used for dynamic scaling of the gameboard, see DynamicBoard for that
+     *
      * @author Kristian Munter Simonsen
-     * @version 1.0 May 02, 2016
+     * @version 1.0 May 05, 2016
      */
 
     private byte[][] board;

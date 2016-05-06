@@ -10,16 +10,22 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
+
 /**
  * Contains the start up dialog box and the data in the box.
  * Gives the user instructions on how to use the program.
  * It also gives the program it's own icon.
- *
  * @author Boris Illievski
- * @version 1.0, May 5. 2016
+ * @version 1.0 May 05, 2016
  */
-public class Information {
 
+public class Information {
+    /**
+     * info info presents the information about the game in form the text within the info method.
+     *
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
+     */
     public void info() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         ImageView imageIcon = addIcon(alert);

@@ -32,6 +32,14 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+    /**
+     * Controller handles drawing of cell and interaction with graphical elements.
+     * Here pressing buttons, sliders and live-drawing in the grid is handled.
+     * Controller pulls data from the other classes and acts to controll data from them.
+     *
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
+     */
     @FXML
     Canvas canvas;
     @FXML
@@ -67,9 +75,10 @@ public class Controller implements Initializable {
     /**
      * Controller Controller initializes controller
      *
-     * @throws IOException Signals that an I/O exception of some sort has occurred.
      * @author Andreas Jacobsen
      * @version 1.0 May 05, 2016
+     *
+     * @throws IOException Signals that an I/O exception of some sort has occurred.
      */
     public Controller() throws IOException {
 
@@ -79,10 +88,11 @@ public class Controller implements Initializable {
      * changeBoardType changes the board type between by creating a new dynamic og static board
      * depending on the users input.
      *
-     * @param height height sets the height of the board
-     * @param width  width sets the width of the baord
      * @author Andreas Jacobsen
      * @version 1.0 May 05, 2016
+     *
+     * @param height height sets the height of the board
+     * @param width width sets the width of the baord
      */
     public void changeBoardType(int height, int width) {
         if (nonDynamic) {
@@ -100,10 +110,11 @@ public class Controller implements Initializable {
     /**
      * fillCells fills the cells depending on the cells state
      *
-     * @param boardRow
-     * @param boardColumn
      * @author Kristian Munter Simonsen
      * @version 1.0 May 05, 2016
+     *
+     * @param boardRow
+     * @param boardColumn
      */
     private void fillCells(int boardRow, int boardColumn) {
         double xPos = 0;
@@ -133,13 +144,14 @@ public class Controller implements Initializable {
     /**
      * fillCell fills fills the cells based on either random or normal colours
      *
-     * @param xPos xPos sets the position of the rows
-     * @param yPos yPos sets the position of the columns
      * @author Boris Ilievski
      * @version 1.0 May 05, 2016
+     *
+     * @param xPos xPos sets the position of the rows
+     * @param yPos yPos sets the position of the columns
      */
     private void fillCell(double xPos, double yPos) {
-        graphicsContext.setFill((randomCollors) ? (Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255))) : (Color.BLACK));
+        graphicsContext.setFill((randomCollors) ? (Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255))) : (Color.BLUEVIOLET));
         graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
     }
 
@@ -161,6 +173,7 @@ public class Controller implements Initializable {
      */
     private void draw() {
         clearCanvas();
+        graphicsContext.setFill(Color.BLUEVIOLET);
         int height = (!nonDynamic) ? db.getColumn() : gb.getColumn();
         int width = (!nonDynamic) ? db.getRow() : gb.getRow();
         fillCells(width, height);
@@ -196,10 +209,11 @@ public class Controller implements Initializable {
     /**
      * setDynamic setDynamic sets a dynamic board based on db's row and column
      *
-     * @param row    column sets the rows of the board
-     * @param column column set the columns of the board
      * @author Andreas Jacobsen
      * @version 1.0 May 05, 2016
+     *
+     * @param row column sets the rows of the board
+     * @param column column set the columns of the board
      */
     private void setDynamic(int row, int column) {
         db.setRow(row);
@@ -234,7 +248,7 @@ public class Controller implements Initializable {
         graphicsContext = canvas.getGraphicsContext2D();
 
         //graphicsContext.setFill(Color.GREEN);
-        graphicsContext.setStroke(Color.BLUE);
+        graphicsContext.setStroke(Color.BLACK);
         // draw();
         //setStatic();
         setDynamic();
@@ -266,14 +280,16 @@ public class Controller implements Initializable {
     }
 
 
+
     /**
      * zoom handles the zoom opeartion via scroll
      *
-     * @param factor factor holds the factor by wich you zoom
-     * @param x      x holds the x possition of the mouse pointer
-     * @param y      y holds the y possition of the mouse pointer
      * @author Boris Ilievski
      * @version 1.0 May 05, 2016
+     *
+     * @param factor factor holds the factor by wich you zoom
+     * @param x x holds the x possition of the mouse pointer
+     * @param y y holds the y possition of the mouse pointer
      */
     public void zoom(double factor, double x, double y) {
         // determine scale
@@ -312,9 +328,10 @@ public class Controller implements Initializable {
     /**
      * updateSpeed updateSpeed handles the update speed of the cells itterations
      *
-     * @param frames frames is the inparameter from the slider
      * @author Boris Ilievski
      * @version 1.0 May 05, 2016
+     *
+     * @param frames frames is the inparameter from the slider
      */
     private void updateSpeed(int frames) {
         Duration duration = Duration.millis(1000 / frames);
@@ -364,9 +381,9 @@ public class Controller implements Initializable {
     /**
      * setSliderText setSliderText puts out the refresh rate of the iterations to the user based on the slider
      *
-     * @param value value is the value that the slider is set to.
      * @author Kristian Munter Simonsen
      * @version 1.0 May 05, 2016
+     * @param value value is the value that the slider is set to.
      */
     private void setSliderText(double value) {
         speedometer.setText((int) value + " frames");
@@ -477,13 +494,14 @@ public class Controller implements Initializable {
 
     /**
      * drawDynamicBoard drawDynamicBoard draws the cords on the board based on the inputs from the user
-     * draws cells only if dynamic board is set
+     *draws cells only if dynamic board is set
+     *
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
      *
      * @param xCord xCord is the coordiantes of the mouses x posstion
      * @param yCord yCord is the coordiantes of the mouses y posstion
      * @param event event listens to the event click of the user.
-     * @author Andreas Jacobsen
-     * @version 1.0 May 05, 2016
      */
     private void drawDynamicBoard(int xCord, int yCord, MouseEvent event) {
         if (db.getCellState(yCord, xCord) == 1 && event.isControlDown()) {
