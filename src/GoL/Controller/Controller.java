@@ -30,6 +30,15 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+    /**
+     * Controller handles drawing of cell and interaction with graphical elements.
+     * Here pressing buttons, sliders and live-drawing in the grid is handled.
+     * Controller pulls data from the other classes and acts to controll data from them.
+     * @author Andreas Jacobsen
+     * @date 29. March 2016
+     * @version 0.8
+     */
+
     @FXML
     Canvas canvas;
     @FXML

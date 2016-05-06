@@ -9,7 +9,13 @@ package GoL.Model;
 
 public class GameBoard {
 
-
+    /**
+     * GameBoard draws the gameboard based on values from a .rle file sent by the RleParser.
+     * GameBoard also handles checking if a cell is alive or dead, and drawing cells based upon the life-state of a cell.
+     * The class draws the static gameboard and can not be used for dynamic scaling of the gameboard, see DynamicBoard for that
+     * @author Kristian Munter Simonsen
+     * @version 1.0 May 02, 2016
+     */
 
     private byte[][] board;
     private int row;

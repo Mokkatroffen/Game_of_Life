@@ -12,6 +12,8 @@ import javafx.stage.Stage;
  *
  * @author Andreas Jacobsen.
  * @version 0.2 - April 18, 2016.
+ * Main loads the .fxml file, sets icon and starts the launch method that initilazises the entire program.
+ * Main also dynamically setts the size of the application.
  *
  * @see javafx.application.Application The entry point for JavaFX applications is the Application class.
  */
@@ -23,7 +25,6 @@ public class Main extends Application {
  *
  * @author Boris Illievski.
  * @version 0.2 - April 18, 2016.
- *
  * @param stage sets the stage of the method.
  * @see Exception Constructs a new exception with {@code null} as its detail message.
  * @see Stage The JavaFX {@code Stage} class is the top level JavaFX container.
