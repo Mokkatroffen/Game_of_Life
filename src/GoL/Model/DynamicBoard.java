@@ -5,7 +5,9 @@ import java.util.List;
 
 
 /**
- * Draws the dynamic board. The board calls the draw method every time a cell hits one of the edges to re-draw so the cells don't leave the canvas.
+ * Draws the dynamic board.
+ * The board calls the draw method every time a cell hits one of the edges to re-draw so the cells don't leave the canvas.
+ * This class is based on the GameBoard-class but has additional code to make it dynamic.
  *
  * @author Andreas Jacobsen
  * @version 0.4 - May 2, 2016

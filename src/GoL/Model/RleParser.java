@@ -7,8 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RleParser {
- /**1
-     * readGameBoard reads the metadata and board.
+ /**
+     * RleParser reads .rle file and draws the board based upon the .rle file.
+     * Prints out the comments from every file and ahs error-handling for when the file cannot be found or read.
+     * After having read the file RleParser will tell the gameboards where to draw.
+     *
      *
      * @author Andreas Jacobsen.
      * @version 0.2 - April 18, 2016.

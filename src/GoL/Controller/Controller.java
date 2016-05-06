@@ -381,6 +381,7 @@ public class Controller implements Initializable {
     /**
      *start start set the name of the start button based on if the itteration is started or stopped.
      *
+     *
      * @author Andreas Jacobsen
      * @version 1.0 May 05, 2016
      */
