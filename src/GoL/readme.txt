@@ -1,8 +1,8 @@
-Oppgave ark 1 (planlegging)
-Oppgave ark 2 (datastruktur)
-Oppgave ark 3 (animasjon)
-Oppgave ark 4 (testing)
-Oppgave ark 5 (filbehandling) + URL lesing
+Oppgaveark 1 (planlegging)
+Oppgaveark 2 (datastruktur)
+Oppgaveark 3 (animasjon)
+Oppgaveark 4 (testing)
+Oppgaveark 5 (filbehandling) + URL lesing
 
 Manipulering via point-and-click interface
 Oppgave ark 7 (Dynamisk brett) + støtte for større brett. + Utvidelse

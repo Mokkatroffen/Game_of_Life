@@ -19,8 +19,9 @@ import java.util.Optional;
 public class UrlHandler {
     /**
      * readGameBoardFromUrl reads .rle file from an URL an implements it into the board.
+     * This class also uses the MatchMaster-class to check for and return errors.
      *
-     *
+     * Using other classes this class can both retrive the file, save it, and send tell the rle-parser to start work on the file.
      * @throws IOException IOException throws out an error message if needed.
      * @author Kristian Munter Simonsen.
      * @version 0.2 - April 18, 2016.
