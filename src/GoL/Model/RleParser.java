@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RleParser {
- /**
+    /**
      * RleParser reads .rle file and draws the board based upon the .rle file.
      * Prints out the comments from every file and ahs error-handling for when the file cannot be found or read.
      * After having read the file RleParser will tell the gameboards where to draw.
@@ -16,30 +16,31 @@ public class RleParser {
      * @version 0.2 - April 18, 2016.
      * @throws IOException IOException throws out an error message if needed.
      */
-   // blir satt av metode lenger ned.
+    // blir satt av metode lenger ned.
     private byte[][] boardTufte; //Skal sendes til gameboard på slutten av metuden under. lar oss ha costum størrelse.
     private int row = 0;
     private int col = 0;
+
     //henter data fra boardTufte som henter størrelse om brettet
     public byte[][] getBoard() {
         return boardTufte;
     }
 
-    public int getRow(){
+    public int getRow() {
         return row;
     }
-    public int getColumn(){
+
+    public int getColumn() {
         return col;
     }
+
     /**
      * readGameBoard gathers files and draws the actual grid.
      *
+     * @param r holds the information from the BufferedReader.
+     * @throws IOException Signals that an I/O exception of some sort has occurred.
      * @author Andreas Jacobsen.
      * @version 1.0 - May 05, 2016
-     *
-     * @param r holds the information from the BufferedReader.
-     * @throws IOException  Signals that an I/O exception of some sort has occurred.
-     *
      * @see BufferedReader Reads text from a character-input stream, buffering characters so as to
      * provide for the efficient reading of characters, arrays, and lines.
      */
@@ -101,19 +102,19 @@ public class RleParser {
         //while loop for the board
         while ((line = r.readLine()) != null) {
             Matcher patternMatch = thePattern.matcher(line);
-            while(patternMatch.find()) {
-                    number = 1;
-                    if(patternMatch.group(1).matches("\\d+")){
-                        number = Integer.parseInt(patternMatch.group(1));
-                    }
+            while (patternMatch.find()) {
+                number = 1;
+                if (patternMatch.group(1).matches("\\d+")) {
+                    number = Integer.parseInt(patternMatch.group(1));
+                }
 
-                    while(number-- > 0) {
-                        if (patternMatch.group(2).matches("[oObB]")) { //hvis pattern match er levende (0(
-                            boardTufte[row][col++] = patternMatch.group(2).matches("o") ? (byte)1 : 0; //så sett patternet til true, startposision 00.
-                        } else if (patternMatch.group(2).matches("[$]")) {
-                            row++;
-                            col = 0;
-                            continue;
+                while (number-- > 0) {
+                    if (patternMatch.group(2).matches("[oObB]")) { //hvis pattern match er levende (0(
+                        boardTufte[row][col++] = patternMatch.group(2).matches("o") ? (byte) 1 : 0; //så sett patternet til true, startposision 00.
+                    } else if (patternMatch.group(2).matches("[$]")) {
+                        row++;
+                        col = 0;
+                        continue;
                     }
                 }
 
@@ -125,11 +126,10 @@ public class RleParser {
     /**
      * readGameBoardFromDisk reades a file from disk onto board.
      *
-     * @author Boris Illievski.
-     * @version 1.0 - May 05, 20016.
-     *
      * @param file file is the file which is uploaded.
      * @throws IOException IOException throws out an error message if needed.
+     * @author Boris Illievski.
+     * @version 1.0 - May 05, 20016.
      * @see File File package defines interfaces and classes for the Java virtual machine to access
      * files, file attributes, and file systems.
      */
@@ -146,21 +146,4 @@ public class RleParser {
             System.out.println("Feilmelding for IOE-Feil");
         }
     }
-
-   /* public void readGameBoardFromURL(File file) throws IOException {
-        if (!file.canRead()) {
-            System.out.println("Kunne ikke lese fil.");
-        }
-        try (BufferedReader bfr = new BufferedReader(new FileReader(new File("src/GoL/web.rle")))) {
-            readGameBoard(bfr);
-        } catch (FileNotFoundException FileNotFound) {
-            System.out.println("Feilmelding for buffer");
-        } catch (IOException IOEFeil) {
-            System.out.println("Feilmelding for IOE-Feil");
-        }
-        System.out.println("dette funket");
-    }
-
-*/
-
 }
