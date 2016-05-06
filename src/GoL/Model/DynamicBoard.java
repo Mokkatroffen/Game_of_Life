@@ -141,8 +141,8 @@ public class DynamicBoard {
         for (int i = 0; i < newBoard.length; i++) {
             board.add(new ArrayList<>());
             for (int j = 0; j < newBoard[i].length; j++) {
-                board.get(i).add(newBoard[i][j]); //rettet i og j sin rekkefølge
-            }
+                board.get(i).add(newBoard[i][j]);
+        }
         }
 
     }

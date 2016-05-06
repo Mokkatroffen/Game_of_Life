@@ -236,26 +236,22 @@ public class Controller implements Initializable {
         nonDynamic = true;
         Information info = new Information();
         info.info();
-        //===============================
         canvas.setOnMousePressed(e -> {
             pressedX = e.getX();
             pressedY = e.getY();
         });
-        //=================================
         getLSD.setOnAction(event -> setRandomCollors());
 
         canvas.setEffect(new Glow());
         graphicsContext = canvas.getGraphicsContext2D();
 
-        //graphicsContext.setFill(Color.GREEN);
+
         graphicsContext.setStroke(Color.BLACK);
-        // draw();
-        //setStatic();
+
         setDynamic();
         updateSpeed(5);
         addSliderListner();
-        //URLbutton.setOnAction(event ->  );
-        //nextGenButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
+
     }
 
     @FXML
@@ -272,11 +268,9 @@ public class Controller implements Initializable {
         double zoomFactor = 1.5;
 
         if (event.getDeltaY() <= 0) {
-            // zoom out
             zoomFactor = 1 / zoomFactor;
         }
         zoom(zoomFactor, event.getSceneX(), event.getSceneY());
-        //draw();
     }
 
 
@@ -665,8 +659,7 @@ public class Controller implements Initializable {
             double boardWidth = cellSize * gb.getColumn();
             double boardHeight = cellSize * gb.getRow();
             graphicsContext.setLineWidth(0.20);
-            //GRID LINESGoL/Controller/Controller.java:653
-            //if (drawGrid.isSelected()) {
+
             for (int i = 0; i <= row; i++) {
                 double horizontal = i * cellSize;
                 graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
@@ -681,8 +674,7 @@ public class Controller implements Initializable {
             double boardHeight = cellSize * db.getRow();
             graphicsContext.setLineWidth(0.20);
 
-            //GRID LINES
-            //if (drawGrid.isSelected()) {
+
             for (int i = 0; i <= db.getRow(); i++) {
                 double horizontal = i * cellSize;
                 graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
