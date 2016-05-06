@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private int width = 900;
     private int height = 900;
-
     /**
  * The start method initialises the stage Stage while the Exception controls any exceptions.
  *
