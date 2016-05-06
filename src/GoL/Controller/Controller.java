@@ -30,15 +30,6 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
-    /**
-     * Controller handles drawing of cell and interaction with graphical elements.
-     * Here pressing buttons, sliders and live-drawing in the grid is handled.
-     * Controller pulls data from the other classes and acts to controll data from them.
-     * @author Andreas Jacobsen
-     * @date 29. March 2016
-     * @version 0.8
-     */
-
     @FXML
     Canvas canvas;
     @FXML
@@ -61,13 +52,13 @@ public class Controller implements Initializable {
     CheckBox drawGrid;
 
     private GraphicsContext graphicsContext;
-    private DynamicBoard db;
-    private GameBoard gb ;
+    public DynamicBoard db;
+    public GameBoard gb ;
     private double cellSize;
     private Timeline timeline;
-    private  double pressedX;
-    private double pressedY;
-    private boolean randomCollors = false;
+    double pressedX;
+    double pressedY;
+    boolean randomCollors = false;
     private boolean nonDynamic;
     private double cellHeight, cellWidth;
 
@@ -93,7 +84,7 @@ public class Controller implements Initializable {
      * @param height height sets the height of the board
      * @param width width sets the width of the baord
      */
-    private void changeBoardType(int height, int width) {
+    public void changeBoardType(int height, int width) {
         if(nonDynamic) {
             db = new DynamicBoard(width, height);
         } else {
@@ -234,21 +225,26 @@ public class Controller implements Initializable {
         nonDynamic = true;
         Information info = new Information();
         info.info();
+        //===============================
         canvas.setOnMousePressed(e -> {
             pressedX = e.getX();
             pressedY = e.getY();
         });
         //=================================
+        getLSD.setOnAction(event -> setRandomCollors());
 
         canvas.setEffect(new Glow());
         graphicsContext = canvas.getGraphicsContext2D();
 
+        //graphicsContext.setFill(Color.GREEN);
         graphicsContext.setStroke(Color.BLUE);
-
+        // draw();
+        //setStatic();
         setDynamic();
         updateSpeed(5);
         addSliderListner();
-
+        //URLbutton.setOnAction(event ->  );
+        //nextGenButton.setOnAction(event -> canvasResizer()); ////// TODO:BYTT TIL WINDOW RESIZE
     }
 
     @FXML
@@ -265,9 +261,11 @@ public class Controller implements Initializable {
         double zoomFactor = 1.5;
 
         if (event.getDeltaY() <= 0) {
+            // zoom out
             zoomFactor = 1 / zoomFactor;
         }
         zoom(zoomFactor, event.getSceneX(), event.getSceneY());
+        //draw();
     }
 
 
@@ -281,7 +279,7 @@ public class Controller implements Initializable {
      * @param x x holds the x possition of the mouse pointer
      * @param y y holds the y possition of the mouse pointer
      */
-    private void zoom(double factor, double x, double y) {
+    public void zoom(double factor, double x, double y) {
         // determine scale
         double oldScale = canvas.getScaleX();
         double scale = oldScale * factor;
@@ -383,7 +381,6 @@ public class Controller implements Initializable {
     /**
      *start start set the name of the start button based on if the itteration is started or stopped.
      *
-     *
      * @author Andreas Jacobsen
      * @version 1.0 May 05, 2016
      */
@@ -419,7 +416,7 @@ public class Controller implements Initializable {
      * @version 1.0 May 05, 2016
      */
     void startGrid(ActionEvent event) {
-       grid();
+        grid();
     }
 
     @FXML
@@ -581,8 +578,10 @@ public class Controller implements Initializable {
             if (yCord > maxY - 1) return;
         }
         if (event.isSecondaryButtonDown()){
+            //==============pan=================
             canvas.setTranslateX(canvas.getTranslateX() + event.getX() - pressedX);
             canvas.setTranslateY(canvas.getTranslateY() + event.getY() - pressedY);
+            //===============================
         }
         if(event.isPrimaryButtonDown() && !event.isSecondaryButtonDown()) {
             //System.out.println(xCord +", "+yCord);
@@ -608,8 +607,6 @@ public class Controller implements Initializable {
      *
      * @throws IOException
      */
-    //testkode for debugging av readgameboardFromURL
-    //brukes når man trenger debugging.
     void readGameBoardFromURL(ActionEvent event) throws IOException {
         String url1 = "http://www.hioagaming.no/rats.rle";
         UrlHandler u = new UrlHandler();
@@ -662,7 +659,8 @@ public class Controller implements Initializable {
             double boardWidth = cellSize * gb.getColumn();
             double boardHeight = cellSize * gb.getRow();
             graphicsContext.setLineWidth(0.20);
-
+            //GRID LINESGoL/Controller/Controller.java:653
+            //if (drawGrid.isSelected()) {
             for (int i = 0; i <= row; i++) {
                 double horizontal = i * cellSize;
                 graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);
@@ -678,6 +676,7 @@ public class Controller implements Initializable {
             graphicsContext.setLineWidth(0.20);
 
             //GRID LINES
+            //if (drawGrid.isSelected()) {
             for (int i = 0; i <= db.getRow(); i++) {
                 double horizontal = i * cellSize;
                 graphicsContext.strokeLine(0, horizontal, boardWidth, horizontal);

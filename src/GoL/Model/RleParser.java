@@ -98,7 +98,7 @@ public class RleParser {
         Pattern thePattern = Pattern.compile("([0-9]*)([oObB$])");
         row = 0;
         col = 0;
-        //WHILE LOOP FOR SELVE BRETTET
+        //while loop for the board
         while ((line = r.readLine()) != null) {
             Matcher patternMatch = thePattern.matcher(line);
             while(patternMatch.find()) {
@@ -147,7 +147,7 @@ public class RleParser {
         }
     }
 
-    public void readGameBoardFromURL(File file) throws IOException {
+   /* public void readGameBoardFromURL(File file) throws IOException {
         if (!file.canRead()) {
             System.out.println("Kunne ikke lese fil.");
         }
@@ -161,6 +161,6 @@ public class RleParser {
         System.out.println("dette funket");
     }
 
-
+*/
 
 }
