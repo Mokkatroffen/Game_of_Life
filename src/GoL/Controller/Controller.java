@@ -65,9 +65,9 @@ public class Controller implements Initializable {
     public GameBoard gb ;
     private double cellSize;
     private Timeline timeline;
-    double pressedX;
-    double pressedY;
-    boolean randomCollors = false;
+    private  double pressedX;
+    private double pressedY;
+    private boolean randomCollors = false;
     private boolean nonDynamic;
     private double cellHeight, cellWidth;
 
