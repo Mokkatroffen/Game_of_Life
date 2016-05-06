@@ -61,8 +61,8 @@ public class Controller implements Initializable {
     CheckBox drawGrid;
 
     private GraphicsContext graphicsContext;
-    public DynamicBoard db;
-    public GameBoard gb ;
+    private DynamicBoard db;
+    private GameBoard gb ;
     private double cellSize;
     private Timeline timeline;
     private  double pressedX;
@@ -93,7 +93,7 @@ public class Controller implements Initializable {
      * @param height height sets the height of the board
      * @param width width sets the width of the baord
      */
-    public void changeBoardType(int height, int width) {
+    private void changeBoardType(int height, int width) {
         if(nonDynamic) {
             db = new DynamicBoard(width, height);
         } else {
@@ -288,7 +288,7 @@ public class Controller implements Initializable {
      * @param x x holds the x possition of the mouse pointer
      * @param y y holds the y possition of the mouse pointer
      */
-    public void zoom(double factor, double x, double y) {
+    private void zoom(double factor, double x, double y) {
         // determine scale
         double oldScale = canvas.getScaleX();
         double scale = oldScale * factor;
