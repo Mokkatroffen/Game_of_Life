@@ -11,7 +11,8 @@ import javafx.stage.Stage;
  * Main is the initiator of the the program Game Of Life.
  *
  * @author Andreas Jacobsen.
- * @version 0.2 - April 18, 2016.
+ * @date April 18, 2016.
+ * @version 0.2 -
  * Main loads the .fxml file, sets icon and starts the launch method that initilazises the entire program.
  * Main also dynamically setts the size of the application.
  *

@@ -11,7 +11,12 @@ import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 /**
- * Created by Boris Ilievski on 04.05.2016. .
+ * Contains the start up dialog box and the data in the box.
+ * Gives the user instructions on how to use the program.
+ * It also gives the program it's own icon.
+ * @author Boris Illievski
+ * @version 1.0
+ * @date May 5. 2016
  */
 public class Information {
 
