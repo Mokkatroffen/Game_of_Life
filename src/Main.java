@@ -25,7 +25,7 @@ public class Main extends Application {
      *
      * @param stage sets the stage of the method.
      * @author Boris Illievski.
-     * @version 0.2 - April 18, 2016.
+     * @version 1.0 - May 05, 2016.
      * @see Exception Constructs a new exception with {@code null} as its detail message.
      * @see Stage The JavaFX {@code Stage} class is the top level JavaFX container.
      */
@@ -39,7 +39,14 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
+    /**
+     *main starts the program
+     *
+     * @author Kristian Munter Simonsen
+     * @version 1.0 May 05, 2016
+     *
+     * @param args holds the arguments that is run
+     */
     public static void main(String[] args) {
         launch(args);
     }

@@ -11,11 +11,11 @@ public class RleParser {
      * RleParser reads .rle file and draws the board based upon the .rle file.
      * Prints out the comments from every file and ahs error-handling for when the file cannot be found or read.
      * After having read the file RleParser will tell the gameboards where to draw.
+     *
      * @author Andreas Jacobsen.
-     * @version 0.2 - April 18, 2016.
-     * @throws IOException IOException throws out an error message if needed.
+     * @version 1.0 May 05, 2016.
      */
-    // blir satt av metode lenger ned.
+    //private URL destination;// blir satt av metode lenger ned.
     private byte[][] boardTufte; //Skal sendes til gameboard på slutten av metuden under. lar oss ha costum størrelse.
     private int row = 0;
     private int col = 0;
@@ -36,10 +36,12 @@ public class RleParser {
     /**
      * readGameBoard gathers files and draws the actual grid.
      *
-     * @param r holds the information from the BufferedReader.
-     * @throws IOException Signals that an I/O exception of some sort has occurred.
      * @author Andreas Jacobsen.
      * @version 1.0 - May 05, 2016
+     *
+     * @param r holds the information from the BufferedReader.
+     * @throws IOException  Signals that an I/O exception of some sort has occurred.
+     *
      * @see BufferedReader Reads text from a character-input stream, buffering characters so as to
      * provide for the efficient reading of characters, arrays, and lines.
      */
@@ -125,10 +127,11 @@ public class RleParser {
     /**
      * readGameBoardFromDisk reades a file from disk onto board.
      *
-     * @param file file is the file which is uploaded.
-     * @throws IOException IOException throws out an error message if needed.
      * @author Boris Illievski.
      * @version 1.0 - May 05, 20016.
+     *
+     * @param file file is the file which is uploaded.
+     * @throws IOException IOException throws out an error message if needed.
      * @see File File package defines interfaces and classes for the Java virtual machine to access
      * files, file attributes, and file systems.
      */

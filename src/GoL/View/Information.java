@@ -86,6 +86,15 @@ public class Information {
 
         alert.showAndWait();
     }
+    /**
+     * ImageView ImageView pressents the gid of the program.
+     *
+     * @author Boris Ilievski
+     * @version 1.0 May 05, 2016
+     *
+     * @param alert alert initializes the alertbox that holds the information
+     * @return return returns the state of the button ok that is needed to close the information.
+     */
 
     private ImageView addIcon(Alert alert) {
         Image image = new Image(this.getClass().getResource("GoL.gif").toString());
