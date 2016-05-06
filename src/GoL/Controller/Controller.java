@@ -23,14 +23,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-//
 public class Controller implements Initializable {
     @FXML
     Canvas canvas;
@@ -47,56 +45,45 @@ public class Controller implements Initializable {
     @FXML
     private CheckBox getLSD;
     @FXML
-    MenuButton Menu;
-    @FXML
     RadioButton setStatic;
     @FXML
     RadioButton setDynamic;
     @FXML
     CheckBox drawGrid;
 
-
-//if mouse e inside grid
-
     private GraphicsContext graphicsContext;
     public DynamicBoard db;
     public GameBoard gb ;
-    //private Timeline timeline;
     private double cellSize;
     private Timeline timeline;
-    //======== Variabler for drag ========
     double pressedX;
     double pressedY;
     boolean randomCollors = false;
-
     private boolean nonDynamic;
     private double cellHeight, cellWidth;
 
-    //===============================
-    /*public AnimatedZoomOperator() {
-        this.timeline = new Timeline(60);
-    }*/
+    /**
+     * Controller Controller initializes controller
+     *
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
+     *
+     * @throws IOException Signals that an I/O exception of some sort has occurred.
+     */
     public Controller() throws IOException {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * changeBoardType changes the board type between by creating a new dynamic og static board
+     * depending on the users input.
+     *
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
+     *
+     * @param height height sets the height of the board
+     * @param width width sets the width of the baord
+     */
     public void changeBoardType(int height, int width) {
         if(nonDynamic) {
             db = new DynamicBoard(width, height);
@@ -110,6 +97,15 @@ public class Controller implements Initializable {
         draw();
     }
 
+    /**
+     * fillCells fills the cells depending on the cells state
+     *
+     * @author Kristian Munter Simonsen
+     * @version 1.0 May 05, 2016
+     *
+     * @param boardRow
+     * @param boardColumn
+     */
     private void fillCells(int boardRow, int boardColumn) {
         double xPos = 0;
         double yPos = 0;
@@ -135,15 +131,36 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * fillCell fills fills the cells based on either random or normal colours
+     *
+     * @author Boris Ilievski
+     * @version 1.0 May 05, 2016
+     *
+     * @param xPos xPos sets the position of the rows
+     * @param yPos yPos sets the position of the columns
+     */
     private void fillCell(double xPos, double yPos) {
         graphicsContext.setFill((randomCollors)?(Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255))):(Color.BLACK));
         graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
     }
 
+    /**
+     * clearCanvas clears the canvas inbetween the changes of the bardtypes
+     *
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
+     */
     private void clearCanvas() {
         graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 
+    /**
+     * draw draws the cells if the grid is selected and clears the canvas inbetween
+     *
+     * @author Kristian Munter Simonsen
+     * @version 1.0 May 05,2016
+     */
     private void draw() {
         clearCanvas();
         int height = (!nonDynamic) ? db.getColumn() : gb.getColumn();
@@ -155,23 +172,53 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    /**
+     * setStatic setStatic is a setter method for the static board
+     *
+     * @author Kristian Munter Simonsen
+     * @version 1.0 May 05, 2016
+     */
     public void setStatic(){
         clearCanvas();
         changeBoardType(10,10);
-
     }
+
     @FXML
+    /**
+     * setDynamic setDynamic is a setter method for dynamic board for a predefinde board at startup
+     *
+     * @author Boris Ilievski
+     * @version 1.0 May 05, 2016
+     */
     public void setDynamic(){
         clearCanvas();
         changeBoardType(10,10);
     }
 
+    /**
+     * setDynamic setDynamic sets a dynamic board based on db's row and column
+     *
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
+     *
+     * @param row column sets the rows of the board
+     * @param column column set the columns of the board
+     */
     private void setDynamic(int row, int column){
         db.setRow(row);
         db.setColumn(column);
     }
 
     @Override
+    /**
+     * initialize intitialize initializes the differend methods in correct order.
+     *
+     * @author Kristian Munter Simonsen
+     * @version 1.0 May 05, 2016
+     *
+     * @see URL URL Class  represents a Uniform Resource Locator, a pointer to a "resource" on the World Wide Web.
+     * @see ResourceBundle   Resource bundles contain locale-specific objects.
+     */
     public void initialize(URL location, ResourceBundle resources) {
 
 
@@ -201,6 +248,15 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    /**
+     * scrollHandler scrollHandler handles the scroll event.
+     *
+     * @author Kristian Munter Simonsen
+     * @version 1.0 May 05, 2016
+     *
+     * @see ScrollEvent Scroll event indicates that user performed scrolling by mouse wheel,
+     * track pad, touch screen or other similar device.
+     */
     public void scrollHandler(ScrollEvent event) {
         double zoomFactor = 1.5;
 
@@ -212,6 +268,17 @@ public class Controller implements Initializable {
         //draw();
     }
 
+
+    /**
+     * zoom handles the zoom opeartion via scroll
+     *
+     * @author Boris Ilievski
+     * @version 1.0 May 05, 2016
+     *
+     * @param factor factor holds the factor by wich you zoom
+     * @param x x holds the x possition of the mouse pointer
+     * @param y y holds the y possition of the mouse pointer
+     */
     public void zoom(double factor, double x, double y) {
         // determine scale
         double oldScale = canvas.getScaleX();
@@ -232,7 +299,12 @@ public class Controller implements Initializable {
             canvas.setScaleY(scale);
         }
     }
-
+    /**
+     * canvasResizer canvasResizer resizes the board based on the canvas set methods
+     *
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
+     */
     private void canvasResizer() {
         StackPane stackPane = (StackPane) canvas.getParent();
         canvas.setWidth(stackPane.getWidth());
@@ -240,8 +312,15 @@ public class Controller implements Initializable {
         draw();
     }
 
+    /**
+     * updateSpeed updateSpeed handles the update speed of the cells itterations
+     *
+     * @author Boris Ilievski
+     * @version 1.0 May 05, 2016
+     *
+     * @param frames frames is the inparameter from the slider
+     */
     private void updateSpeed(int frames) {
-
         Duration duration = Duration.millis(1000 / frames);
         KeyFrame keyFrame = new KeyFrame(duration, (ActionEvent e) -> {
             if(nonDynamic){
@@ -265,6 +344,12 @@ public class Controller implements Initializable {
             timeline.play();
     }
 
+    /**
+     * addSliderListner  listens to the input of the slider
+     *
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
+     */
     private void addSliderListner() {
         slider.setOnMouseReleased(event -> {
             if (slider.getValue() == slider.getMax() || slider.getValue() == slider.getMin()) {
@@ -281,11 +366,24 @@ public class Controller implements Initializable {
         });
     }
 
+    /**
+     * setSliderText setSliderText puts out the refresh rate of the iterations to the user based on the slider
+     *
+     * @author Kristian Munter Simonsen
+     * @version 1.0 May 05, 2016
+     * @param value value is the value that the slider is set to.
+     */
     private void setSliderText(double value) {
         speedometer.setText((int) value + " frames");
     }
 
     @FXML
+    /**
+     *start start set the name of the start button based on if the itteration is started or stopped.
+     *
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
+     */
     private void start() {
         if (timeline.getStatus() == Animation.Status.STOPPED) {
             timeline.play();
@@ -300,16 +398,34 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * setRandomCollors is a setter method for the cells colour.
+     *
+     * @author Boris Ilievski
+     * @version 1.0 May 05, 2016
+     */
     private void setRandomCollors() {
         randomCollors = !randomCollors;
     }
 
     @FXML
+    /**
+     * startGrid startGrid sets the visual representation of the grid
+     *
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
+     */
     void startGrid(ActionEvent event) {
         grid();
     }
 
     @FXML
+    /**
+     * NextGen listens on the action event for the button nextgen and runs another itteration of the cells state.
+     *
+     * @author Kristian Munter Simonsen
+     * @version 1.0 May, 05 2016
+     */
     void NextGen(ActionEvent event) {
         if(nonDynamic){
             gb.nextGen();
@@ -321,6 +437,12 @@ public class Controller implements Initializable {
 
 
     @FXML
+    /**
+     * fileOpener stops the itteration and uploads the .rle file to the board.
+     *
+     * @author Kristian Munter Simonsen
+     * @version 1.0 May 05, 2016
+     */
     private void fileOpener() {
 
         timeline.stop(); //Stopper timeline for å laste filen, god praksis og stoppe
@@ -359,7 +481,17 @@ public class Controller implements Initializable {
         }
     }
 
-    //brukes i drawCell dersom det  er dynamic board
+    /**
+     * drawDynamicBoard drawDynamicBoard draws the cords on the board based on the inputs from the user
+     *draws cells only if dynamic board is set
+     *
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
+     *
+     * @param xCord xCord is the coordiantes of the mouses x posstion
+     * @param yCord yCord is the coordiantes of the mouses y posstion
+     * @param event event listens to the event click of the user.
+     */
     private void drawDynamicBoard(int xCord, int yCord, MouseEvent event){
         if (db.getCellState(yCord, xCord) == 1 && event.isControlDown()) {
 //                db.getBoard()[yCord][xCord] = 0;
@@ -384,9 +516,17 @@ public class Controller implements Initializable {
             graphicsContext.fillRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
         }
     }
-    @FXML
-    public void drawCell(MouseEvent event) {
 
+    @FXML
+    /**
+     * drawCell drawCell is the method that handles the drawing of cells bassed on theire possiton.
+     *
+     * This has been duplicated to work around the click function that reacts both on click and release
+     *
+     * @author Boris Ilievski
+     * @version 1.0 May 05, 2016
+     */
+    public void drawCell(MouseEvent event) {
         int xCord = (int) (Math.floor(event.getX() / cellSize));
         int yCord = (int) (Math.floor(event.getY() / cellSize));
         if(!nonDynamic){
@@ -401,7 +541,6 @@ public class Controller implements Initializable {
             if(xCord > maxX-1) return;
             if(yCord > maxY -1) return;
         }
-
         System.out.println(xCord + ", " + yCord);
         if(event.getButton().equals(MouseButton.PRIMARY)){
             if(nonDynamic){
@@ -410,18 +549,19 @@ public class Controller implements Initializable {
             else{
                 drawDynamicBoard(xCord, yCord, event);
             }
-
             if (drawGrid.isSelected()) {
                 graphicsContext.strokeRect(xCord * cellSize, yCord * cellSize, cellSize, cellSize);
             }
         }
     }
 
-
-
-
-
     @FXML
+    /**
+     * dragCell dragCell handles the function of draging and drawing cells on the board
+     *
+     * @author Kristian Munter Simonsen
+     * @version 1.0 May 05, 2016
+     */
     public void dragCell(MouseEvent event) {
         int xCord = (int) (Math.floor(event.getX() / cellSize));
         int yCord = (int) (Math.floor(event.getY() / cellSize));
@@ -437,12 +577,10 @@ public class Controller implements Initializable {
             if (xCord > maxX - 1) return;
             if (yCord > maxY - 1) return;
         }
-
         if (event.isSecondaryButtonDown()){
             //==============pan=================
             canvas.setTranslateX(canvas.getTranslateX() + event.getX() - pressedX);
             canvas.setTranslateY(canvas.getTranslateY() + event.getY() - pressedY);
-
             //===============================
         }
         if(event.isPrimaryButtonDown() && !event.isSecondaryButtonDown()) {
@@ -460,8 +598,15 @@ public class Controller implements Initializable {
         }
     }
 
-
     @FXML
+    /**
+     * readGameBoardFromURL readGameBoardFromURL handles the reading of the boards from an url location
+     *
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
+     *
+     * @throws IOException
+     */
     void readGameBoardFromURL(ActionEvent event) throws IOException {
         String url1 = "http://www.hioagaming.no/rats.rle";
         UrlHandler u = new UrlHandler();
@@ -473,143 +618,24 @@ public class Controller implements Initializable {
         }
     }
 
-    /*public void readGameBoardFromURL(String url) throws IOException{
-
-    }*/
-    /*private void draw() {
-
-//        byte[][] board = gb.getBoard();
-
-        double xPos = 0;
-        double yPos = 0;
-        int boardRow;
-        int boardColumn;
-        if(gb!= null) {
-            boardRow=gb.getRow();
-            boardColumn = gb.getColumn();
-            System.out.println(boardRow + ", " + boardColumn);
-        }else{
-            boardRow= db.getRow();
-            boardColumn = db.getColumn();
-            System.out.println(boardRow + ", " + boardColumn);
-        }
-
-        System.out.println("størrelse" + boardRow + ", " + boardColumn);
-
-        //Setter cellestørrelsen til det minste som kreves for å få plass til alt både i høyde og bredde
-//        double cellwidth = canvas.getWidth() / board[0].length;
-        double cellwidth = canvas.getWidth() / boardColumn;
-//        double cellheight = canvas.getHeight() / board.length;
-        double cellheight = canvas.getHeight() / boardRow;
-        if (cellwidth > cellheight) {
-            cellSize = cellheight;
-        } else {
-            cellSize = cellwidth;
-        }
-
-        if(randomCollors)
-        {
-            graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-//            for (byte[] aBoard : board) {        //her settes den første linjnen / dimensjonen av rekken i griddet
-
-//                for (int column = 0; column < board[0].length; column++) { //
-                if(gb!=null) {
-                    for(int row = 0; row < boardRow; row++) {
-                        for (int column = 0; column < boardColumn; column++) {
-//                    if (aBoard[column] == 1) {                                   // Celle Død eller Levende
-                            if (gb.getCellState(row, column) == 1) {                                    // Celle Død eller Levende
-                                graphicsContext.setFill(Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255)));
-                                //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
-                                graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
-                            }
-                            xPos += cellSize;
-                        }
-                        xPos = 0;
-                        yPos += cellSize;
-
-                    }
-                    }else {
-                    boardRow = db.getRow();
-                    boardColumn = db.getColumn();
-                    for (int row = 0; row < boardRow; row++) {
-                        for (int column = 0; column < boardColumn; column++) {
-//                    if (aBoard[column] == 1) {                                   // Celle Død eller Levende
-                            if (db.getCellState(row, column) == 1) {                                    // Celle Død eller Levende
-                                graphicsContext.setFill(Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255)));
-                                //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
-                                graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
-                            }
-                            xPos += cellSize;
-                        }
-                        xPos = 0;
-                        yPos += cellSize;
-                    }
-
-                }
-
-            if (drawGrid.isSelected()){
-                grid();
-            }
-        }
-
-        else  {
-            graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            //for (byte[] aBoard : board) {        //her settes den første linjnen / dimensjonen av rekken i griddet
-
-                //for (int column = 0; column < board[0].length; column++) { //
-                if(gb!=null){
-                    for(int row = 0; row < boardRow; row++){
-                    for (int column = 0; column < boardColumn; column++) {
-                        //if (aBoard[column] == 1) {
-                        if (gb.getCellState(row,column) == 1) {   //Celle Død eller Levende
-                            graphicsContext.setFill(Color.BLACK);
-                            //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
-                            graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
-                        }
-                        xPos += cellSize;
-                    }
-                        xPos = 0;
-                        yPos += cellSize;
-
-                    }
-                }else{
-
-                    boardRow = db.getRow();
-                    boardColumn = db.getColumn();
-                    for(int row = 0; row < boardRow; row++) {
-                        for (int column = 0; column < boardColumn; column++) {
-                            //if (aBoard[column] == 1) {
-                            if (db.getCellState(row, column) == 1) {   //Celle Død eller Levende
-                                graphicsContext.setFill(Color.BLACK);
-                                //graphicsContext.fillOval(xPos, yPos, cellSize, cellSize); <- for sirkel!
-                                graphicsContext.fillRect(xPos, yPos, cellSize, cellSize);
-                            }
-                            xPos += cellSize;
-                        }
-                        xPos = 0;
-                        yPos += cellSize;
-                    }
-
-                }
-
-
-
-            if (drawGrid.isSelected()){
-                grid();
-            }
-        }
-
-        //  boardTufte = new boolean[rows][colms]; inndata
-    }*/
-
     @FXML
+    /**
+     * setGrid starts the draw method.
+     *
+     * @author Andreas Jacobsen
+     * @version 1.0 May 05, 2016
+     */
     private void setGrid () {
         draw();
     }
 
-    //@FXML
+    /**
+     * grid grid sets the cellsize to the least that is needed to fit both in height and width.
+     *
+     * @author Kristian Munter Simonsen
+     * @version 1.0 May 05, 2016
+     */
     private void grid() {
-//        final byte[][] board = gb.getBoard();
         double cellSize;
         double col;
         double row;
@@ -661,11 +687,5 @@ public class Controller implements Initializable {
                 graphicsContext.strokeLine(vertical, 0, vertical, boardHeight);
             }
         }
-
-
-        //}
-       /* else{
-            draw();
-        }*/
     }
 }
