@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  * Main also dynamically setts the size of the application.
  *
  * @see javafx.application.Application The entry point for JavaFX applications is the Application class.
- */
+ */ //
 public class Main extends Application {
     private int width = 900;
     private int height = 900;

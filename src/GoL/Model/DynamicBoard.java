@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Andreas Jacobsen
  * @version 0.4 - May 2, 2016
- */
+ */ //
 public class DynamicBoard {
 
 
@@ -158,7 +158,7 @@ public class DynamicBoard {
      * @param column column is the columns.
      * @return neighbors neighbors is the ammount of neighbors that the if's have callculated.
      */
-    public int checkNeighbors(int row, int column){
+    private int checkNeighbors(int row, int column){
         int neighbors = 0;
         if(row > 0){
 

@@ -16,7 +16,7 @@ public class RleParser {
      * @version 0.2 - April 18, 2016.
      * @throws IOException IOException throws out an error message if needed.
      */
-    //private URL destination;// blir satt av metode lenger ned.
+   // blir satt av metode lenger ned.
     private byte[][] boardTufte; //Skal sendes til gameboard på slutten av metuden under. lar oss ha costum størrelse.
     private int row = 0;
     private int col = 0;

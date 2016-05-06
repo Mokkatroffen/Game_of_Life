@@ -35,7 +35,7 @@ public class Controller implements Initializable {
      * Here pressing buttons, sliders and live-drawing in the grid is handled.
      * Controller pulls data from the other classes and acts to controll data from them.
      * @author Andreas Jacobsen
-     * @date 29. March 2016
+     *
      * @version 0.8
      */
 

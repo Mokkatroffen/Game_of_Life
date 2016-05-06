@@ -7,7 +7,7 @@ import java.util.StringJoiner;
  * We only use this in UrlHandler, but it could also be used elsewhere.
  * @Author Andreas Jacobsen
  * @Date 18. April 2016
- */
+ */ //
 public class MatchMaster {
 
     private String[] patterns;
